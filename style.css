@@ -1,0 +1,166 @@
+/* efealtintas.com tasarım dili: siyah zemin, indigo akış alanı, buzlu cam kartlar, Geist */
+:root {
+  --bg: #000;
+  --indigo-200: #c7d2fe;
+  --indigo-300: #a5b4fc;
+  --indigo-400: #818cf8;
+  --indigo-500: #6366f1;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --line: rgba(255, 255, 255, 0.15);
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: "Geist Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: #fff;
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+.i { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+/* sabit arka plan: tüm sayfanın arkasında akış alanı */
+.backdrop {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(135deg, #0f172a, #3b0764 50%, #0f172a);
+}
+.backdrop canvas { display: block; width: 100%; height: 100%; background: #000; }
+
+/* üst gezinme: yüzen cam hap */
+.nav {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 20;
+  display: flex; gap: 4px; padding: 6px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font-size: 0.875rem;
+}
+.nav a { padding: 6px 14px; border-radius: 999px; color: var(--gray-300); transition: background .2s, color .2s; }
+.nav a:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+/* giriş */
+.hero { position: relative; z-index: 10; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 32px; text-align: center; }
+.hero-inner { max-width: 56rem; }
+h1 {
+  font-size: clamp(2.25rem, 7vw, 4.5rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+.hl { color: var(--indigo-400); }
+.role { margin-top: 18px; font-family: var(--mono); font-size: 0.95rem; color: var(--indigo-300); }
+.tagline {
+  margin: 14px auto 0; max-width: 42rem; color: var(--gray-200);
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem); line-height: 1.65; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+.cta { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 40px; }
+
+.pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 32px; border-radius: 999px; font-size: 1rem; font-weight: 500; transition: background .2s;
+}
+.pill-white { background: #fff; color: #000; box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1); }
+.pill-white:hover { background: #f3f4f6; }
+.pill-glass { background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); }
+.pill-glass:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* içerik: tek, dar sütun */
+main { position: relative; z-index: 10; max-width: 48rem; margin: 0 auto; padding: 48px 24px 48px; }
+section { margin-bottom: 80px; scroll-margin-top: 96px; }
+h2 {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 24px;
+  font-size: clamp(1.5rem, 3vw, 1.875rem); font-weight: 600; letter-spacing: -0.025em; color: var(--indigo-300);
+}
+h2 .i { width: 24px; height: 24px; }
+.lead { color: var(--gray-200); font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px; }
+.link { color: var(--indigo-400); transition: color .2s; }
+.link:hover { color: var(--indigo-300); }
+
+/* buzlu cam kart */
+.glass {
+  border: 1px solid var(--line); border-radius: 16px; padding: 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(0, 0, 0, 0.15), 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+@media (min-width: 768px) { .glass { padding: 28px; } }
+.stack-list { display: flex; flex-direction: column; gap: 16px; }
+
+.glass h3 { font-size: 1.125rem; font-weight: 500; color: #fff; }
+@media (min-width: 768px) { .glass h3 { font-size: 1.25rem; } }
+.glass p { color: var(--gray-200); }
+.eyebrow { display: block; font-size: 0.75rem; font-weight: 500; color: var(--indigo-400); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+
+/* hakkımda */
+.prose p { font-size: clamp(1rem, 1.8vw, 1.125rem); line-height: 1.75; }
+.prose p + p { margin-top: 20px; }
+.focus { margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.1); display: grid; gap: 16px; }
+.focus-item { display: flex; gap: 14px; }
+.focus-item .i { width: 22px; height: 22px; color: var(--indigo-400); margin-top: 2px; }
+.focus-item b { display: block; font-weight: 500; }
+.focus-item span { color: var(--gray-400); font-size: 0.95rem; }
+
+/* deneyim */
+.exp .org { color: var(--indigo-300); }
+.exp p { margin-top: 8px; line-height: 1.7; }
+
+/* sertifikalar */
+.glass p.cert-meta { color: var(--indigo-300); margin-top: 6px; }
+
+/* projeler */
+.project .summary { margin: 8px 0 16px; line-height: 1.7; }
+.project ul { list-style: none; margin-bottom: 18px; }
+.project li { position: relative; padding-left: 18px; color: var(--gray-300); font-size: 0.95rem; margin-bottom: 6px; }
+.project li::before { content: ""; position: absolute; left: 2px; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: var(--indigo-400); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-family: var(--mono); font-size: 0.75rem; padding: 4px 12px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); color: var(--gray-300);
+}
+.more { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; color: var(--indigo-300); font-weight: 500; transition: color .2s; }
+.more:hover { color: var(--indigo-200); }
+.more .i { width: 16px; height: 16px; }
+
+/* teknolojiler */
+.tech-group + .tech-group { margin-top: 20px; }
+.tech-group .eyebrow { margin-bottom: 10px; }
+
+/* iletişim */
+.socials { display: flex; flex-wrap: wrap; gap: 12px; }
+.socials a {
+  display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; transition: background .2s;
+}
+.socials a:hover { background: rgba(255, 255, 255, 0.2); }
+.socials a.primary { background: rgba(99, 102, 241, 0.2); border-color: rgba(99, 102, 241, 0.3); color: var(--indigo-200); }
+.socials a.primary:hover { background: rgba(99, 102, 241, 0.3); }
+.socials .i { width: 20px; height: 20px; }
+.socials .ext { width: 16px; height: 16px; opacity: .7; }
+
+footer {
+  position: relative; z-index: 10; padding: 32px; text-align: center;
+  color: var(--gray-400); border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* belirme animasyonu */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+@media (max-width: 520px) {
+  .nav { top: 12px; font-size: 0.8rem; }
+  .nav a { padding: 6px 10px; }
+  .hero { padding: 24px 16px; }
+  main { padding: 32px 16px; }
+  .pill { padding: 12px 26px; }
+}
