@@ -123,7 +123,7 @@ window.SITE = {
         "Türkçe yerelleştirme, SwiftUI arayüz",
       ],
       stack: ["Swift", "SwiftUI", "Argon2", "macOS 14"],
-      links: [],
+      links: [{ label: "mahzen.efef.dev", url: "https://mahzen.efef.dev" }],
     },
   ],
 
