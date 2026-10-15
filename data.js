@@ -67,6 +67,30 @@ window.SITE = {
   // category: security | web | mobile
   projects: [
     {
+      title: "AkcaVPN",
+      category: "security",
+      year: "2026",
+      featured: true,
+      summary: "AkcaVPN'in VPN altyapısı için yapılan güvenlik testleri ve raporlama.",
+      points: ["Sunucu ve ağ altyapısı sızma testi", "Bulguların kurumsal formatta raporlanması", "Sertleştirme önerileri"],
+      stack: ["Pentest", "Linux", "Network Security"],
+      links: [{ label: "akcavpn.com", url: "https://akcavpn.com" }],
+    },
+    {
+      title: "Mahzen",
+      category: "mobile",
+      year: "2026",
+      summary:
+        "macOS için yerel, şifreli kasa uygulaması. Şifreleme çekirdeği arayüzden bağımsız ve test edilebilir şekilde ayrıldı.",
+      points: [
+        "Resmî Argon2 referans uygulaması ile anahtar türetme",
+        "Ayrı, test edilebilir MahzenCore kasa formatı",
+        "Türkçe yerelleştirme, SwiftUI arayüz",
+      ],
+      stack: ["Swift", "SwiftUI", "Argon2", "macOS 14"],
+      links: [{ label: "mahzen.efef.dev", url: "https://mahzen.efef.dev" }],
+    },
+    {
       title: "omusiber.org",
       category: "web",
       year: "2026",
@@ -88,16 +112,6 @@ window.SITE = {
       links: [{ label: "unihm.org", url: "https://unihm.org" }],
     },
     {
-      title: "AkcaVPN",
-      category: "security",
-      year: "2026",
-      featured: true,
-      summary: "AkcaVPN'in VPN altyapısı için yapılan güvenlik testleri ve raporlama.",
-      points: ["Sunucu ve ağ altyapısı sızma testi", "Bulguların kurumsal formatta raporlanması", "Sertleştirme önerileri"],
-      stack: ["Pentest", "Linux", "Network Security"],
-      links: [{ label: "akcavpn.com", url: "https://akcavpn.com" }],
-    },
-    {
       title: "SOC AI Telegram Bot",
       category: "security",
       year: "2026",
@@ -110,20 +124,6 @@ window.SITE = {
       ],
       stack: ["Python", "Groq AI", "Telegram Bot API", "Linux"],
       links: [{ label: "GitHub", url: "https://github.com/efefdev/soc-ai-telegram-bot" }],
-    },
-    {
-      title: "Mahzen",
-      category: "mobile",
-      year: "2026",
-      summary:
-        "macOS için yerel, şifreli kasa uygulaması. Şifreleme çekirdeği arayüzden bağımsız ve test edilebilir şekilde ayrıldı.",
-      points: [
-        "Resmî Argon2 referans uygulaması ile anahtar türetme",
-        "Ayrı, test edilebilir MahzenCore kasa formatı",
-        "Türkçe yerelleştirme, SwiftUI arayüz",
-      ],
-      stack: ["Swift", "SwiftUI", "Argon2", "macOS 14"],
-      links: [{ label: "mahzen.efef.dev", url: "https://mahzen.efef.dev" }],
     },
   ],
 
