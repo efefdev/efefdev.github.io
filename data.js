@@ -10,7 +10,7 @@ window.SITE = {
 
   about: [
     "Merhaba, ben Efe. Samsun'da Ondokuz Mayıs Üniversitesi'nde okuyorum. Teknolojiye olan merakım beni backend geliştirme ve siber güvenlikle tanıştırdı; her sistemi önce nasıl kırılabileceğini düşünerek tasarlıyorum. Yaratıcı, güvenli ve performanslı çözümler üretmek en büyük motivasyonum.",
-    "Akca Network'te Founding Engineer (Security) olarak çalışıyor, OMÜ Siber Güvenlik Topluluğu'nda Başkan Yardımcısı olarak görev yapıyorum. Çoğunlukla TypeScript, Node.js ve Python ile backend tarafında üretiyorum; SOC AI Telegram Bot gibi açık kaynak araçlar geliştiriyorum.",
+    "Akca Network'te Founding Engineer (Security) olarak çalışıyor, OMÜ Siber Güvenlik Topluluğu'nda Başkan Yardımcısı olarak görev yapıyorum. Çoğunlukla TypeScript, Node.js ve Python ile backend tarafında üretiyorum; Nöbetçi gibi açık kaynak güvenlik araçları geliştiriyorum.",
     "Apple ekosisteminin minimalist yaklaşımından ilham alıyorum. Yazılımla grafik tasarımı bir araya getirebilmek projeleri uçtan uca hayata geçirmemi sağlıyor.",
   ],
 
@@ -112,18 +112,21 @@ window.SITE = {
       links: [{ label: "unihm.org", url: "https://unihm.org" }],
     },
     {
-      title: "SOC AI Telegram Bot",
+      title: "Nöbetçi",
       category: "security",
       year: "2026",
       summary:
-        "Linux sunucuları gerçek zamanlı izleyen, tehditleri AI ile tespit edip otomatik engelleyen açık kaynak SOC sistemi.",
+        "nginx çalışan Linux sunucular için kendi sunucunda çalışan, Telegram'dan yönetilen nöbetçi: kural motoru saldırıyı yakalayıp banlar, yapay zekâ kalanı inceler.",
       points: [
-        "Log akışından gerçek zamanlı tehdit tespiti",
-        "Groq AI ile olay sınıflandırma ve açıklama",
-        "Telegram üzerinden alarm ve tek tıkla engelleme",
+        "IP bazlı kural motoru ve tuzak URL'lerle anında ban",
+        "Prompt injection'a karşı çitlenmiş yapay zekâ; banı asla AI tetiklemez",
+        "Komut değil sabit eylem taşıyan Telegram onay butonları",
       ],
-      stack: ["Python", "Groq AI", "Telegram Bot API", "Linux"],
-      links: [{ label: "GitHub", url: "https://github.com/efefdev/soc-ai-telegram-bot" }],
+      stack: ["Python", "nginx", "Telegram Bot API", "Groq / Ollama", "systemd"],
+      links: [
+        { label: "nobetci.efef.dev", url: "https://nobetci.efef.dev" },
+        { label: "GitHub", url: "https://github.com/efefdev/nobetci" },
+      ],
     },
   ],
 
