@@ -68,6 +68,7 @@ window.SITE = {
   projects: [
     {
       title: "Mahzen",
+      featured: true,
       category: "mobile",
       year: "2026",
       summary:
@@ -82,6 +83,7 @@ window.SITE = {
     },
     {
       title: "Nöbetçi",
+      featured: true,
       category: "security",
       year: "2026",
       summary:
@@ -101,7 +103,6 @@ window.SITE = {
       title: "AkcaVPN",
       category: "security",
       year: "2026",
-      featured: true,
       summary: "AkcaVPN'in VPN altyapısı için yapılan güvenlik testleri ve raporlama.",
       points: ["Sunucu ve ağ altyapısı sızma testi", "Bulguların kurumsal formatta raporlanması", "Sertleştirme önerileri"],
       stack: ["Pentest", "Linux", "Network Security"],
@@ -111,7 +112,6 @@ window.SITE = {
       title: "omusiber.org",
       category: "web",
       year: "2026",
-      featured: true,
       summary: "OMÜ Siber Güvenlik Topluluğu'nun resmi web sitesi — sunucu kurulumu, altyapısı ve güvenliği.",
       points: ["VPS kurulumu ve sertleştirme", "Docker üzerinde, Caddy arkasında yayın", "Cloudflare ile koruma ve yayın"],
       stack: ["Docker", "Caddy", "Linux", "Cloudflare"],
@@ -121,7 +121,6 @@ window.SITE = {
       title: "unihm.org",
       category: "web",
       year: "2026",
-      featured: true,
       summary:
         "Üniversite Hodri Meydan taraftar grubunun dijital evi: duyuruların, organizasyonların ve taraftar kimliğinin tek adreste buluştuğu platform.",
       points: ["Sıfırdan tasarım ve geliştirme", "Grubun görsel kimliğiyle bütünleşik arayüz", "Domain ve yayın yönetimi"],

@@ -12,6 +12,7 @@
     linkedin: '<path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>',
     instagram: '<rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1112.6 8 4 4 0 0116 11.4zM17.5 6.5h.01"/>',
     x: '<path fill="currentColor" stroke="none" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>',
+    award: '<circle cx="12" cy="8" r="6"/><path d="M15.5 12.9L17 22l-5-3-5 3 1.5-9.1"/>',
     github: '<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 00-.9-2.6c3.1-.3 6.4-1.5 6.4-7A5.4 5.4 0 0020 4.8 5 5 0 0019.9 1S18.7.7 16 2.5a13.4 13.4 0 00-7 0C6.3.7 5.1 1 5.1 1A5 5 0 005 4.8a5.4 5.4 0 00-1.5 3.7c0 5.4 3.3 6.6 6.4 7a3.4 3.4 0 00-.9 2.6V22"/>',
   };
   const icon = (n, cls = "i") => `<svg class="${cls}" viewBox="0 0 24 24">${PATHS[n] || ""}</svg>`;
@@ -25,56 +26,75 @@
   // hakkımda
   $("aboutText").innerHTML = S.about.map((p) => `<p>${esc(p)}</p>`).join("");
   $("focus").innerHTML = S.focus
-    .map((f) => `<div class="focus-item">${icon(f.icon)}<div><b>${esc(f.title)}</b><span>${esc(f.text)}</span></div></div>`)
+    .map((f) => `<div class="focus-item"><span class="badge">${icon(f.icon)}</span><div><b>${esc(f.title)}</b><span>${esc(f.text)}</span></div></div>`)
     .join("");
 
   // deneyim
+  const ongoing = (when) => /günümüz|devam/i.test(when);
   $("experience").innerHTML = S.experience
     .map(
-      (e) => `<div class="glass exp">
-        <span class="eyebrow">${esc(e.when)}</span>
-        <h3>${esc(e.role)} <span class="org">· ${esc(e.org)}</span></h3>
-        ${e.text ? `<p>${esc(e.text)}</p>` : ""}
-      </div>`
+      (e) => `<li class="${ongoing(e.when) ? "now" : ""}">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="when">${esc(e.when)}</span>
+        <div>
+          <h3>${esc(e.role)} <span class="org">· ${esc(e.org)}</span></h3>
+          ${e.text ? `<p>${esc(e.text)}</p>` : ""}
+        </div>
+      </li>`
     )
     .join("");
 
   // sertifikalar
   $("certs").innerHTML = S.certs
-    .map((c) => `<div class="glass"><h3>${esc(c.title)}</h3><p class="cert-meta">${esc(c.text)} – ${esc(c.when)}</p></div>`)
+    .map(
+      (c) => `<div class="glass cert">
+        <span class="seal">${icon("award")}</span>
+        <div><h3>${esc(c.title)}</h3><p class="cert-meta">${esc(c.text)}</p></div>
+        <span class="year">${esc(c.when)}</span>
+      </div>`
+    )
     .join("");
 
   // projeler
   $("projects").innerHTML = S.projects
     .map(
-      (p) => `<article class="glass project">
+      (p) => `<article class="glass project${p.featured ? " lg" : ""}">
         <span class="eyebrow">${esc(CATS[p.category] || p.category)} · ${esc(p.year)}</span>
         <h3>${esc(p.title)}</h3>
         <p class="summary">${esc(p.summary)}</p>
         ${p.points?.length ? `<ul>${p.points.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
         ${tags(p.stack)}
-        ${(p.links || []).map((l) => `<a class="more" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} ${icon("ext")}</a>`).join(" ")}
+        ${p.links?.length ? `<div class="links">${p.links.map((l) => `<a class="more" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} ${icon("ext")}</a>`).join("")}</div>` : ""}
       </article>`
     )
     .join("");
 
   // güvenlik
-  const cards = (items) => items.map((i) => `<div class="glass"><h3>${esc(i.title)}</h3><p style="margin-top:8px">${esc(i.text)}</p></div>`).join("");
+  const cards = (items) => items.map((i) => `<div class="glass sec-card"><h3>${esc(i.title)}</h3><p>${esc(i.text)}</p></div>`).join("");
   $("secIntro").textContent = S.security.intro;
   $("secItems").innerHTML = cards(S.security.items);
 
   // teknolojiler
   $("stackList").innerHTML = Object.entries(S.stack)
-    .map(([g, items]) => `<div class="tech-group"><span class="eyebrow">${esc(g)}</span>${tags(items)}</div>`)
+    .map(([g, items]) => `<div><dt>${esc(g)}</dt><dd>${tags(items)}</dd></div>`)
     .join("");
 
   // iletişim
   const mail = S.contact.email;
-  $("emailInline").textContent = mail;
-  $("emailInline").href = "mailto:" + mail;
-  $("socials").innerHTML =
-    `<a class="primary" href="mailto:${esc(mail)}">${icon("mail")}<span>${esc(mail)}</span></a>` +
-    S.contact.links
+  $("emailBig").textContent = mail;
+  $("emailBig").href = "mailto:" + mail;
+  const copyBtn = $("copyBtn");
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(mail);
+      copyBtn.textContent = "Kopyalandı ✓";
+      copyBtn.classList.add("done");
+      setTimeout(() => { copyBtn.textContent = "Kopyala"; copyBtn.classList.remove("done"); }, 1800);
+    } catch {
+      location.href = "mailto:" + mail;
+    }
+  });
+  $("socials").innerHTML = S.contact.links
       .map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${icon(PATHS[l.label.toLowerCase()] ? l.label.toLowerCase() : "ext")}<span>${esc(l.label)}</span>${icon("ext", "i ext")}</a>`)
       .join("");
   $("footer").textContent = `© ${new Date().getFullYear()} ${S.domain}`;
@@ -84,7 +104,30 @@
     (es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add("in"), io.unobserve(e.target))),
     { threshold: 0.08 }
   );
-  document.querySelectorAll("main h2, main .glass, main .lead, .socials").forEach((el) => { el.classList.add("reveal"); io.observe(el); });
+  document.querySelectorAll("main h2, main .glass, main > section > .lead").forEach((el) => { el.classList.add("reveal"); io.observe(el); });
+
+  // menüde bulunulan bölümü vurgula
+  const navLinks = [...document.querySelectorAll(".nav a")];
+  const spy = new IntersectionObserver(
+    (es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+    }),
+    { rootMargin: "-45% 0px -50% 0px" }
+  );
+  navLinks.forEach((a) => { const sec = document.querySelector(a.getAttribute("href")); if (sec) spy.observe(sec); });
+  new IntersectionObserver(([e]) => e.isIntersecting && navLinks.forEach((a) => a.classList.remove("active"))).observe($("top"));
+
+  // kartlarda fareyi izleyen ışık
+  if (matchMedia("(hover: hover)").matches) {
+    document.addEventListener("pointermove", (e) => {
+      const card = e.target.closest?.(".glass");
+      if (!card) return;
+      const r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      card.style.setProperty("--my", `${e.clientY - r.top}px`);
+    }, { passive: true });
+  }
 
   // akış alanı arka planı (efealtintas.com'daki NeuralBackground'un framework'süz hali)
   const canvas = $("flow");
@@ -120,7 +163,14 @@
       ctx.fillRect(p.x, p.y, 1.5, 1.5);
     }
   };
-  const loop = () => { step(); requestAnimationFrame(loop); };
+  let raf = 0;
+  const loop = () => { step(); raf = requestAnimationFrame(loop); };
+  // sekme arkadayken animasyonu durdur
+  document.addEventListener("visibilitychange", () => {
+    if (reduce) return;
+    if (document.hidden) cancelAnimationFrame(raf);
+    else raf = requestAnimationFrame(loop);
+  });
 
   size();
   particles = Array.from({ length: width < 600 ? 450 : 800 }, () => spawn({}));
