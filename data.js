@@ -9,9 +9,8 @@ window.SITE = {
     "Sistemleri önce nasıl kırılabileceklerini düşünerek inşa ediyorum — web'den sunucuya, altyapıdan markaya.",
 
   about: [
-    "Merhaba, ben Efe. Samsun'da Ondokuz Mayıs Üniversitesi'nde okuyorum. Teknolojiye olan merakım beni backend geliştirme ve siber güvenlikle tanıştırdı; her sistemi önce nasıl kırılabileceğini düşünerek tasarlıyorum. Yaratıcı, güvenli ve performanslı çözümler üretmek en büyük motivasyonum.",
-    "Akca Network'te Founding Engineer (Security) olarak çalışıyor, OMÜ Siber Güvenlik Topluluğu'nda Başkan Yardımcısı olarak görev yapıyorum. Çoğunlukla TypeScript, Node.js ve Python ile backend tarafında üretiyorum; Nöbetçi gibi açık kaynak güvenlik araçları geliştiriyorum.",
-    "Apple ekosisteminin minimalist yaklaşımından ilham alıyorum. Yazılımla grafik tasarımı bir araya getirebilmek projeleri uçtan uca hayata geçirmemi sağlıyor.",
+    "Samsun'da Ondokuz Mayıs Üniversitesi'nde okuyorum; Akca Network'te Founding Engineer (Security), OMÜ Siber Güvenlik Topluluğu'nda Başkan Yardımcısıyım.",
+    "Her sistemi önce nasıl kırılabileceğini düşünerek tasarlıyorum. Kod yazmadığım zamanlarda tasarım yapıyorum; projelerimin kimliğini de kendim kuruyorum.",
   ],
 
   focus: [
@@ -61,31 +60,39 @@ window.SITE = {
 
   certs: [
     { when: "2026", title: "Hackviser CWSE", text: "Certified Web Security Expert" },
-    { when: "Aralık 2025", title: "Hackviser CAPT", text: "Certified Associate Penetration Tester" },
+    { when: "2025", title: "Hackviser CAPT", text: "Certified Associate Penetration Tester" },
   ],
 
   // category: security | web | mobile
+  // hook: kartın tek cümlelik girişi · demo: "nobetci" | "mahzen" · story: "nasıl yaptım" sayfası
   projects: [
     {
       title: "Mahzen",
-      featured: true,
       category: "mobile",
       year: "2026",
+      featured: true,
+      hook: "Sırların, kendi mahzeninde.",
       summary:
-        "macOS için yerel, şifreli kasa uygulaması. Şifreleme çekirdeği arayüzden bağımsız ve test edilebilir şekilde ayrıldı.",
+        "Dosyaların, notların ve parolaların için macOS ve Linux'ta çalışan şifreli, taşınabilir bir kasa. İnternete hiçbir şey gönderilmez, hesap gerekmez.",
       points: [
-        "Resmî Argon2 referans uygulaması ile anahtar türetme",
-        "Ayrı, test edilebilir MahzenCore kasa formatı",
-        "Türkçe yerelleştirme, SwiftUI arayüz",
+        "AES-256-GCM ve Argon2id (1 GB bellek); dosya adları dahil her şey şifreli",
+        "Uygulama ve kasa yan yana bir SSD'de taşınabilir",
+        "macOS (SwiftUI) ve Linux (GTK 4) aynı kasayı açar",
       ],
-      stack: ["Swift", "SwiftUI", "Argon2", "macOS 14"],
-      links: [{ label: "mahzen.efef.dev", url: "https://mahzen.efef.dev" }],
+      stack: ["Swift", "SwiftUI", "Python", "GTK 4", "Argon2id"],
+      demo: "mahzen",
+      story: "/projeler/mahzen/",
+      links: [
+        { label: "mahzen.efef.dev", url: "https://mahzen.efef.dev" },
+        { label: "GitHub", url: "https://github.com/efefdev/Mahzen" },
+      ],
     },
     {
       title: "Nöbetçi",
-      featured: true,
       category: "security",
       year: "2026",
+      featured: true,
+      hook: "Banı asla yapay zekâ tetiklemez.",
       summary:
         "nginx çalışan Linux sunucular için kendi sunucunda çalışan, Telegram'dan yönetilen nöbetçi: kural motoru saldırıyı yakalayıp banlar, yapay zekâ kalanı inceler.",
       points: [
@@ -94,6 +101,8 @@ window.SITE = {
         "Komut değil sabit eylem taşıyan Telegram onay butonları",
       ],
       stack: ["Python", "nginx", "Telegram Bot API", "Groq / Ollama", "systemd"],
+      demo: "nobetci",
+      story: "/projeler/nobetci/",
       links: [
         { label: "nobetci.efef.dev", url: "https://nobetci.efef.dev" },
         { label: "GitHub", url: "https://github.com/efefdev/nobetci" },
@@ -103,6 +112,7 @@ window.SITE = {
       title: "AkcaVPN",
       category: "security",
       year: "2026",
+      hook: "Bir VPN altyapısını saldırgan gözüyle test ettim.",
       summary: "AkcaVPN'in VPN altyapısı için yapılan güvenlik testleri ve raporlama.",
       points: ["Sunucu ve ağ altyapısı sızma testi", "Bulguların kurumsal formatta raporlanması", "Sertleştirme önerileri"],
       stack: ["Pentest", "Linux", "Network Security"],
@@ -112,6 +122,7 @@ window.SITE = {
       title: "omusiber.org",
       category: "web",
       year: "2026",
+      hook: "Topluluğun sitesini ayakta ve güvende tutan altyapı.",
       summary: "OMÜ Siber Güvenlik Topluluğu'nun resmi web sitesi — sunucu kurulumu, altyapısı ve güvenliği.",
       points: ["VPS kurulumu ve sertleştirme", "Docker üzerinde, Caddy arkasında yayın", "Cloudflare ile koruma ve yayın"],
       stack: ["Docker", "Caddy", "Linux", "Cloudflare"],
@@ -121,6 +132,7 @@ window.SITE = {
       title: "unihm.org",
       category: "web",
       year: "2026",
+      hook: "Bir taraftar grubunun dijital evi, sıfırdan.",
       summary:
         "Üniversite Hodri Meydan taraftar grubunun dijital evi: duyuruların, organizasyonların ve taraftar kimliğinin tek adreste buluştuğu platform.",
       points: ["Sıfırdan tasarım ve geliştirme", "Grubun görsel kimliğiyle bütünleşik arayüz", "Domain ve yayın yönetimi"],
@@ -128,6 +140,7 @@ window.SITE = {
       links: [{ label: "unihm.org", url: "https://unihm.org" }],
     },
   ],
+
 
   security: {
     intro:

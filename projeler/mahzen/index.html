@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mahzen nasıl yapıldı — efef.dev</title>
+  <meta name="description" content="Mahzen: macOS ve Linux için şifreli, taşınabilir kasa. AES-256-GCM, Argon2id ve dosya adlarına kadar şifreleme — tasarım kararları ve sınırları." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Mahzen nasıl yapıldı — efef.dev" />
+  <meta property="og:description" content="Sırların, kendi mahzeninde. Şifreli, taşınabilir bir kasanın tasarım kararları." />
+  <meta property="og:url" content="https://efef.dev/projeler/mahzen/" />
+  <meta property="og:image" content="https://efef.dev/img/og-mahzen.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="canonical" href="https://efef.dev/projeler/mahzen/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='17' font-weight='700' fill='%23818cf8' text-anchor='middle'%3Ee%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css?v=5550a9f1" />
+</head>
+<body>
+  <a class="skip" href="#icerik">İçeriğe geç</a>
+  <div class="backdrop" aria-hidden="true"><canvas id="flow"></canvas></div>
+
+  <nav class="nav" aria-label="Site">
+    <a href="/">efef.dev</a>
+    <a href="/#projelerim">Projeler</a>
+    <a href="/#iletisim">İletişim</a>
+  </nav>
+
+  <header class="case-hero" id="top">
+    <a class="back" href="/#projelerim">← Tüm projeler</a>
+    <span class="eyebrow">macOS · <span lang="en">Linux</span> · 2026</span>
+    <h1>Mahzen</h1>
+    <p class="hook">Sırların, kendi mahzeninde.</p>
+    <div class="case-meta">
+      <a href="https://mahzen.efef.dev" target="_blank" rel="noopener noreferrer">mahzen.efef.dev ↗</a>
+      <a href="https://github.com/efefdev/Mahzen" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <span>Lisans: PolyForm Noncommercial (kaynağı açık)</span>
+    </div>
+  </header>
+
+  <main class="case" id="icerik">
+    <section>
+      <div class="glass"><div class="demo demo-mahzen" data-demo="mahzen"></div>
+        <p style="font-size:.88rem;color:var(--gray-400)">Simülasyon: dosyalar kasaya girerken önce paroladan anahtar türetilir, sonra her dosya şifrelenir ve adı rastgele bir kimliğe dönüşür.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Problem</h2>
+      <div class="prose">
+        <p>Dosyalar, notlar ve parolalar genelde farklı yerlere dağılır; bulut kasalar ise hesap ister ve veriyi internete taşır. Hedefim, <strong>bir SSD'ye koyup her bilgisayarda açabileceğim, hiçbir şeyi dışarı göndermeyen tek bir kasaydı.</strong></p>
+        <p>Mahzen bu yüzden yerel bir uygulama: uygulama ile kasa yan yana bir SSD'de durabiliyor, aynı kasa her Mac'te ve her Linux bilgisayarda açılıyor. Hesap yok, sunucu yok.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Yaklaşım</h2>
+      <div class="prose">
+        <p>Şifreleme çekirdeğini (<code>MahzenCore</code>) arayüzden tamamen ayırdım; kasa biçimi, yedekleme ve bütünlük taraması arayüze dokunmadan test edilebiliyor. macOS uygulaması SwiftUI, Linux uygulaması GTK 4 ve libadwaita ile yazıldı; ikisi <strong>aynı kasa biçimini</strong> konuşuyor.</p>
+        <p>İki sürümün gerçekten uyuştuğunu bir test kanıtlıyor: <code>LinuxCompatibilityTests</code>, Linux sürümüyle oluşturulmuş bir kasayı macOS çekirdeğiyle açıyor. Toplam 44 test şifrelemeyi, parça doğrulamayı, kurcalama tespitini ve Argon2 referans test vektörlerini kapsıyor.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Şifreleme</h2>
+      <div class="glass">
+        <table class="spec">
+          <tr><th>Veri</th><td><strong>AES-256-GCM</strong> (Apple CryptoKit). Her dosya kendi anahtarıyla, 1 MB'lık parçalar halinde şifrelenir.</td></tr>
+          <tr><th>Paroladan anahtar</th><td><strong>Argon2id</strong>: 1 GB bellek, 3 geçiş, 4 iş parçacığı. Apple Silicon'da deneme başına ~0,7 sn; ekran kartıyla toplu tahmini pahalılaştırır.</td></tr>
+          <tr><th>Anahtar hiyerarşisi</th><td>Rastgele 256 bitlik ana anahtar, paroladan türetilen anahtarla sarılır. Dosya, küçük resim ve dizin anahtarları ana anahtardan HKDF-SHA256 ile türetilir.</td></tr>
+          <tr><th>Anahtar dosyası</th><td>İsteğe bağlı: kasayı bir Mac'e bağlayan 512 bitlik rastgele dosya. Kasa başlığında ona dair hiçbir alan yoktur.</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Kritik kararlar</h2>
+      <div class="grid-2">
+        <div class="glass decision"><span class="eyebrow">01</span><h3>Dosya adları da sır</h3><p>Kasa klasöründe yalnızca rastgele adlı şifreli dosyalar var. Dosya adları, klasörler, etiketler, notlar ve parolalar da şifreli dizinde duruyor.</p></div>
+        <div class="glass decision"><span class="eyebrow">02</span><h3>Parçalar yerinden oynamaz</h3><p>Parçaların sırası ve "son parça" bilgisi nonce'a bağlı. Değiştirilen, yer değiştirilen, kesilen ya da sonuna veri eklenen dosya reddediliyor.</p></div>
+        <div class="glass decision"><span class="eyebrow">03</span><h3>Video diske yazılmadan oynar</h3><p>Video ve ses, şifre bellekte parça parça çözülerek oynatılıyor; diske şifresiz kopya yazılmıyor.</p></div>
+        <div class="glass decision"><span class="eyebrow">04</span><h3>Yanlış parola sınırı</h3><p>İsteğe bağlı: sınır aşılınca ana anahtarı taşıyan <code>vault.json</code> rastgele baytlarla ezilip siliniyor. Veriler doğru parolayla bile bir daha açılmıyor.</p></div>
+      </div>
+      <p class="quote">Uygulamada açık anahtarlı şifreleme yok; kuantum bilgisayarların kırabildiği türden bir bileşen bulunmuyor.</p>
+    </section>
+
+    <section>
+      <h2>Ekranlar</h2>
+      <div class="shots">
+        <figure><img src="/img/mahzen/kilit.webp" width="1200" height="771" loading="lazy" alt="Mahzen kilit ekranı: saat, kasa adı ve parola alanı"><figcaption>Kilit ekranı</figcaption></figure>
+        <figure><img src="/img/mahzen/dosyalar.webp" width="1200" height="771" loading="lazy" alt="Mahzen dosyalar görünümü: klasörler ve görsel küçük resimleri"><figcaption>Dosyalar</figcaption></figure>
+        <figure><img src="/img/mahzen/parolalar.webp" width="1200" height="771" loading="lazy" alt="Mahzen parolalar görünümü"><figcaption>Parolalar</figcaption></figure>
+        <figure><img src="/img/mahzen/notlar.webp" width="1200" height="771" loading="lazy" alt="Mahzen notlar görünümü"><figcaption>Notlar</figcaption></figure>
+        <figure><img src="/img/mahzen/linux-dosyalar.webp" width="1200" height="891" loading="lazy" alt="Mahzen Linux sürümü: dosyalar"><figcaption>Linux (GTK 4): dosyalar</figcaption></figure>
+        <figure><img src="/img/mahzen/linux-parolalar.webp" width="1200" height="891" loading="lazy" alt="Mahzen Linux sürümü: parolalar"><figcaption>Linux (GTK 4): parolalar</figcaption></figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Dürüst sınırlar</h2>
+      <div class="prose">
+        <ul>
+          <li><strong>Bağımsız güvenlik denetiminden geçmedi.</strong> Yapı taşları (CryptoKit, Argon2 referans uygulaması) denetlenmiş kütüphaneler; onları birleştiren Mahzen kodu denetlenmedi.</li>
+          <li>Güvenlik parolanın gücüne bağlı; parola unutulursa veriler kurtarılamaz.</li>
+          <li>Dosya boyutları ve sayısı, kasa klasörüne bakan biri tarafından görülebilir.</li>
+          <li>Kasa klasörüne yazabilen biri dizini eski bir kopyasıyla değiştirebilir; bu henüz tespit edilmiyor.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="next">
+      <a class="pill pill-glass" href="/#projelerim">← Tüm projeler</a>
+      <a class="pill pill-white" href="/projeler/nobetci/">Nöbetçi nasıl yapıldı →</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 efef.dev</p>
+    <a class="to-top" href="#top">Yukarı ↑</a>
+  </footer>
+
+  <script src="/flow.js?v=de24656b"></script>
+  <script src="/demos.js?v=75196713"></script>
+</body>
+</html>
