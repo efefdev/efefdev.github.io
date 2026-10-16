@@ -67,16 +67,6 @@ window.SITE = {
   // category: security | web | mobile
   projects: [
     {
-      title: "AkcaVPN",
-      category: "security",
-      year: "2026",
-      featured: true,
-      summary: "AkcaVPN'in VPN altyapısı için yapılan güvenlik testleri ve raporlama.",
-      points: ["Sunucu ve ağ altyapısı sızma testi", "Bulguların kurumsal formatta raporlanması", "Sertleştirme önerileri"],
-      stack: ["Pentest", "Linux", "Network Security"],
-      links: [{ label: "akcavpn.com", url: "https://akcavpn.com" }],
-    },
-    {
       title: "Mahzen",
       category: "mobile",
       year: "2026",
@@ -106,6 +96,16 @@ window.SITE = {
         { label: "nobetci.efef.dev", url: "https://nobetci.efef.dev" },
         { label: "GitHub", url: "https://github.com/efefdev/nobetci" },
       ],
+    },
+    {
+      title: "AkcaVPN",
+      category: "security",
+      year: "2026",
+      featured: true,
+      summary: "AkcaVPN'in VPN altyapısı için yapılan güvenlik testleri ve raporlama.",
+      points: ["Sunucu ve ağ altyapısı sızma testi", "Bulguların kurumsal formatta raporlanması", "Sertleştirme önerileri"],
+      stack: ["Pentest", "Linux", "Network Security"],
+      links: [{ label: "akcavpn.com", url: "https://akcavpn.com" }],
     },
     {
       title: "omusiber.org",
@@ -162,7 +162,7 @@ window.SITE = {
       { label: "GitHub", url: "https://github.com/efefdev" },
       { label: "LinkedIn", url: "https://www.linkedin.com/in/efealtintas" },
       { label: "Instagram", url: "https://www.instagram.com/efefaltintas" },
-      { label: "X", url: "https://x.com/efefdev" },
+      { label: "X", url: "https://x.com/efefdev0" },
     ],
   },
 };
