@@ -91,6 +91,23 @@ window.SITE = {
       links: [{ label: "mahzen.efef.dev", url: "https://mahzen.efef.dev" }],
     },
     {
+      title: "Nöbetçi",
+      category: "security",
+      year: "2026",
+      summary:
+        "nginx çalışan Linux sunucular için kendi sunucunda çalışan, Telegram'dan yönetilen nöbetçi: kural motoru saldırıyı yakalayıp banlar, yapay zekâ kalanı inceler.",
+      points: [
+        "IP bazlı kural motoru ve tuzak URL'lerle anında ban",
+        "Prompt injection'a karşı çitlenmiş yapay zekâ; banı asla AI tetiklemez",
+        "Komut değil sabit eylem taşıyan Telegram onay butonları",
+      ],
+      stack: ["Python", "nginx", "Telegram Bot API", "Groq / Ollama", "systemd"],
+      links: [
+        { label: "nobetci.efef.dev", url: "https://nobetci.efef.dev" },
+        { label: "GitHub", url: "https://github.com/efefdev/nobetci" },
+      ],
+    },
+    {
       title: "omusiber.org",
       category: "web",
       year: "2026",
@@ -110,23 +127,6 @@ window.SITE = {
       points: ["Sıfırdan tasarım ve geliştirme", "Grubun görsel kimliğiyle bütünleşik arayüz", "Domain ve yayın yönetimi"],
       stack: ["Next.js"],
       links: [{ label: "unihm.org", url: "https://unihm.org" }],
-    },
-    {
-      title: "Nöbetçi",
-      category: "security",
-      year: "2026",
-      summary:
-        "nginx çalışan Linux sunucular için kendi sunucunda çalışan, Telegram'dan yönetilen nöbetçi: kural motoru saldırıyı yakalayıp banlar, yapay zekâ kalanı inceler.",
-      points: [
-        "IP bazlı kural motoru ve tuzak URL'lerle anında ban",
-        "Prompt injection'a karşı çitlenmiş yapay zekâ; banı asla AI tetiklemez",
-        "Komut değil sabit eylem taşıyan Telegram onay butonları",
-      ],
-      stack: ["Python", "nginx", "Telegram Bot API", "Groq / Ollama", "systemd"],
-      links: [
-        { label: "nobetci.efef.dev", url: "https://nobetci.efef.dev" },
-        { label: "GitHub", url: "https://github.com/efefdev/nobetci" },
-      ],
     },
   ],
 
