@@ -142,9 +142,12 @@ window.SITE = {
   ],
 
 
-  // Kareler: tasarım/kurgu işleri. type: "video" | "image". Videolar sessiz yüklenir (ses dosyadan çıkarıldı).
+  // Kareler / Instagram köşesi: tasarım ve kurgu işleri. type: "video" | "image".
+  // Videolar sitede sessiz (müzik telifli; dosyadan çıkarıldı). instagram: post kodu → "Sesli izle" postu
+  // Instagram'ın kendi oynatıcısında açar; tıklanana kadar Instagram'a bağlantı kurulmaz.
   kareler: {
     intro: "Kod yazmadığım zamanlarda kurgu ve görsel tasarım yapıyorum.",
+    profile: { label: "@efefaltintas", url: "https://www.instagram.com/efefaltintas/" },
     items: [
       {
         type: "video",
@@ -156,7 +159,7 @@ window.SITE = {
         when: "Ekim 2026",
         caption: "ilerle.",
         alt: "Kamera kaydı görünümlü kısa video kurgusu: bir etkinlikten kareler",
-        link: { label: "Sesli izle: Instagram", url: "https://www.instagram.com/p/DevqLV_s8tg/" },
+        instagram: "DevqLV_s8tg",
       },
     ],
   },

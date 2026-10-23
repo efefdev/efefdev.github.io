@@ -52,20 +52,31 @@
     $(btn.getAttribute("aria-controls")).hidden = !open;
   });
 
-  // ---------- kareler ----------
-  $("karelerIntro").textContent = S.kareler?.intro || "";
-  $("karelerList").innerHTML = (S.kareler?.items || [])
-    .map((k) => {
+  // ---------- kareler / Instagram köşesi ----------
+  // Kapaklar sitede sessiz oynar. "Sesli izle", postu Instagram'ın kendi oynatıcısında açar (müzik onların
+  // lisansıyla çalar). Instagram'a bağlantı yalnızca tıklanınca kurulur.
+  const K = S.kareler || { items: [] };
+  const igPost = (code) => `https://www.instagram.com/p/${encodeURIComponent(code)}/`;
+  $("karelerIntro").innerHTML =
+    `${esc(K.intro || "")}${K.profile ? ` <a class="ig-profile" href="${esc(K.profile.url)}" target="_blank" rel="noopener noreferrer">↗ ${esc(K.profile.label)}</a>` : ""}`;
+  $("karelerList").classList.toggle("many", K.items.length > 1);
+  $("karelerList").innerHTML = K.items
+    .map((k, i) => {
       const media =
         k.type === "video"
           ? `<video muted loop playsinline preload="none" poster="${esc(k.poster)}" data-src="${esc(k.src)}" width="${k.width}" height="${k.height}" aria-label="${esc(k.alt)}"></video>
              <button class="play" type="button">▶ Play</button>`
           : `<img src="${esc(k.src)}" width="${k.width}" height="${k.height}" loading="lazy" alt="${esc(k.alt)}">`;
-      return `<figure class="kare rv">
-        <div class="tv"><div class="frame">${media}</div></div>
+      const actions = [
+        k.instagram && k.type === "video" ? `<button class="vcr vcr-solid ig-open" type="button" data-ig="${esc(k.instagram)}" data-title="${esc(k.caption)}">♪ Sesli izle</button>` : "",
+        k.instagram ? `<a class="more" href="${igPost(k.instagram)}" target="_blank" rel="noopener noreferrer">↗ Instagram'da aç</a>` : "",
+        k.link ? `<a class="more" href="${esc(k.link.url)}" target="_blank" rel="noopener noreferrer">↗ ${esc(k.link.label)}</a>` : "",
+      ].join("");
+      return `<figure class="kare rv${i === 0 ? " first" : ""}">
+        <div class="tv"><div class="frame">${media}<span class="kare-no osd">POST ${String(i + 1).padStart(2, "0")}</span></div></div>
         <figcaption>
-          <div><span class="eyebrow">${esc(k.kind)} · ${esc(k.when)}</span><p class="caption">${esc(k.caption)}</p></div>
-          ${k.link ? `<a class="more" href="${esc(k.link.url)}" target="_blank" rel="noopener noreferrer">↗ ${esc(k.link.label)}</a>` : ""}
+          <div><span class="eyebrow">${esc(k.kind)} · ${esc(k.when)}${k.type === "video" ? " · sessiz önizleme" : ""}</span><p class="caption">${esc(k.caption)}</p></div>
+          <div class="kare-actions">${actions}</div>
         </figcaption>
       </figure>`;
     })
@@ -75,14 +86,53 @@
     let userPaused = reduce, visible = false;
     const load = () => { if (!v.src) v.src = v.dataset.src; };
     const sync = () => { btn.textContent = v.paused ? "▶ Play" : "❚❚ Pause"; btn.setAttribute("aria-label", v.paused ? "Oynat" : "Durdur"); };
-    const update = () => { if (visible && !userPaused && !document.hidden) { load(); v.play().catch(() => {}); } else v.pause(); };
+    const update = () => { if (visible && !userPaused && !document.hidden && !document.body.classList.contains("ig-on")) { load(); v.play().catch(() => {}); } else v.pause(); };
     v.addEventListener("play", sync);
     v.addEventListener("pause", sync);
     btn.addEventListener("click", () => { userPaused = !v.paused; update(); if (!userPaused) { load(); v.play().catch(() => {}); } });
     new IntersectionObserver(([e]) => { visible = e.isIntersecting; update(); }, { threshold: 0.4 }).observe(v);
     document.addEventListener("visibilitychange", update);
+    document.addEventListener("ig-toggle", update);
     sync();
   });
+
+  // Instagram oynatıcısı: VHS tarzı pencere içinde postun resmî gömme sayfası
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `<div class="ig-modal" role="dialog" aria-modal="true" aria-labelledby="igTitle" hidden>
+      <div class="ig-box">
+        <div class="ig-bar"><span class="osd" id="igTitle">▶ INSTAGRAM</span><button class="vcr ig-close" type="button">✕ Kapat</button></div>
+        <div class="ig-frame"></div>
+        <p class="ig-note">Instagram'ın oynatıcısı · Meta'nın gizlilik kuralları geçerlidir</p>
+      </div>
+    </div>`
+  );
+  const igModal = document.querySelector(".ig-modal"), igFrame = igModal.querySelector(".ig-frame");
+  let igReturn = null;
+  const igToggle = () => document.dispatchEvent(new Event("ig-toggle"));
+  const openIg = (code, title, from) => {
+    igReturn = from;
+    igModal.querySelector("#igTitle").textContent = `▶ ${title || "INSTAGRAM"}`;
+    igFrame.innerHTML = `<iframe src="https://www.instagram.com/p/${encodeURIComponent(code)}/embed/" title="Instagram gönderisi: ${esc(title)}" allow="autoplay; encrypted-media; picture-in-picture; clipboard-write" allowfullscreen loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+    igModal.hidden = false;
+    document.body.classList.add("ig-on");
+    igToggle();
+    igModal.querySelector(".ig-close").focus();
+  };
+  const closeIg = () => {
+    if (igModal.hidden) return;
+    igModal.hidden = true;
+    igFrame.innerHTML = ""; // oynatmayı ve Instagram bağlantısını tamamen kes
+    document.body.classList.remove("ig-on");
+    igToggle();
+    igReturn?.focus();
+  };
+  document.addEventListener("click", (e) => {
+    const open = e.target.closest(".ig-open");
+    if (open) return openIg(open.dataset.ig, open.dataset.title, open);
+    if (e.target.closest(".ig-close") || e.target === igModal) closeIg();
+  });
+  addEventListener("keydown", (e) => e.key === "Escape" && closeIg());
 
   // ---------- deneyim + sertifikalar ----------
   const ongoing = (when) => /günümüz|devam/i.test(when);

@@ -75,6 +75,7 @@
         <figcaption>
           <div><span class="eyebrow">${esc(k.kind)} · ${esc(k.when)}</span><p class="caption">${esc(k.caption)}</p></div>
           ${k.link ? `<a class="more" href="${esc(k.link.url)}" target="_blank" rel="noopener noreferrer">${esc(k.link.label)} ${icon("ext")}</a>` : ""}
+          ${k.instagram ? `<a class="more" href="https://www.instagram.com/p/${encodeURIComponent(k.instagram)}/" target="_blank" rel="noopener noreferrer">Sesli izle: Instagram ${icon("ext")}</a>` : ""}
         </figcaption>
       </figure>`;
     })

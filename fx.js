@@ -237,7 +237,7 @@
   // ---------- PAUSE: sekmeden dönünce ya da bir süre hareketsiz kalınca ----------
   let idleTimer = 0, paused = false;
   const pause = () => {
-    if (paused || document.querySelector(".eject:not([hidden])")) return;
+    if (paused || document.querySelector(".eject:not([hidden])") || document.body.classList.contains("ig-on")) return;
     paused = true;
     document.body.classList.add("paused");
     recLabel.textContent = "❚❚ PAUSE";
