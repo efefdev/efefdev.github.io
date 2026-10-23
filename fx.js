@@ -1,7 +1,7 @@
 // efef.dev — ortak kamera/VHS katmanı. Her sayfada çalışır; vizörü, efekt katmanlarını, menüyü kendisi ekler.
 //   · vizör: REC, pil, canlı tarih/saat, sayaç, sahne adı, sürüklenebilir kaset çubuğu
 //   · tarama çizgisi, kumlanma, hıza tepki veren bant bozulması (tracking)
-//   · sahnelere ilk girişte bant kesilmesi, belirme
+//   · belirme (içerik hep görünür; yalnızca hafifçe yerine oturur)
 //   · kanal değiştirme (menü + 0–9 tuşları), otomatik odak imleci, PAUSE ekranı, ⏏ EJECT, başa sar
 (() => {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -132,7 +132,7 @@
     scrollTo({ top: scrollY + step * maxScroll(), behavior: reduce ? "instant" : "smooth" });
   });
 
-  // ---------- sahneler: ad, menü vurgusu, bant kesilmesi ----------
+  // ---------- sahneler: ad, menü vurgusu ----------
   const scenes = $$(".scene");
   const links = $$(".menu-list a");
   const setScene = (s) => {
@@ -144,14 +144,6 @@
   scenes.forEach((s) => spy.observe(s));
   const spyNow = () => setScene(scenes.find((s) => { const r = s.getBoundingClientRect(); return r.top <= innerHeight * 0.5 && r.bottom >= innerHeight * 0.5; }));
 
-  if (!reduce) {
-    const cutIO = new IntersectionObserver((es) => es.forEach((e) => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add("cut");
-      cutIO.unobserve(e.target);
-    }), { threshold: 0.18 });
-    scenes.forEach((s) => cutIO.observe(s));
-  }
 
   // ---------- belirme ----------
   const rvIO = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add("in"), rvIO.unobserve(e.target))), { threshold: 0.12 });

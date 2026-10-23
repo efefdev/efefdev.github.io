@@ -169,23 +169,6 @@ body.ejected { overflow: hidden; }
 .scene[data-scene="nosignal"]::after { background: linear-gradient(#121016, #09080c); }
 .scene > * { max-width: 1180px; margin-left: auto; margin-right: auto; }
 
-/* bant kesilmesi: bölüme ilk girişte siyah → gri → sahne, şerit kayması ve renk ayrışması */
-.scene.cut::before { content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none; background: #000; animation: tapecut .75s steps(1) forwards; }
-@keyframes tapecut {
-  0% { background: #000; opacity: 1; }
-  28% { background: linear-gradient(#8c8b88, #a5a4a3 60%, #8c8b88); opacity: 1; }
-  48% { background: repeating-linear-gradient(to bottom, rgba(196, 181, 253, .5) 0 6px, transparent 6px 22px); opacity: 1; }
-  66%, 100% { opacity: 0; }
-}
-.scene.cut .scene-head, .scene.cut .hero-text, .scene.cut .case-title { animation: slice .7s steps(1) both; }
-@keyframes slice {
-  0%, 30% { opacity: 0; }
-  40% { opacity: 1; clip-path: inset(0 0 55% 0); transform: translateX(-14px); filter: drop-shadow(4px 0 0 var(--ab-r)) drop-shadow(-4px 0 0 var(--ab-b)); }
-  52% { clip-path: inset(40% 0 0 0); transform: translateX(10px); }
-  64% { clip-path: inset(0 0 0 0); transform: translateX(-4px); filter: drop-shadow(2px 0 0 var(--ab-r)) drop-shadow(-2px 0 0 var(--ab-b)); }
-  76%, 100% { transform: none; filter: none; clip-path: none; }
-}
-
 /* başlıklar */
 .rgb { position: relative; font-family: var(--display); font-weight: 400; text-transform: uppercase; line-height: 0.88; letter-spacing: 0.005em; }
 .scene-head { display: grid; grid-template-columns: auto 1fr auto; align-items: end; gap: 6px 18px; margin-bottom: clamp(28px, 5vw, 56px); padding-bottom: 14px; border-bottom: 1px dashed var(--line); }
@@ -470,8 +453,9 @@ body.rewinding .fx-track { opacity: 1; }
 .next { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
 
 /* belirme */
-.rv { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.2, .8, .2, 1); }
-.rv.in { opacity: 1; transform: none; }
+/* içerik hiçbir zaman görünmez olmaz; yalnızca hafifçe yukarı kayarak yerine oturur */
+.rv { transform: translateY(10px); transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
+.rv.in { transform: none; }
 
 @media (max-width: 640px) {
   .vf-scene, .vf-date { display: none; }
@@ -487,9 +471,14 @@ body.rewinding .fx-track { opacity: 1; }
   html { scroll-behavior: auto; }
   .fx-grain, .vf-rec i, .live i, #experience .now-tag, .fx-track i, .eject::before { animation: none; }
   .fx-track { display: none; }
-  .scene.cut::before, .scene.cut .scene-head, .scene.cut .hero-text, .scene.cut .case-title { animation: none; }
-  .scene.cut::before { display: none; }
   body.paused .hero, body.paused main, body.paused footer { animation: none; }
-  .rv { opacity: 1; transform: none; transition: none; }
+  .rv { transform: none; transition: none; }
   .cut-photo { transition: none; }
+}
+
+/* telefonda ve dokunmatik ekranda: tam ekran efekt katmanları sabit ve karıştırma modu olmadan
+   (bazı mobil tarayıcılarda kaydırırken içeriğin bir an boş görünmesine yol açabiliyor) */
+@media (max-width: 760px), (pointer: coarse) {
+  .fx-grain { animation: none; mix-blend-mode: normal; opacity: 0.05; inset: 0; }
+  .fx-scan { mix-blend-mode: normal; background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, 0.1) 2px 3px); }
 }
