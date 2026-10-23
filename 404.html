@@ -35,6 +35,10 @@
     .bl { bottom: var(--in); left: var(--in); border-right: 0; border-top: 0; } .br { bottom: var(--in); right: var(--in); border-left: 0; border-top: 0; }
     .stop { position: absolute; top: calc(var(--in) + 14px); left: calc(var(--in) + 18px); display: flex; align-items: center; gap: 8px; font-size: clamp(.85rem, 1.5vw, 1.15rem); }
     .stop i { width: .75em; height: .75em; background: var(--osd); }
+    .trap .stop i { border-radius: 50%; background: var(--rec); box-shadow: 0 0 10px rgba(255, 59, 92, .85); animation: blink 1s steps(1) infinite; }
+    .trap .label { color: var(--rec); }
+    p.msg .hire { display: block; margin-top: 12px; font-size: .95em; color: var(--dim); }
+    p.msg .hire a { color: var(--lilac); border-bottom: 1px solid currentColor; }
     .tc { position: absolute; bottom: calc(var(--in) + 12px); right: calc(var(--in) + 18px); font-size: clamp(.85rem, 1.4vw, 1.1rem); animation: blink 1s steps(1) infinite; }
     .dom { position: absolute; bottom: calc(var(--in) + 12px); left: calc(var(--in) + 18px); font-size: clamp(.8rem, 1.3vw, 1rem); }
     @keyframes blink { 50% { opacity: 0; } }
@@ -60,7 +64,7 @@
   <div class="scan" aria-hidden="true"></div>
   <div class="vf" aria-hidden="true">
     <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
-    <span class="stop"><i></i>Durdu</span>
+    <span class="stop"><i></i><b id="st" style="font-weight:400">Durdu</b></span>
     <span class="dom">efef.dev</span>
     <span class="tc">--:--:--</span>
   </div>
@@ -80,10 +84,55 @@
   </main>
 
   <script>
+    // kurcalama adreslerine özel şakalar (hepsi yine 404 döner; burada gerçekten hiçbiri yok)
+    var TRAPS = [
+      [/^\/(admin|administrator|admin\.php|panel|dashboard|yonetim|cpanel)(\/|$)/, "Yönetici paneli bulunamadı",
+        "Güzel deneme. Admin paneli yok, çünkü bu site düz HTML ve sunucusu bile GitHub'ın. Kırılacak bir şey arıyorsan Nöbetçi'ye selam ver, işi bu."],
+      [/^\/(wp-admin|wp-login\.php|wp-content|wp-includes|xmlrpc\.php|wordpress)(\/|$)/, "WordPress bulunamadı",
+        "Burada hiç WordPress olmadı. Eklentisi yok, açığı da yok."],
+      [/^\/\.env/, "Sır bulunamadı",
+        ".env mi? Sırlarım burada durmuyor, Mahzen'de duruyor. AES-256-GCM ile."],
+      [/^\/\.git(\/|$)/, "Kaynak sızmadı",
+        "Kaynak kodu mu arıyorsun? Saklamıyorum ki: github.com/efefdev"],
+      [/^\/(phpmyadmin|pma|myadmin|mysql|db|database|sql)(\/|$)/, "Veritabanı bulunamadı",
+        "Veritabanı yok. SQL enjekte edecek bir yer bulursan bana da haber ver."],
+      [/(etc\/passwd|etc\/shadow|win\.ini|boot\.ini)/, "root:x:0:0:güzel deneme:/kaset:/bin/false",
+        "Dizin atlatma burada işe yaramıyor, ortada atlanacak dizin yok."],
+      [/^\/(login|signin|sign-in|giris|auth|user|users)(\/|$)/, "Giriş kapısı yok",
+        "Giriş yapacak bir hesap yok. Bu sitenin tek kullanıcısı benim, o da giriş yapmıyor."],
+      [/^\/(backup|backups|yedek|dump)(\/|\.|$)|\.(sql|bak|zip|tar\.gz)$/, "Yedek bulunamadı",
+        "Yedek mi? Burada sadece eski VHS kasetleri var."],
+      [/^\/(shell|cmd|cgi-bin|phpinfo\.php|console|actuator|server-status)(\/|\.|$)/, "Kabuk açılmadı",
+        "Burada çalışacak sunucu kodu yok, yalnızca kaset var."]
+    ];
+    var path = location.pathname.toLowerCase().replace(/\/+$/, "") || "/";
+    try { path = decodeURIComponent(path); } catch (e) {}
+    for (var i = 0; i < TRAPS.length; i++) {
+      if (!TRAPS[i][0].test(path)) continue;
+      document.documentElement.classList.add("trap");
+      document.title = "Erişim yok — efef.dev";
+      document.querySelector(".label").textContent = "● REC · Yetkisiz kaset";
+      document.getElementById("st").textContent = "REC";
+      var sub = document.querySelector(".sub");
+      sub.textContent = TRAPS[i][1];
+      if (/^root:/.test(TRAPS[i][1])) sub.style.textTransform = "none";  // gerçek passwd satırı gibi dursun
+      var msg = document.querySelector("p.msg");
+      msg.textContent = TRAPS[i][2];
+      var hire = document.createElement("span");
+      hire.className = "hire";
+      hire.append("Bu işlerle uğraşmayı seviyorsan konuşalım: ");
+      var a = document.createElement("a");
+      a.href = "mailto:hi@efef.dev";
+      a.textContent = "hi@efef.dev";
+      hire.append(a);
+      msg.append(hire);
+      break;
+    }
+
     // istenen adresi göster (metin olarak; HTML'e yorumlanmaz)
     var p = location.pathname;
     try { p = decodeURI(p); } catch (e) {}
-    if (p.length > 1 && p.length < 120) {
+    if (!document.documentElement.classList.contains("trap") && p.length > 1 && p.length < 120) {
       var y = document.getElementById("yol");
       y.append(document.createElement("br"), "İstenen: ");
       var c = document.createElement("code");
