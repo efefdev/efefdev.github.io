@@ -144,6 +144,16 @@
   scenes.forEach((s) => spy.observe(s));
   const spyNow = () => setScene(scenes.find((s) => { const r = s.getBoundingClientRect(); return r.top <= innerHeight * 0.5 && r.bottom >= innerHeight * 0.5; }));
 
+  // bölüm başlıkları ilk görünüşte kısa bir sarsıntı + renk kaymasıyla oturur (hiç gizlenmez)
+  if (!reduce) {
+    const shakeIO = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("shake");
+      shakeIO.unobserve(e.target);
+    }), { threshold: 0.6 });
+    $$(".scene-head, .hero-text h1, .case-title h1").forEach((h) => shakeIO.observe(h));
+  }
+
 
   // ---------- belirme ----------
   const rvIO = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add("in"), rvIO.unobserve(e.target))), { threshold: 0.12 });
