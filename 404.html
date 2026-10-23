@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Sinyal yok — efef.dev</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#08050f" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2308050f'/%3E%3Ccircle cx='11' cy='16' r='5' fill='%23ff3b5c'/%3E%3Ctext x='24' y='21' font-family='monospace' font-size='12' font-weight='700' fill='%23c4b5fd' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    /* 404: kaset bulunamadı. Her adreste sunulduğu için tek dosya, dış CSS/JS'e bağlı değil. */
+    :root { --black: #08050f; --plum: #2a0f45; --lilac: #c4b5fd; --osd: #f1edff; --muted: #bdb3dc; --dim: #7e739e; --rec: #ff3b5c; --mono: "Share Tech Mono", ui-monospace, monospace; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { background: radial-gradient(70% 70% at 70% 15%, var(--plum), var(--black) 70%); color: var(--osd); font-family: "Geist", ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 2px solid var(--lilac); outline-offset: 3px; }
+
+    .bars { position: fixed; top: 0; left: 0; right: 0; height: 6px; display: grid; grid-template-columns: repeat(7, 1fr); z-index: 3; }
+    .bars i:nth-child(1) { background: #c0c0c0; } .bars i:nth-child(2) { background: #c0c000; } .bars i:nth-child(3) { background: #00c0c0; }
+    .bars i:nth-child(4) { background: #00c000; } .bars i:nth-child(5) { background: #c000c0; } .bars i:nth-child(6) { background: #c00000; } .bars i:nth-child(7) { background: #0000c0; }
+
+    /* kumlanma + tarama çizgileri */
+    .grain { position: fixed; inset: -50%; z-index: 1; pointer-events: none; opacity: .14; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); animation: grain .4s steps(3) infinite; }
+    .scan { position: fixed; inset: 0; z-index: 2; pointer-events: none; background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, .25) 2px 3px); }
+    @keyframes grain { 33% { transform: translate(-4%, 3%); } 66% { transform: translate(3%, -5%); } }
+
+    /* vizör */
+    .vf { position: fixed; inset: 0; z-index: 4; pointer-events: none; font-family: var(--mono); text-transform: uppercase; letter-spacing: .08em; text-shadow: 0 0 6px rgba(196, 181, 253, .5), 1px 1px 0 rgba(0, 0, 0, .6); --in: clamp(14px, 2.4vw, 28px); }
+    .c { position: absolute; width: clamp(28px, 5vw, 64px); height: clamp(22px, 4vw, 48px); border: 2px solid rgba(241, 237, 255, .75); }
+    .tl { top: var(--in); left: var(--in); border-right: 0; border-bottom: 0; } .tr { top: var(--in); right: var(--in); border-left: 0; border-bottom: 0; }
+    .bl { bottom: var(--in); left: var(--in); border-right: 0; border-top: 0; } .br { bottom: var(--in); right: var(--in); border-left: 0; border-top: 0; }
+    .stop { position: absolute; top: calc(var(--in) + 14px); left: calc(var(--in) + 18px); display: flex; align-items: center; gap: 8px; font-size: clamp(.85rem, 1.5vw, 1.15rem); }
+    .stop i { width: .75em; height: .75em; background: var(--osd); }
+    .tc { position: absolute; bottom: calc(var(--in) + 12px); right: calc(var(--in) + 18px); font-size: clamp(.85rem, 1.4vw, 1.1rem); animation: blink 1s steps(1) infinite; }
+    .dom { position: absolute; bottom: calc(var(--in) + 12px); left: calc(var(--in) + 18px); font-size: clamp(.8rem, 1.3vw, 1rem); }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    main { position: relative; z-index: 5; min-height: 100%; display: grid; place-items: center; padding: 96px 16px; text-align: center; }
+    .label { font-family: var(--mono); letter-spacing: .14em; color: var(--lilac); font-size: clamp(.85rem, 1.6vw, 1rem); }
+    h1 { font-family: Anton, Impact, "Arial Narrow", sans-serif; font-weight: 400; font-size: clamp(7rem, 26vw, 16rem); line-height: .9; margin: 14px 0 10px; letter-spacing: .02em; text-shadow: -5px 0 rgba(255, 0, 140, .6), 5px 0 rgba(0, 200, 255, .55); animation: jitter 3.2s steps(1) infinite; }
+    @keyframes jitter { 0%, 88%, 100% { transform: none; } 90% { transform: translateX(-6px) skewX(-4deg); } 93% { transform: translateX(5px); } 96% { transform: translateX(-2px); } }
+    .sub { font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; font-size: clamp(1rem, 2.4vw, 1.35rem); }
+    p.msg { margin: 18px auto 34px; max-width: 34ch; color: var(--muted); font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.6; }
+    p.msg code { font-family: var(--mono); color: var(--osd); word-break: break-all; }
+    .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; font-size: .95rem; border: 2px solid rgba(241, 237, 255, .85); transition: background .2s, color .2s; }
+    .btn.primary { background: #7c3aed; border-color: #7c3aed; }
+    .btn:hover { background: var(--osd); color: var(--black); border-color: var(--osd); }
+
+    @media (prefers-reduced-motion: reduce) { .grain, .tc, h1 { animation: none; } }
+  </style>
+</head>
+<body>
+  <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
+  <div class="vf" aria-hidden="true">
+    <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+    <span class="stop"><i></i>Durdu</span>
+    <span class="dom">efef.dev</span>
+    <span class="tc">--:--:--</span>
+  </div>
+
+  <main>
+    <div>
+      <p class="label">▶ Kanal 404</p>
+      <h1>404</h1>
+      <p class="sub">Kaset bulunamadı</p>
+      <p class="msg">Aradığın sayfa bu kasette yok. Adres yanlış yazılmış ya da sayfa taşınmış olabilir.<span id="yol"></span></p>
+      <div class="actions">
+        <a class="btn primary" href="/">◀◀ Başa sar</a>
+        <a class="btn" href="/#projelerim">▶ Projeler</a>
+        <a class="btn" href="/#iletisim">■ İletişim</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // istenen adresi göster (metin olarak; HTML'e yorumlanmaz)
+    var p = location.pathname;
+    try { p = decodeURI(p); } catch (e) {}
+    if (p.length > 1 && p.length < 120) {
+      var y = document.getElementById("yol");
+      y.append(document.createElement("br"), "İstenen: ");
+      var c = document.createElement("code");
+      c.textContent = p;
+      y.append(c);
+    }
+  </script>
+</body>
+</html>
