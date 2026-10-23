@@ -354,16 +354,17 @@
         document.body.append(ghost);
         const LINES = ["7 GÜN", "ARKANA BAKMA", "BU KASETİ İZLEME", "SENİ GÖRÜYORUM"];
         let gi = 0;
-        const haunt = () => setTimeout(async () => {
-          if (!document.hidden && !document.body.classList.contains("paused")) {
+        // ilk kare çabuk gelsin; duraklatılmış (donmuş) karede de belirir, yalnızca sekme gizliyken yok
+        const haunt = (first) => setTimeout(async () => {
+          if (!document.hidden) {
             ghost.textContent = LINES[gi++ % LINES.length];
             ghost.classList.add("on");
             await staticBurst(160);
-            setTimeout(() => ghost.classList.remove("on"), 140);
+            setTimeout(() => ghost.classList.remove("on"), 450); // okunacak kadar kalsın
           }
           haunt();
-        }, 30000 + Math.random() * 30000);
-        haunt();
+        }, first ? 8000 + Math.random() * 4000 : 20000 + Math.random() * 15000);
+        haunt(true);
       }
     }
   }
