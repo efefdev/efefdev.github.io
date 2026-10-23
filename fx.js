@@ -323,4 +323,48 @@
     };
     requestAnimationFrame(done);
   });
+
+  // ---------- Cadılar Bayramı: 24 Ekim – 1 Kasım arası kendiliğinden (?cadilar ile her zaman) ----------
+  {
+    const d = new Date(), m = d.getMonth(), g = d.getDate();
+    if (new URLSearchParams(location.search).has("cadilar") || (m === 9 && g >= 24) || (m === 10 && g <= 1)) {
+      root.classList.add("halloween");
+      vf.insertAdjacentHTML("beforeend", '<span class="vf-hw">🎃 Lanetli kaset · 31.10</span>');
+      // tavandan sarkan örümcek: sayfa aşağı indikçe ipi uzar; tıklayınca kaçar
+      document.body.insertAdjacentHTML("beforeend",
+        `<button class="hw-spider" type="button" aria-label="Örümcek (tıklayınca kaçar)"><i class="thread"></i><svg viewBox="0 0 40 40" aria-hidden="true">
+          <g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round">
+            <path d="M16 18 L8 12 L4 16"/><path d="M16 21 L6 20 L2 25"/><path d="M16 24 L7 28 L4 34"/><path d="M17 26 L11 33 L10 38"/>
+            <path d="M24 18 L32 12 L36 16"/><path d="M24 21 L34 20 L38 25"/><path d="M24 24 L33 28 L36 34"/><path d="M23 26 L29 33 L30 38"/></g>
+          <ellipse cx="20" cy="25" rx="5.5" ry="7" fill="currentColor"/><circle cx="20" cy="16" r="4" fill="currentColor"/>
+          <circle cx="18.4" cy="15.6" r="1" fill="#ff3b5c"/><circle cx="21.6" cy="15.6" r="1" fill="#ff3b5c"/></svg></button>`);
+      const spider = $(".hw-spider");
+      const drop = () => root.style.setProperty("--drop", Math.min(1, scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)).toFixed(3));
+      drop();
+      addEventListener("scroll", drop, { passive: true });
+      spider.addEventListener("click", () => {
+        spider.classList.add("up");
+        setTimeout(() => spider.classList.remove("up"), 9000);
+      });
+      // ara sıra kasete karışan "lanetli kare": kısa parazit + soluk bir yazı (hareket azaltılmışsa yok)
+      if (!reduce) {
+        const ghost = document.createElement("div");
+        ghost.className = "hw-ghost";
+        ghost.setAttribute("aria-hidden", "true");
+        document.body.append(ghost);
+        const LINES = ["7 GÜN", "ARKANA BAKMA", "BU KASETİ İZLEME", "SENİ GÖRÜYORUM"];
+        let gi = 0;
+        const haunt = () => setTimeout(async () => {
+          if (!document.hidden && !document.body.classList.contains("paused")) {
+            ghost.textContent = LINES[gi++ % LINES.length];
+            ghost.classList.add("on");
+            await staticBurst(160);
+            setTimeout(() => ghost.classList.remove("on"), 140);
+          }
+          haunt();
+        }, 30000 + Math.random() * 30000);
+        haunt();
+      }
+    }
+  }
 })();

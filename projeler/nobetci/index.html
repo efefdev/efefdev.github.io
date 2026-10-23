@@ -42,7 +42,7 @@
     @keyframes bootFade { to { opacity: 0; visibility: hidden; } }
     @media (prefers-reduced-motion: reduce) { #boot .rec i { animation: none; } #boot.done { animation: bootFade .2s ease forwards; } }
   </style>
-  <link rel="stylesheet" href="/vhs.css?v=b663d86c" />
+  <link rel="stylesheet" href="/vhs.css?v=655611c1" />
 </head>
 <body data-page="case">
   <div id="boot" aria-hidden="true">
@@ -55,6 +55,8 @@
     (() => {
       const boot = document.getElementById("boot"), bar = document.getElementById("bootBar"), pct = document.getElementById("bootPct");
       const t0 = performance.now();
+      { const d = new Date(), m = d.getMonth(), g = d.getDate(); // Cadılar Bayramı haftası
+        if (/[?&]cadilar/.test(location.search) || (m === 9 && g >= 24) || (m === 10 && g <= 1)) boot.querySelector(".mid p").textContent = "▶ Lanetli kaset yükleniyor"; }
       let fonts = false, loaded = document.readyState === "complete", shown = 0, finished = false;
       document.fonts?.ready.then(() => { fonts = true; });
       addEventListener("load", () => { loaded = true; });
@@ -180,7 +182,7 @@
     </span>
   </footer>
 
-  <script src="/fx.js?v=a9c372c3"></script>
+  <script src="/fx.js?v=649e44ba"></script>
   <script src="/demos.js?v=75196713"></script>
 </body>
 </html>

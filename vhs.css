@@ -495,3 +495,21 @@ body.rewinding .fx-track { opacity: 1; }
   .fx-grain { animation: none; mix-blend-mode: normal; opacity: 0.05; inset: 0; }
   .fx-scan { mix-blend-mode: normal; background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, 0.1) 2px 3px); }
 }
+
+/* ---------- Cadılar Bayramı (fx.js, 24 Ekim – 1 Kasım) ---------- */
+.halloween { --pumpkin: #ff7a1a; --lilac: #ffb36b; --pink: #ff7a1a; --ab-r: rgba(255, 122, 26, 0.65); --ab-b: rgba(124, 58, 237, 0.7); }
+.halloween .vf { text-shadow: 0 0 6px rgba(255, 122, 26, 0.5), 1px 1px 0 rgba(0, 0, 0, 0.6); }
+.halloween .vcr-solid { background: var(--pumpkin); border-color: var(--pumpkin); color: #1a0b00; box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 122, 26, 0.45); }
+.halloween .vcr-solid:hover { background: #ff9a4d; border-color: #ff9a4d; color: #1a0b00; }
+.vf-hw { position: absolute; top: calc(var(--in) + 42px); left: calc(var(--in) + 18px); font-size: clamp(0.72rem, 1.1vw, 0.9rem); letter-spacing: 0.14em; text-transform: uppercase; color: var(--pumpkin); }
+.vf.night .vf-night { top: calc(var(--in) + 62px); }
+.hw-spider { position: fixed; z-index: 61; top: 0; right: calc(clamp(12px, 2.4vw, 28px) + 84px); width: 34px; padding: 0; color: var(--osd); background: none; border: 0; cursor: pointer;
+  transform-origin: 50% 0; transform: translateY(calc(40px + var(--drop, 0) * 34vh)); transition: transform .35s cubic-bezier(.2, .8, .2, 1); filter: drop-shadow(0 0 6px rgba(255, 122, 26, 0.35)); }
+.hw-spider svg { display: block; width: 34px; height: 34px; animation: swing 3.4s ease-in-out infinite; transform-origin: 50% 0; }
+.hw-spider .thread { position: absolute; left: 50%; bottom: calc(100% - 12px); width: 1px; height: 100vh; background: linear-gradient(transparent, rgba(241, 237, 255, 0.55)); }
+.hw-spider.up { transform: translateY(-60px); transition-duration: .5s; }
+@keyframes swing { 0%, 100% { transform: rotate(7deg); } 50% { transform: rotate(-7deg); } }
+.hw-ghost { position: fixed; inset: 0; z-index: 92; display: grid; place-items: center; pointer-events: none; opacity: 0; font-family: var(--display); font-size: clamp(3rem, 12vw, 9rem); letter-spacing: 0.04em; color: rgba(241, 237, 255, 0.55); text-shadow: -4px 0 var(--ab-r), 4px 0 var(--ab-b); mix-blend-mode: screen; }
+.hw-ghost.on { opacity: 1; }
+@media (max-width: 640px) { .hw-spider { right: 64px; width: 26px; } .hw-spider svg { width: 26px; height: 26px; } }
+@media (prefers-reduced-motion: reduce) { .hw-spider svg { animation: none; } .hw-spider { transition: none; } }
