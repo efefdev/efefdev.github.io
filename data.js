@@ -142,6 +142,25 @@ window.SITE = {
   ],
 
 
+  // Kareler: tasarım/kurgu işleri. type: "video" | "image". Videolar sessiz yüklenir (ses dosyadan çıkarıldı).
+  kareler: {
+    intro: "Kod yazmadığım zamanlarda kurgu ve görsel tasarım yapıyorum.",
+    items: [
+      {
+        type: "video",
+        src: "/img/kareler/ilerle.mp4",
+        poster: "/img/kareler/ilerle.jpg",
+        width: 960,
+        height: 540,
+        kind: "Kurgu",
+        when: "Ekim 2026",
+        caption: "ilerle.",
+        alt: "Kamera kaydı görünümlü kısa video kurgusu: bir etkinlikten kareler",
+        link: { label: "Sesli izle: Instagram", url: "https://www.instagram.com/p/DevqLV_s8tg/" },
+      },
+    ],
+  },
+
   security: {
     intro:
       "Güvenliği bir özellik olarak değil, tasarımın başlangıç noktası olarak görüyorum. Yazdığım her sistemde tehdit modeli, en az yetki ve denetlenebilirlik var.",

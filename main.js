@@ -11,6 +11,8 @@
     ext: '<path d="M15 3h6v6M10 14L21 3M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>',
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
     chevron: '<path d="M6 9l6 6 6-6"/>',
+    play: '<path fill="currentColor" stroke="none" d="M8 5.5v13l11-6.5z"/>',
+    pause: '<path fill="currentColor" stroke="none" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/>',
     award: '<circle cx="12" cy="8" r="6"/><path d="M15.5 12.9L17 22l-5-3-5 3 1.5-9.1"/>',
     linkedin: '<path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>',
     instagram: '<rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1112.6 8 4 4 0 0116 11.4zM17.5 6.5h.01"/>',
@@ -54,6 +56,48 @@
     const open = btn.getAttribute("aria-expanded") !== "true";
     btn.setAttribute("aria-expanded", open);
     $(btn.getAttribute("aria-controls")).hidden = !open;
+  });
+
+  // kareler: tasarım/kurgu işleri
+  $("karelerIntro").textContent = S.kareler.intro;
+  $("karelerList").innerHTML = S.kareler.items
+    .map((k) => {
+      const media =
+        k.type === "video"
+          ? `<div class="frame">
+              <video muted loop playsinline preload="none" poster="${esc(k.poster)}" data-src="${esc(k.src)}"
+                width="${k.width}" height="${k.height}" aria-label="${esc(k.alt)}"></video>
+              <button class="play" type="button" aria-label="Oynat">${icon("play")}${icon("pause")}</button>
+            </div>`
+          : `<div class="frame"><img src="${esc(k.src)}" width="${k.width}" height="${k.height}" loading="lazy" alt="${esc(k.alt)}"></div>`;
+      return `<figure class="glass kare">
+        ${media}
+        <figcaption>
+          <div><span class="eyebrow">${esc(k.kind)} · ${esc(k.when)}</span><p class="caption">${esc(k.caption)}</p></div>
+          ${k.link ? `<a class="more" href="${esc(k.link.url)}" target="_blank" rel="noopener noreferrer">${esc(k.link.label)} ${icon("ext")}</a>` : ""}
+        </figcaption>
+      </figure>`;
+    })
+    .join("");
+
+  // videolar: ekranda görünürken sessiz ve döngüde oynar, görünmezken durur; buton ile durdurulabilir
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".kare video").forEach((v) => {
+    const btn = v.parentElement.querySelector(".play");
+    let userPaused = reduceMotion, visible = false;
+    const load = () => { if (!v.src) v.src = v.dataset.src; };
+    const sync = () => {
+      const playing = !v.paused;
+      btn.classList.toggle("is-playing", playing);
+      btn.setAttribute("aria-label", playing ? "Durdur" : "Oynat");
+    };
+    const want = () => visible && !userPaused && !document.hidden;
+    const update = () => { if (want()) { load(); v.play().catch(() => {}); } else v.pause(); };
+    v.addEventListener("play", sync);
+    v.addEventListener("pause", sync);
+    btn.addEventListener("click", () => { userPaused = !v.paused; if (!userPaused) load(); update(); if (!userPaused && v.paused) v.play().catch(() => {}); });
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; update(); }, { threshold: 0.4 }).observe(v);
+    document.addEventListener("visibilitychange", update);
   });
 
   // deneyim: zaman çizelgesi
