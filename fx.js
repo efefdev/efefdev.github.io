@@ -81,6 +81,10 @@
   const fmt = (s) => `0:${String(Math.floor(s / 60)).padStart(2, "0")}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
   const maxScroll = () => Math.max(1, document.documentElement.scrollHeight - innerHeight);
   let lastY = scrollY, lastT = performance.now(), trk = 0, trkTarget = 0, raf = 0, scrubbing = false;
+  // telefonda / dokunmatikte bant bozulması yok
+  const noTrackMQ = matchMedia("(max-width: 760px), (pointer: coarse)");
+  let noTrack = reduce || noTrackMQ.matches;
+  noTrackMQ.addEventListener?.("change", (e) => { noTrack = reduce || e.matches; });
   const paint = () => {
     const p = Math.min(1, Math.max(0, scrollY / maxScroll()));
     tc.textContent = fmt(p * TAPE);
@@ -90,9 +94,10 @@
   const loop = (t) => {
     const dt = Math.max(16, t - lastT), dy = scrollY - lastY;
     lastT = t; lastY = scrollY;
-    const v = Math.min(1, Math.abs(dy) / dt / 3.2); // ~3 px/ms üstü tam bozulma
-    trkTarget = scrubbing ? 1 : v;
-    trk += (trkTarget - trk) * (trkTarget > trk ? 0.5 : 0.08);
+    // eşik yüksek: yalnızca gerçekten hızlı kaydırmada (~9 px/ms) tam bozulma; telefonda tamamen kapalı
+    const v = noTrack ? 0 : Math.min(1, Math.max(0, Math.abs(dy) / dt - 2) / 7);
+    trkTarget = scrubbing && !noTrack ? 0.6 : v;
+    trk += (trkTarget - trk) * (trkTarget > trk ? 0.35 : 0.16);
     if (trk < 0.003) trk = 0;
     root.style.setProperty("--trk", reduce ? 0 : trk.toFixed(3));
     root.classList.toggle("trk", !reduce && trk > 0);
