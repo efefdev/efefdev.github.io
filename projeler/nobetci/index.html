@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Nöbetçi nasıl yapıldı — efef.dev</title>
   <meta name="description" content="Nöbetçi: nginx çalışan Linux sunucular için Telegram'dan yönetilen nöbetçi. Kural motoru banlar, yapay zekâ yalnızca inceler — tasarım kararları ve sınırları." />
   <meta property="og:type" content="article" />
@@ -13,75 +13,72 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#08050f" />
   <link rel="canonical" href="https://efef.dev/projeler/nobetci/" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='17' font-weight='700' fill='%23818cf8' text-anchor='middle'%3Ee%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2308050f'/%3E%3Ccircle cx='11' cy='16' r='5' fill='%23ff3b5c'/%3E%3Ctext x='24' y='21' font-family='monospace' font-size='12' font-weight='700' fill='%23c4b5fd' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=ee8222c6" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/vhs.css?v=a6588029" />
 </head>
-<body>
-  <a class="skip" href="#icerik">İçeriğe geç</a>
-  <div class="backdrop" aria-hidden="true"><canvas id="flow"></canvas></div>
-
-  <nav class="nav" aria-label="Site">
-    <a href="/">efef.dev</a>
-    <a href="/#projelerim">Projeler</a>
-    <a href="/#iletisim">İletişim</a>
-  </nav>
-
-  <header class="case-hero" id="top">
-    <a class="back" href="/#projelerim">← Tüm projeler</a>
-    <span class="eyebrow">Güvenlik · 2026</span>
-    <h1>Nöbetçi</h1>
-    <p class="hook">Banı asla yapay zekâ tetiklemez.</p>
-    <div class="case-meta">
-      <a href="https://nobetci.efef.dev" target="_blank" rel="noopener noreferrer">nobetci.efef.dev ↗</a>
-      <a href="https://github.com/efefdev/nobetci" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-      <span>Lisans: MIT</span>
+<body data-page="case">
+  <header class="scene case-hero" id="top" data-scene="indigo" data-name="NÖBETÇİ">
+    <div class="case-title">
+      <a class="back" href="/#projelerim">◀◀ Tüm projeler</a>
+      <span class="eyebrow">Nasıl yaptım · Güvenlik · 2026</span>
+      <h1 class="rgb">Nöbetçi</h1>
+      <p class="hook">Banı asla yapay zekâ tetiklemez.</p>
+      <div class="case-meta">
+        <a href="https://nobetci.efef.dev" target="_blank" rel="noopener noreferrer">↗ nobetci.efef.dev</a>
+        <a href="https://github.com/efefdev/nobetci" target="_blank" rel="noopener noreferrer">↗ GitHub</a>
+        <span>Lisans: MIT</span>
+      </div>
     </div>
   </header>
 
   <main class="case" id="icerik">
-    <section>
-      <div class="glass"><div class="demo demo-nobetci" data-demo="nobetci"></div>
-        <p style="font-size:.88rem;color:var(--gray-400)">Simülasyon: kural motoru tuzak URL ve SQL injection denemelerini yakalayıp banlıyor; düşük güvenli bir XSS denemesi için Telegram'dan onay istiyor.</p>
+    <section class="scene" data-scene="tv" data-name="DEMO">
+      <div class="scene-head"><span class="osd">CH 01</span><h2 class="rgb">DEMO</h2><span class="osd tc">SİM</span></div>
+      <div class="case-body">
+        <div class="demo demo-nobetci" data-demo="nobetci"></div>
+        <p class="lead">Simülasyon: kural motoru tuzak URL ve SQL injection denemelerini yakalayıp banlıyor; düşük güvenli bir XSS denemesi için Telegram'dan onay istiyor.</p>
       </div>
     </section>
 
-    <section>
-      <h2>Problem</h2>
-      <div class="prose">
+    <section class="scene" data-scene="plum" data-name="PROBLEM">
+      <div class="scene-head"><span class="osd">CH 02</span><h2 class="rgb">PROBLEM</h2><span class="osd tc">0:00:10</span></div>
+      <div class="case-body prose">
         <p>İnternete açık her sunucu sürekli taranıyor: <code>/.env</code>, <code>/.git/config</code>, SQL injection, webshell aramaları. fail2ban SSH tarafında iyi iş çıkarıyor; ama web saldırılarını yakalamak ve <strong>"son bir saatte ne oldu?"</strong> sorusuna cevap vermek için başka bir şeye ihtiyaç var.</p>
         <p>Yapay zekâ bu işe cazip görünüyor; ama loglarda bir tuzak var:</p>
+        <p class="quote">Loglar saldırganın yazdığı metindir. Yapay zekâya ban yetkisi vermek, o yetkiyi saldırgana vermek demektir.</p>
       </div>
-      <p class="quote">Loglar saldırganın yazdığı metindir. Yapay zekâya ban yetkisi vermek, o yetkiyi saldırgana vermek demektir.</p>
     </section>
 
-    <section>
-      <h2>Nasıl çalışıyor</h2>
-      <div class="prose">
+    <section class="scene" data-scene="indigo" data-name="NASIL ÇALIŞIYOR">
+      <div class="scene-head"><span class="osd">CH 03</span><h2 class="rgb">NASIL ÇALIŞIYOR</h2><span class="osd tc">0:00:18</span></div>
+      <div class="case-body prose">
         <p>Nöbetçi üç dakikada bir nginx, SSH ve güvenlik duvarı loglarını okuyor. <strong>Kural motoru</strong> SSH kaba kuvvet denemelerini, SQL injection'ı, webshell aramalarını, dizin geçişini, saldırı araçlarını ve tuzak URL'lere gelen istekleri yakalıyor; IP'yi nginx'te, istenirse Cloudflare'in kenarında da banlıyor.</p>
         <p><strong>Yapay zekâ katmanı</strong> aynı loglara kuralların kaçırdıkları için bakıyor ve bota yazılan düz sorulara sunucunun salt okunur bir anlık görüntüsünden cevap veriyor. Uyarılar Telegram'a geliyor; banlar butonla onaylanıyor ya da geri alınıyor.</p>
       </div>
     </section>
 
-    <section>
-      <h2>Kritik kararlar</h2>
-      <div class="grid-2">
-        <div class="glass decision"><span class="eyebrow">01</span><h3>Kurallar karar verir, yapay zekâ yorumlar</h3><p>Her tespit kaynak IP'sini biliyor; banlar hiçbir zaman yapay zekâya bağlı değil. Model ne yazarsa yazsın kimseyi banlayamıyor.</p></div>
-        <div class="glass decision"><span class="eyebrow">02</span><h3>Loglar çitlenir ve maskelenir</h3><p>Loglar "güvenilmeyen veri" olarak işaretlenip çitleniyor. IP, e-posta, parola ve token'lar dışarı gönderilmeden maskeleniyor; yerel Ollama seçilirse hiçbir şey sunucudan çıkmıyor.</p></div>
-        <div class="glass decision"><span class="eyebrow">03</span><h3>Butonlar komut taşımaz</h3><p>Telegram butonları yalnızca sabit bir eylem taşıyor (bir IP'yi belli bir süre banla). Hiçbir buton kabuk komutu çalıştıramıyor; bot yalnızca sahibinin sohbetine cevap veriyor.</p></div>
-        <div class="glass decision"><span class="eyebrow">04</span><h3>Tuzak URL'ler</h3><p>Gerçek bir ziyaretçinin asla istemeyeceği yollar (<code>/.env</code>, <code>/.git/config</code>…) anında ban. Düşük güvenli tespitler ise <em>Onayla / Reddet</em> butonlarıyla geliyor.</p></div>
-        <div class="glass decision"><span class="eyebrow">05</span><h3>Güvenli güncelleme</h3><p><code>/update</code> yalnızca etiketli sürümler arasında geçiyor, önce değişiklikleri gösteriyor, onay istiyor ve geri alınabiliyor. <code>main</code> dalı hiçbir zaman doğrudan kurulmuyor.</p></div>
-        <div class="glass decision"><span class="eyebrow">06</span><h3>Kesintiye dayanıklı</h3><p>Telegram, yapay zekâ ve Cloudflare çağrıları <a class="link" href="https://github.com/dagdelenemre/nopanic" target="_blank" rel="noopener noreferrer">nopanic</a> üzerinden: geri çekilmeli yeniden deneme, <code>Retry-After</code>'a uyma ve devre kesici. Tek bağımlılık, hash ile sabitlenmiş.</p></div>
+    <section class="scene" data-scene="uv" data-name="KARARLAR">
+      <div class="scene-head"><span class="osd">CH 04</span><h2 class="rgb">KARARLAR</h2><span class="osd tc">0:00:27</span></div>
+      <div class="case-body">
+        <div class="decisions">
+          <div class="decision rv"><span class="n">REC 01</span><h3>Kurallar karar verir, yapay zekâ yorumlar</h3><p>Her tespit kaynak IP'sini biliyor; banlar hiçbir zaman yapay zekâya bağlı değil. Model ne yazarsa yazsın kimseyi banlayamıyor.</p></div>
+          <div class="decision rv"><span class="n">REC 02</span><h3>Loglar çitlenir ve maskelenir</h3><p>Loglar "güvenilmeyen veri" olarak işaretlenip çitleniyor. IP, e-posta, parola ve token'lar dışarı gönderilmeden maskeleniyor; yerel Ollama seçilirse hiçbir şey sunucudan çıkmıyor.</p></div>
+          <div class="decision rv"><span class="n">REC 03</span><h3>Butonlar komut taşımaz</h3><p>Telegram butonları yalnızca sabit bir eylem taşıyor (bir IP'yi belli bir süre banla). Hiçbir buton kabuk komutu çalıştıramıyor; bot yalnızca sahibinin sohbetine cevap veriyor.</p></div>
+          <div class="decision rv"><span class="n">REC 04</span><h3>Tuzak URL'ler</h3><p>Gerçek bir ziyaretçinin asla istemeyeceği yollar (<code>/.env</code>, <code>/.git/config</code>…) anında ban. Düşük güvenli tespitler ise <em>Onayla / Reddet</em> butonlarıyla geliyor.</p></div>
+          <div class="decision rv"><span class="n">REC 05</span><h3>Güvenli güncelleme</h3><p><code>/update</code> yalnızca etiketli sürümler arasında geçiyor, önce değişiklikleri gösteriyor, onay istiyor ve geri alınabiliyor. <code>main</code> dalı hiçbir zaman doğrudan kurulmuyor.</p></div>
+          <div class="decision rv"><span class="n">REC 06</span><h3>Kesintiye dayanıklı</h3><p>Telegram, yapay zekâ ve Cloudflare çağrıları <a class="more" href="https://github.com/dagdelenemre/nopanic" target="_blank" rel="noopener noreferrer">nopanic</a> üzerinden: geri çekilmeli yeniden deneme, <code>Retry-After</code>'a uyma ve devre kesici. Tek bağımlılık, hash ile sabitlenmiş.</p></div>
+        </div>
       </div>
     </section>
 
-    <section>
-      <h2>Telegram'dan yönetim</h2>
-      <div class="glass">
+    <section class="scene" data-scene="screen" data-name="TELEGRAM">
+      <div class="scene-head"><span class="osd">CH 05</span><h2 class="rgb">TELEGRAM</h2><span class="osd tc">0:00:36</span></div>
+      <div class="case-body">
         <table class="spec">
           <tr><th><code>/status</code></th><td>Disk, bellek, yük, servisler ve nginx ban dosyasının dahil edilip edilmediği</td></tr>
           <tr><th><code>/banlist</code></th><td>Aktif banlar, kalan süre ve IP başına <em>Kaldır</em> butonu</td></tr>
@@ -92,16 +89,16 @@
       </div>
     </section>
 
-    <section>
-      <h2>1.x'ten 2.0'a</h2>
-      <div class="prose">
-        <p>Nöbetçi'nin ilk sürümü <code>soc-ai-telegram-bot</code> adıyla çıktı. 1.x'te bütün uyarıları sessizce susturan bir içe aktarma hatası vardı; onu <a class="link" href="https://github.com/dagdelenemre" target="_blank" rel="noopener noreferrer">Emre Kadir Dağdelen</a> buldu. 2.0 bu dersle yeniden yazıldı: ağ hatalarını (zaman aşımı, 429, 5xx, kesinti) taklit eden testler ağ, token, nginx ya da root gerektirmeden çalışıyor. 1.x'ten geçişte config, veritabanı ve banlar korunuyor.</p>
+    <section class="scene" data-scene="plum" data-name="1.X → 2.0">
+      <div class="scene-head"><span class="osd">CH 06</span><h2 class="rgb no-tt">1.x → 2.0</h2><span class="osd tc">0:00:45</span></div>
+      <div class="case-body prose">
+        <p>Nöbetçi'nin ilk sürümü <code>soc-ai-telegram-bot</code> adıyla çıktı. 1.x'te bütün uyarıları sessizce susturan bir içe aktarma hatası vardı; onu <a class="more" href="https://github.com/dagdelenemre" target="_blank" rel="noopener noreferrer">Emre Kadir Dağdelen</a> buldu. 2.0 bu dersle yeniden yazıldı: ağ hatalarını (zaman aşımı, 429, 5xx, kesinti) taklit eden testler ağ, token, nginx ya da root gerektirmeden çalışıyor. 1.x'ten geçişte config, veritabanı ve banlar korunuyor.</p>
       </div>
     </section>
 
-    <section>
-      <h2>Dürüst sınırlar</h2>
-      <div class="prose">
+    <section class="scene" data-scene="nosignal" data-name="SINIRLAR">
+      <div class="scene-head"><span class="osd">CH 07</span><h2 class="rgb">SINIRLAR</h2><span class="osd tc">0:00:53</span></div>
+      <div class="case-body prose">
         <ul>
           <li>fail2ban'in yerine değil, yanında çalışıyor.</li>
           <li>nginx yapılandırmasını düzenlediği için root olarak çalışıyor; config ve veritabanı yalnızca root'a açık.</li>
@@ -109,20 +106,23 @@
           <li>Güvenliğe yardım ediyor, garanti vermiyor: önce test sunucusunda denemek ve web sunucusuna bağlı olmayan bir SSH erişimi tutmak gerekiyor.</li>
         </ul>
       </div>
-    </section>
-
-    <section class="next">
-      <a class="pill pill-glass" href="/projeler/mahzen/">← Mahzen nasıl yapıldı</a>
-      <a class="pill pill-white" href="/#projelerim">Tüm projeler →</a>
+      <div class="next" style="margin-top:56px">
+        <a class="vcr" href="/projeler/mahzen/">◀◀ Mahzen nasıl yapıldı</a>
+        <a class="vcr vcr-solid" href="/#projelerim">Tüm projeler ▶▶</a>
+      </div>
     </section>
   </main>
 
-  <footer>
+  <footer class="stop">
+    <span class="osd">■ STOP</span>
     <p>© 2026 efef.dev</p>
-    <a class="to-top" href="#top">Yukarı ↑</a>
+    <span class="stop-actions">
+      <button class="osd eject-btn" type="button" data-eject="open">⏏ Eject</button>
+      <a class="osd rewind" href="#top">◀◀ Başa sar</a>
+    </span>
   </footer>
 
-  <script src="/flow.js?v=de24656b"></script>
+  <script src="/fx.js?v=ed8e8261"></script>
   <script src="/demos.js?v=75196713"></script>
 </body>
 </html>

@@ -422,3 +422,11 @@ footer {
   .log li { grid-template-columns: 1fr auto; }
   .log li .ip { grid-column: 1 / -1; font-size: 0.62rem; }
 }
+
+/* /v2/: "eski kaset" şeridi */
+.old-tape {
+  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 40; padding: 8px 16px; border-radius: 999px;
+  font-family: var(--mono); font-size: 0.8rem; color: var(--indigo-200); white-space: nowrap;
+  background: rgba(30, 27, 75, 0.85); border: 1px solid rgba(165, 180, 252, 0.35); backdrop-filter: blur(8px);
+}
+.old-tape:hover { color: #fff; border-color: var(--indigo-300); }
