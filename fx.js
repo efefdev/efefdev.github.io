@@ -200,6 +200,18 @@
     channel(n, target);
   });
 
+  // ---------- kartvizitteki QR'dan gelen (efef.dev/?k): "kartvizit kaseti" oynamaya başlar ----------
+  if (new URLSearchParams(location.search).has("k")) {
+    history.replaceState(null, "", location.pathname + location.hash); // paylaşılan link temiz kalsın
+    setTimeout(async () => {
+      chOsd.textContent = "▶ PLAY · KARTVİZİT KASETİ";
+      chOsd.classList.add("on");
+      await staticBurst(320);
+      clearTimeout(chTimer);
+      chTimer = setTimeout(() => chOsd.classList.remove("on"), 3200);
+    }, 900); // yükleme ekranı kalktıktan sonra
+  }
+
   // ---------- menü (telefonda kamera menüsü gibi tam ekran) ----------
   const menu = $(".menu"), menuBtn = $(".menu-btn");
   function setMenu(open) {
