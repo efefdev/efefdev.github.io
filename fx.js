@@ -76,7 +76,7 @@
   setInterval(clock, 15000);
 
   // ---------- sayaç + kaset çubuğu + hıza tepki veren tracking ----------
-  const TAPE = 58; // "ilerle." kadar
+  const TAPE = 39; // Instagram'daki "ilerle." kadar
   const tc = $(".vf-tc"), bar = $(".vf-bar"), head = $(".vf-bar .head");
   const fmt = (s) => `0:${String(Math.floor(s / 60)).padStart(2, "0")}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
   const maxScroll = () => Math.max(1, document.documentElement.scrollHeight - innerHeight);

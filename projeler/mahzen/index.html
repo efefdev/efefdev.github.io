@@ -46,7 +46,7 @@
     </section>
 
     <section class="scene" data-scene="indigo" data-name="PROBLEM">
-      <div class="scene-head"><span class="osd">CH 02</span><h2 class="rgb">PROBLEM</h2><span class="osd tc">0:00:12</span></div>
+      <div class="scene-head"><span class="osd">CH 02</span><h2 class="rgb">PROBLEM</h2><span class="osd tc">0:00:08</span></div>
       <div class="case-body prose">
         <p>Dosyalar, notlar ve parolalar genelde farklı yerlere dağılır; bulut kasalar ise hesap ister ve veriyi internete taşır. Hedefim, <strong>bir SSD'ye koyup her bilgisayarda açabileceğim, hiçbir şeyi dışarı göndermeyen tek bir kasaydı.</strong></p>
         <p>Mahzen bu yüzden yerel bir uygulama: uygulama ile kasa yan yana bir SSD'de durabiliyor, aynı kasa her Mac'te ve her Linux bilgisayarda açılıyor. Hesap yok, sunucu yok.</p>
@@ -54,7 +54,7 @@
     </section>
 
     <section class="scene" data-scene="plum" data-name="YAKLAŞIM">
-      <div class="scene-head"><span class="osd">CH 03</span><h2 class="rgb">YAKLAŞIM</h2><span class="osd tc">0:00:20</span></div>
+      <div class="scene-head"><span class="osd">CH 03</span><h2 class="rgb">YAKLAŞIM</h2><span class="osd tc">0:00:13</span></div>
       <div class="case-body prose">
         <p>Şifreleme çekirdeğini (<code>MahzenCore</code>) arayüzden tamamen ayırdım; kasa biçimi, yedekleme ve bütünlük taraması arayüze dokunmadan test edilebiliyor. macOS uygulaması SwiftUI, Linux uygulaması GTK 4 ve libadwaita ile yazıldı; ikisi <strong>aynı kasa biçimini</strong> konuşuyor.</p>
         <p>İki sürümün gerçekten uyuştuğunu bir test kanıtlıyor: <code>LinuxCompatibilityTests</code>, Linux sürümüyle oluşturulmuş bir kasayı macOS çekirdeğiyle açıyor. Toplam 44 test şifrelemeyi, parça doğrulamayı, kurcalama tespitini ve Argon2 referans test vektörlerini kapsıyor.</p>
@@ -62,7 +62,7 @@
     </section>
 
     <section class="scene" data-scene="screen" data-name="ŞİFRELEME">
-      <div class="scene-head"><span class="osd">CH 04</span><h2 class="rgb">ŞİFRELEME</h2><span class="osd tc">0:00:28</span></div>
+      <div class="scene-head"><span class="osd">CH 04</span><h2 class="rgb">ŞİFRELEME</h2><span class="osd tc">0:00:19</span></div>
       <div class="case-body">
         <table class="spec">
           <tr><th>Veri</th><td><strong>AES-256-GCM</strong> (Apple CryptoKit). Her dosya kendi anahtarıyla, 1 MB'lık parçalar halinde şifrelenir.</td></tr>
@@ -74,7 +74,7 @@
     </section>
 
     <section class="scene" data-scene="uv" data-name="KARARLAR">
-      <div class="scene-head"><span class="osd">CH 05</span><h2 class="rgb">KARARLAR</h2><span class="osd tc">0:00:36</span></div>
+      <div class="scene-head"><span class="osd">CH 05</span><h2 class="rgb">KARARLAR</h2><span class="osd tc">0:00:24</span></div>
       <div class="case-body">
         <div class="decisions">
           <div class="decision rv"><span class="n">REC 01</span><h3>Dosya adları da sır</h3><p>Kasa klasöründe yalnızca rastgele adlı şifreli dosyalar var. Dosya adları, klasörler, etiketler, notlar ve parolalar da şifreli dizinde duruyor.</p></div>
@@ -87,7 +87,7 @@
     </section>
 
     <section class="scene" data-scene="tv" data-name="EKRANLAR">
-      <div class="scene-head"><span class="osd">CH 06</span><h2 class="rgb">EKRANLAR</h2><span class="osd tc">0:00:44</span></div>
+      <div class="scene-head"><span class="osd">CH 06</span><h2 class="rgb">EKRANLAR</h2><span class="osd tc">0:00:30</span></div>
       <div class="shots">
         <figure class="rv"><div class="tv"><div class="frame"><img src="/img/mahzen/kilit.webp" width="1200" height="771" loading="lazy" alt="Mahzen kilit ekranı: saat, kasa adı ve parola alanı"></div></div><figcaption>Kilit ekranı</figcaption></figure>
         <figure class="rv"><div class="tv"><div class="frame"><img src="/img/mahzen/dosyalar.webp" width="1200" height="771" loading="lazy" alt="Mahzen dosyalar görünümü: klasörler ve görsel küçük resimleri"></div></div><figcaption>Dosyalar</figcaption></figure>
@@ -99,7 +99,7 @@
     </section>
 
     <section class="scene" data-scene="nosignal" data-name="SINIRLAR">
-      <div class="scene-head"><span class="osd">CH 07</span><h2 class="rgb">SINIRLAR</h2><span class="osd tc">0:00:52</span></div>
+      <div class="scene-head"><span class="osd">CH 07</span><h2 class="rgb">SINIRLAR</h2><span class="osd tc">0:00:35</span></div>
       <div class="case-body prose">
         <ul>
           <li><strong>Bağımsız güvenlik denetiminden geçmedi.</strong> Yapı taşları (CryptoKit, Argon2 referans uygulaması) denetlenmiş kütüphaneler; onları birleştiren Mahzen kodu denetlenmedi.</li>
@@ -124,7 +124,7 @@
     </span>
   </footer>
 
-  <script src="/fx.js?v=ed8e8261"></script>
+  <script src="/fx.js?v=925c8789"></script>
   <script src="/demos.js?v=75196713"></script>
 </body>
 </html>

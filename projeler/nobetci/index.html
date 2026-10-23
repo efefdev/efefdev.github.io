@@ -46,7 +46,7 @@
     </section>
 
     <section class="scene" data-scene="plum" data-name="PROBLEM">
-      <div class="scene-head"><span class="osd">CH 02</span><h2 class="rgb">PROBLEM</h2><span class="osd tc">0:00:10</span></div>
+      <div class="scene-head"><span class="osd">CH 02</span><h2 class="rgb">PROBLEM</h2><span class="osd tc">0:00:07</span></div>
       <div class="case-body prose">
         <p>İnternete açık her sunucu sürekli taranıyor: <code>/.env</code>, <code>/.git/config</code>, SQL injection, webshell aramaları. fail2ban SSH tarafında iyi iş çıkarıyor; ama web saldırılarını yakalamak ve <strong>"son bir saatte ne oldu?"</strong> sorusuna cevap vermek için başka bir şeye ihtiyaç var.</p>
         <p>Yapay zekâ bu işe cazip görünüyor; ama loglarda bir tuzak var:</p>
@@ -55,7 +55,7 @@
     </section>
 
     <section class="scene" data-scene="indigo" data-name="NASIL ÇALIŞIYOR">
-      <div class="scene-head"><span class="osd">CH 03</span><h2 class="rgb">NASIL ÇALIŞIYOR</h2><span class="osd tc">0:00:18</span></div>
+      <div class="scene-head"><span class="osd">CH 03</span><h2 class="rgb">NASIL ÇALIŞIYOR</h2><span class="osd tc">0:00:12</span></div>
       <div class="case-body prose">
         <p>Nöbetçi üç dakikada bir nginx, SSH ve güvenlik duvarı loglarını okuyor. <strong>Kural motoru</strong> SSH kaba kuvvet denemelerini, SQL injection'ı, webshell aramalarını, dizin geçişini, saldırı araçlarını ve tuzak URL'lere gelen istekleri yakalıyor; IP'yi nginx'te, istenirse Cloudflare'in kenarında da banlıyor.</p>
         <p><strong>Yapay zekâ katmanı</strong> aynı loglara kuralların kaçırdıkları için bakıyor ve bota yazılan düz sorulara sunucunun salt okunur bir anlık görüntüsünden cevap veriyor. Uyarılar Telegram'a geliyor; banlar butonla onaylanıyor ya da geri alınıyor.</p>
@@ -63,7 +63,7 @@
     </section>
 
     <section class="scene" data-scene="uv" data-name="KARARLAR">
-      <div class="scene-head"><span class="osd">CH 04</span><h2 class="rgb">KARARLAR</h2><span class="osd tc">0:00:27</span></div>
+      <div class="scene-head"><span class="osd">CH 04</span><h2 class="rgb">KARARLAR</h2><span class="osd tc">0:00:18</span></div>
       <div class="case-body">
         <div class="decisions">
           <div class="decision rv"><span class="n">REC 01</span><h3>Kurallar karar verir, yapay zekâ yorumlar</h3><p>Her tespit kaynak IP'sini biliyor; banlar hiçbir zaman yapay zekâya bağlı değil. Model ne yazarsa yazsın kimseyi banlayamıyor.</p></div>
@@ -77,7 +77,7 @@
     </section>
 
     <section class="scene" data-scene="screen" data-name="TELEGRAM">
-      <div class="scene-head"><span class="osd">CH 05</span><h2 class="rgb">TELEGRAM</h2><span class="osd tc">0:00:36</span></div>
+      <div class="scene-head"><span class="osd">CH 05</span><h2 class="rgb">TELEGRAM</h2><span class="osd tc">0:00:24</span></div>
       <div class="case-body">
         <table class="spec">
           <tr><th><code>/status</code></th><td>Disk, bellek, yük, servisler ve nginx ban dosyasının dahil edilip edilmediği</td></tr>
@@ -90,14 +90,14 @@
     </section>
 
     <section class="scene" data-scene="plum" data-name="1.X → 2.0">
-      <div class="scene-head"><span class="osd">CH 06</span><h2 class="rgb no-tt">1.x → 2.0</h2><span class="osd tc">0:00:45</span></div>
+      <div class="scene-head"><span class="osd">CH 06</span><h2 class="rgb no-tt">1.x → 2.0</h2><span class="osd tc">0:00:30</span></div>
       <div class="case-body prose">
         <p>Nöbetçi'nin ilk sürümü <code>soc-ai-telegram-bot</code> adıyla çıktı. 1.x'te bütün uyarıları sessizce susturan bir içe aktarma hatası vardı; onu <a class="more" href="https://github.com/dagdelenemre" target="_blank" rel="noopener noreferrer">Emre Kadir Dağdelen</a> buldu. 2.0 bu dersle yeniden yazıldı: ağ hatalarını (zaman aşımı, 429, 5xx, kesinti) taklit eden testler ağ, token, nginx ya da root gerektirmeden çalışıyor. 1.x'ten geçişte config, veritabanı ve banlar korunuyor.</p>
       </div>
     </section>
 
     <section class="scene" data-scene="nosignal" data-name="SINIRLAR">
-      <div class="scene-head"><span class="osd">CH 07</span><h2 class="rgb">SINIRLAR</h2><span class="osd tc">0:00:53</span></div>
+      <div class="scene-head"><span class="osd">CH 07</span><h2 class="rgb">SINIRLAR</h2><span class="osd tc">0:00:36</span></div>
       <div class="case-body prose">
         <ul>
           <li>fail2ban'in yerine değil, yanında çalışıyor.</li>
@@ -122,7 +122,7 @@
     </span>
   </footer>
 
-  <script src="/fx.js?v=ed8e8261"></script>
+  <script src="/fx.js?v=925c8789"></script>
   <script src="/demos.js?v=75196713"></script>
 </body>
 </html>
