@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Efe Altıntaş — efef.dev</title>
+  <meta name="description" content="Efe Altıntaş — Backend & siber güvenlik geliştiricisi. Projeler, kurgu ve tasarım işleri." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Efe Altıntaş — efef.dev" />
+  <meta property="og:description" content="Backend & siber güvenlik geliştiricisi." />
+  <meta property="og:url" content="https://efef.dev/" />
+  <meta property="og:image" content="https://efef.dev/img/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0d0705" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d0705'/%3E%3Ccircle cx='11' cy='16' r='5' fill='%23ff3b30'/%3E%3Ctext x='24' y='21' font-family='monospace' font-size='12' font-weight='700' fill='%23efe9dc' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vhs.css?v=0" />
+</head>
+<body>
+  <a class="skip" href="#projelerim">İçeriğe geç</a>
+
+  <!-- kamera vizörü: tüm sayfanın üstünde sabit -->
+  <div class="vf" aria-hidden="true">
+    <span class="vf-c tl"></span><span class="vf-c tr"></span><span class="vf-c bl"></span><span class="vf-c br"></span>
+    <span class="vf-rec"><i></i>REC</span>
+    <span class="vf-bat">SP <svg viewBox="0 0 30 14"><rect x="1" y="1" width="25" height="12" rx="1.5"/><rect class="b" x="4" y="4" width="5" height="6"/><rect class="b" x="11" y="4" width="5" height="6"/><rect class="b" x="18" y="4" width="5" height="6"/><rect x="26.5" y="4.5" width="2.5" height="5"/></svg></span>
+    <span class="vf-date"><b id="vfDate">OCT. 20 2026</b><b id="vfTime">PM 6:12</b></span>
+    <span class="vf-tc" id="vfTc">0:00:00</span>
+    <span class="vf-scene" id="vfScene">▶ PLAY</span>
+  </div>
+  <div class="fx-scan" aria-hidden="true"></div>
+  <div class="fx-grain" aria-hidden="true"></div>
+  <div class="fx-vignette" aria-hidden="true"></div>
+
+  <!-- menü: masaüstünde üstte, telefonda kamera menüsü gibi açılır -->
+  <nav class="menu" aria-label="Bölümler">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menuList">MENU</button>
+    <ol class="menu-list" id="menuList">
+      <li><a href="#projelerim">Projeler</a></li>
+      <li><a href="#kareler">Kareler</a></li>
+      <li><a href="#deneyim">Deneyim</a></li>
+      <li><a href="#hakkimda">Hakkımda</a></li>
+      <li><a href="#iletisim">İletişim</a></li>
+    </ol>
+  </nav>
+
+  <header class="hero scene" id="top" data-scene="amber" data-name="TAPE 01">
+    <div class="collage" id="collage" aria-hidden="true"></div>
+    <div class="hero-text">
+      <p class="osd-label">▶ PLAY &nbsp;·&nbsp; efef.dev</p>
+      <h1 class="rgb" data-text="EFE ALTINTAŞ">EFE ALTINTAŞ</h1>
+      <p class="role" id="role"></p>
+      <p class="tagline" id="tagline"></p>
+      <div class="cta">
+        <a class="vcr vcr-solid" href="#projelerim">▶ Projeler</a>
+        <a class="vcr" href="#iletisim">■ İletişim</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="scene" id="projelerim" data-scene="night" data-name="PROJELER">
+      <div class="scene-head"><span class="osd">SCENE 01</span><h2 class="rgb" data-text="PROJELER">PROJELER</h2><span class="osd tc">0:00:07</span></div>
+      <div class="bento" id="projects"></div>
+    </section>
+
+    <section class="scene" id="kareler" data-scene="tv" data-name="KARELER">
+      <div class="scene-head"><span class="osd">SCENE 02</span><h2 class="rgb" data-text="KARELER">KARELER</h2><span class="osd tc">0:00:13</span></div>
+      <div class="lead-wrap"><p class="lead" id="karelerIntro"></p></div>
+      <div class="kareler" id="karelerList"></div>
+    </section>
+
+    <section class="scene" id="deneyim" data-scene="brick" data-name="DENEYİM">
+      <div class="scene-head"><span class="osd">SCENE 03</span><h2 class="rgb" data-text="DENEYİM">DENEYİM</h2><span class="osd tc">0:00:22</span></div>
+      <ol class="log" id="experience"></ol>
+      <div class="labels" id="certs"></div>
+    </section>
+
+    <section class="scene" id="hakkimda" data-scene="amber" data-name="HAKKIMDA">
+      <div class="scene-head"><span class="osd">SCENE 04</span><h2 class="rgb" data-text="HAKKIMDA">HAKKIMDA</h2><span class="osd tc">0:00:31</span></div>
+      <div class="about">
+        <figure class="cutout about-photo"><img src="img/selfie.webp" width="760" height="406" alt="Efe Altıntaş, elini çenesine koymuş, kameraya bakıyor" loading="lazy"></figure>
+        <div>
+          <div class="prose" id="aboutText"></div>
+          <ul class="focus" id="focus"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" id="yetkinlikler" data-scene="screen" data-name="YETKİNLİKLER">
+      <div class="scene-head"><span class="osd">SCENE 05</span><h2 class="rgb" data-text="YETKİNLİKLER">YETKİNLİKLER</h2><span class="osd tc">0:00:37</span></div>
+      <div class="lead-wrap"><p class="lead" id="secIntro"></p></div>
+      <div class="sec" id="secItems"></div>
+      <dl class="tech" id="stackList"></dl>
+    </section>
+
+    <section class="scene contact" id="iletisim" data-scene="nosignal" data-name="İLETİŞİM">
+      <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="scene-head"><span class="osd">SCENE 06</span><h2 class="rgb" data-text="İLETİŞİM">İLETİŞİM</h2><span class="osd tc">0:00:49</span></div>
+      <div class="lead-wrap"><p class="lead">Sosyal ağlar ya da e-posta üzerinden iletişime geçebilirsiniz.</p></div>
+      <div class="mail-row">
+        <a class="mail-big" id="emailBig" href="#"></a>
+        <button class="vcr" id="copyBtn" type="button">Kopyala</button>
+      </div>
+      <div class="socials" id="socials" lang="en"></div>
+    </section>
+  </main>
+
+  <footer class="stop">
+    <span class="osd">■ STOP</span>
+    <p id="footer"></p>
+    <a class="osd rewind" id="rewind" href="#top">◀◀ Başa sar</a>
+  </footer>
+
+  <script src="/data.js?v=0"></script>
+  <script src="vhs.js?v=0"></script>
+  <script src="/demos.js?v=0"></script>
+</body>
+</html>
