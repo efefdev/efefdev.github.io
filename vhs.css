@@ -354,16 +354,6 @@ body.ejected { overflow: hidden; }
   .kareler.many .kare:not(.first) .caption { font-size: clamp(2rem, 4vw, 3rem); }
 }
 
-/* Instagram oynatıcısı penceresi */
-.ig-modal { position: fixed; inset: 0; z-index: 97; display: grid; place-items: center; padding: 16px; background: rgba(5, 3, 10, 0.86); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-.ig-modal[hidden] { display: none; }
-.ig-box { width: min(540px, 100%); max-height: calc(100svh - 32px); display: flex; flex-direction: column; background: linear-gradient(145deg, #241a36, #0e0918); border-radius: 22px; padding: 12px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 80px rgba(124, 58, 237, 0.3); }
-.ig-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 4px 6px 12px; }
-.ig-bar .vcr { padding: 7px 14px; font-size: 0.8rem; box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6); }
-.ig-frame { flex: 1; min-height: 0; overflow: hidden; border-radius: 12px; background: #fff; }
-.ig-frame iframe { display: block; width: 100%; height: min(760px, calc(100svh - 150px)); border: 0; }
-.ig-note { padding: 10px 6px 2px; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--dim); text-align: center; }
-body.ig-on { overflow: hidden; }
 .kare .more:hover { color: var(--osd); }
 
 /* ---------- deneyim: bant kaydı ---------- */
