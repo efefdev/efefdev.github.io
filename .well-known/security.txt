@@ -1,0 +1,10 @@
+# efef.dev — güvenlik iletişimi (RFC 9116)
+# Bir açık bulduysan önce bana yaz, sonra herkese anlat. Sıra önemli.
+# Bu site düz HTML; açık bulursan gerçekten merak ediyorum.
+# Ödül programı yok ama teşekkür ve kahve var.
+# Hall of fame: henüz boş, ilk sen ol.
+
+Contact: mailto:hi@efef.dev
+Expires: 2027-10-24T00:00:00.000Z
+Preferred-Languages: tr, en
+Canonical: https://efef.dev/.well-known/security.txt

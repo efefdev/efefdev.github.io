@@ -1,0 +1,5 @@
+# Botlar: aşağıdaki kasete dokunmayın.
+# İnsanlar: bunu okuduğunuza göre zaten meraklısınız.
+
+User-agent: *
+Disallow: /gizli-kasetler/

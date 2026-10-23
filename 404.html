@@ -86,6 +86,8 @@
   <script>
     // kurcalama adreslerine özel şakalar (hepsi yine 404 döner; burada gerçekten hiçbiri yok)
     var TRAPS = [
+      [/^\/gizli-kasetler(\/|$)/, "Gizli kasetler",
+        "robots.txt'yi okudun, değil mi? Botlara girme dedim, sana değil. Burada saklı bir şey yok; asıl gizli kasetler Mahzen'de, şifreli."],
       [/^\/(admin|administrator|admin\.php|panel|dashboard|yonetim|cpanel)(\/|$)/, "Yönetici paneli bulunamadı",
         "Güzel deneme. Admin paneli yok, çünkü bu site düz HTML ve sunucusu bile GitHub'ın. Kırılacak bir şey arıyorsan Nöbetçi'ye selam ver, işi bu."],
       [/^\/(wp-admin|wp-login\.php|wp-content|wp-includes|xmlrpc\.php|wordpress)(\/|$)/, "WordPress bulunamadı",

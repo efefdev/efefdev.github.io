@@ -57,6 +57,8 @@ body.paused .vf-rec i, body.ejected .vf-rec i { display: none; }
 .vf-bat .b { fill: currentColor; stroke: none; }
 .vf-date { position: absolute; bottom: calc(var(--in) + 12px); left: calc(var(--in) + 18px); display: grid; font-size: clamp(0.8rem, 1.3vw, 1.05rem); line-height: 1.25; letter-spacing: 0.1em; }
 .vf-date b { font-weight: 400; }
+.vf-night { position: absolute; top: calc(var(--in) + 42px); left: calc(var(--in) + 18px); display: none; font-size: clamp(0.72rem, 1.1vw, 0.9rem); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lilac); }
+.vf.night .vf-night { display: block; }
 .vf-tc { position: absolute; bottom: calc(var(--in) + 12px); right: calc(var(--in) + 18px); font-size: clamp(0.85rem, 1.4vw, 1.1rem); letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
 .vf-scene { position: absolute; bottom: calc(var(--in) + 40px); left: 50%; transform: translateX(-50%); font-size: 0.74rem; letter-spacing: 0.2em; opacity: 0.85; white-space: nowrap; }
 

@@ -23,6 +23,7 @@
       <span class="vf-rec"><i></i><b>REC</b></span>
       <span class="vf-bat">SP <svg viewBox="0 0 30 14"><rect x="1" y="1" width="25" height="12" rx="1.5"/><rect class="b" x="4" y="4" width="5" height="6"/><rect class="b" x="11" y="4" width="5" height="6"/><rect class="b" x="18" y="4" width="5" height="6"/><rect x="26.5" y="4.5" width="2.5" height="5"/></svg></span>
       <span class="vf-date"><b class="d"></b><b class="t"></b></span>
+      <span class="vf-night">☾ Gece vardiyası</span>
       <span class="vf-tc">0:00:00</span>
       <span class="vf-scene">▶ PLAY</span>
     </div>
@@ -71,6 +72,7 @@
     const d = new Date(), h = d.getHours();
     $(".vf-date .d").textContent = `${MON[d.getMonth()]} ${String(d.getDate()).padStart(2, "0")} ${d.getFullYear()}`;
     $(".vf-date .t").textContent = `${h < 12 ? "AM" : "PM"} ${h % 12 || 12}:${String(d.getMinutes()).padStart(2, "0")}`;
+    vf.classList.toggle("night", h >= 23 || h < 6); // gece gelenlere küçük selam
   };
   clock();
   setInterval(clock, 15000);
