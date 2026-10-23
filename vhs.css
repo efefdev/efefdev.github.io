@@ -307,7 +307,7 @@ body.ejected { overflow: hidden; }
 .tg.show { animation: tgIn 4.2s ease forwards; }
 @keyframes tgIn { 0% { opacity: 0; transform: translateY(10px); } 8%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-4px); } }
 .tg-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.tg-avatar { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 0.66rem; font-weight: 700; background: var(--purple); color: #fff; }
+.tg-avatar { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 0.66rem; font-weight: 600; background: var(--purple); color: #fff; }
 .tg-time { margin-left: auto; color: #7d8a96; font-size: 0.7rem; }
 .tg-body { color: #e8edf2; }
 .tg-body code { font-family: var(--mono); color: #ffb3c1; }
