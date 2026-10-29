@@ -44,8 +44,9 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 90; pointer-event
 .hero-sub { left: var(--pad); }
 .hero-url { right: var(--pad); color: var(--accent); }
 .hero-url:hover { text-decoration: underline; text-underline-offset: 6px; }
+/* telefonda giriş tüm ekranı kaplasın: portre ekrandan geniş (kenarlar zaten siyah), altındaki bölüm görünmesin */
 @media (max-aspect-ratio: 4/5) {
-  .hero { --top: 56px; min-height: calc(100vw + 56px + 150px); }
+  .hero { --top: 56px; --s: min(155vw, calc(100svh - 150px)); min-height: 100svh; }
   .hero-sub, .hero-url { bottom: 32px; }
 }
 
