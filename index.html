@@ -3,168 +3,140 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Efe Altıntaş — efef.dev</title>
-  <meta name="description" content="Efe Altıntaş — Backend & siber güvenlik geliştiricisi. Projeler, kurgu ve tasarım işleri." />
+  <title>efefdev — web site, sosyal medya, fotoğraf & video</title>
+  <meta name="description" content="Efe Altıntaş — web site, sosyal medya, fotoğraf ve video. Samsun." />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Efe Altıntaş — efef.dev" />
-  <meta property="og:description" content="Backend & siber güvenlik geliştiricisi." />
+  <meta property="og:title" content="efefdev — web site, sosyal medya, fotoğraf & video" />
+  <meta property="og:description" content="Web site, sosyal medya, fotoğraf & video. Bir projen mi var? hi@efef.dev" />
   <meta property="og:url" content="https://efef.dev/" />
-  <meta property="og:image" content="https://efef.dev/img/og-vhs.jpg" />
+  <meta property="og:image" content="https://efef.dev/img/og-efefdev.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#08050f" />
+  <meta name="theme-color" content="#000000" />
   <link rel="canonical" href="https://efef.dev/" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2308050f'/%3E%3Ccircle cx='11' cy='16' r='5' fill='%23ff3b5c'/%3E%3Ctext x='24' y='21' font-family='monospace' font-size='12' font-weight='700' fill='%23c4b5fd' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Ctext x='16' y='21.5' font-family='Arial Black,Arial,sans-serif' font-size='15' font-weight='900' fill='%23e8e8e8' text-anchor='middle'%3Ee%3C/text%3E%3Ccircle cx='24.5' cy='22' r='2.2' fill='%23a78bfa'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <script>document.documentElement.classList.add("js")</script>
-  <style>
-    /* yükleme ekranı: kaset yükleniyor. Satır içi; başka dosya beklemeden görünür. */
-    #boot { display: none; }
-    .js #boot { display: grid; place-items: center; position: fixed; inset: 0; z-index: 300; background: radial-gradient(70% 70% at 70% 20%, #2a0f45, #08050f 70%); color: #f1edff; font: 15px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .1em; text-transform: uppercase; }
-    #boot::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0,0,0,.25) 2px 3px); pointer-events: none; }
-    #boot .bc { position: absolute; width: 48px; height: 36px; border: 2px solid rgba(241,237,255,.75); }
-    #boot .tl { top: 20px; left: 20px; border-right: 0; border-bottom: 0; } #boot .tr { top: 20px; right: 20px; border-left: 0; border-bottom: 0; }
-    #boot .bl { bottom: 20px; left: 20px; border-right: 0; border-top: 0; } #boot .br { bottom: 20px; right: 20px; border-left: 0; border-top: 0; }
-    #boot .rec { position: absolute; top: 34px; left: 38px; display: flex; align-items: center; gap: 8px; }
-    #boot .rec i { width: 12px; height: 12px; border-radius: 50%; background: #ff3b5c; box-shadow: 0 0 10px #ff3b5c; animation: bootRec 1s steps(1) infinite; }
-    #boot .dom { position: absolute; bottom: 34px; left: 38px; }
-    #boot .mid { width: min(360px, 80vw); text-align: center; }
-    #boot .bar { height: 14px; margin: 14px 0 10px; border: 1.5px solid rgba(241,237,255,.7); padding: 2px; }
-    #boot .bar i { display: block; height: 100%; width: 0; background: repeating-linear-gradient(90deg, #c4b5fd 0 8px, transparent 8px 11px); transition: width .25s; }
-    #boot .pct { color: #c4b5fd; }
-    #boot.done { animation: bootOut .5s steps(1) forwards; }
-    #boot.done.quick { animation: bootFade .15s ease forwards; }
-    @keyframes bootRec { 50% { opacity: 0; } }
-    @keyframes bootOut { 0% { opacity: 1; } 30% { background: #a5a4a3; } 55% { opacity: 1; background: repeating-linear-gradient(to bottom, rgba(196,181,253,.5) 0 6px, transparent 6px 22px); } 70%, 100% { opacity: 0; visibility: hidden; } }
-    @keyframes bootFade { to { opacity: 0; visibility: hidden; } }
-    @media (prefers-reduced-motion: reduce) { #boot .rec i { animation: none; } #boot.done { animation: bootFade .2s ease forwards; } }
-  </style>
-  <link rel="preload" as="image" href="/img/v3/selfie.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/img/v3/lamps.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/img/v3/dusk.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/img/v3/siber.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/img/v3/arches.webp" fetchpriority="high" />
-  <link rel="stylesheet" href="/vhs.css?v=655611c1" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="/img/v4/portre-1200.webp" imagesrcset="/img/v4/portre-1200.webp 1200w, /img/v4/portre.webp 2000w" imagesizes="(min-aspect-ratio: 1/1) 100vh, 100vw" fetchpriority="high" />
+  <link rel="stylesheet" href="/site.css?v=f2d284a6" />
 </head>
-<body data-page="home">
-  <div id="boot" aria-hidden="true">
-    <span class="bc tl"></span><span class="bc tr"></span><span class="bc bl"></span><span class="bc br"></span>
-    <span class="rec"><i></i>REC</span><span class="dom">efef.dev</span>
-    <div class="mid"><p>▶ Kaset yükleniyor</p><div class="bar"><i id="bootBar"></i></div><p class="pct"><span id="bootPct">0</span>%</p></div>
-  </div>
-  <script>
-    // Kaset yüklenene kadar (yazı tipleri + görseller) göster; en fazla 4 sn bekle. Hızlı yüklenirse hiç görünmeden kalkar.
-    (() => {
-      const boot = document.getElementById("boot"), bar = document.getElementById("bootBar"), pct = document.getElementById("bootPct");
-      const t0 = performance.now();
-      { const d = new Date(), m = d.getMonth(), g = d.getDate(); // Cadılar Bayramı haftası
-        if (/[?&]cadilar/.test(location.search) || (m === 9 && g >= 24) || (m === 10 && g <= 1)) boot.querySelector(".mid p").textContent = "▶ Lanetli kaset yükleniyor"; }
-      let fonts = false, loaded = document.readyState === "complete", shown = 0, finished = false;
-      document.fonts?.ready.then(() => { fonts = true; });
-      addEventListener("load", () => { loaded = true; });
-      const finish = () => {
-        if (finished) return;
-        finished = true;
-        bar.style.width = "100%"; pct.textContent = "100";
-        const quick = performance.now() - t0 < 400; // önbellekten anında geldiyse kısa bir solma yeter
-        boot.classList.add("done");
-        if (quick) boot.classList.add("quick");
-        setTimeout(() => boot.remove(), quick ? 200 : 550);
-      };
-      const tick = () => {
-        if (finished) return;
-        const imgs = [...document.images].filter((i) => i.loading !== "lazy");
-        const ok = imgs.filter((i) => i.complete).length;
-        const p = Math.round((fonts ? 25 : 0) + (imgs.length ? (ok / imgs.length) * 70 : 0) + (loaded ? 5 : 0));
-        shown = Math.max(shown, Math.min(p, 99));
-        bar.style.width = shown + "%"; pct.textContent = shown;
-        if ((fonts && loaded) || performance.now() - t0 > 4000) finish();
-        else setTimeout(tick, 90);
-      };
-      tick();
-    })();
-  </script>
-  <!-- vizör, efekt katmanları ve menü fx.js tarafından eklenir -->
+<body>
+  <a class="skip" href="#hizmetler">İçeriğe geç</a>
 
-  <header class="hero scene" id="top" data-scene="violet" data-name="TAPE 01">
-    <div class="collage" id="collage" aria-hidden="true"></div>
-    <p class="collage-hint osd" id="collageHint" aria-hidden="true">✥ Kolajı sürükle · fırlat</p>
-    <div class="hero-text">
-      <p class="osd-label">▶ PLAY &nbsp;·&nbsp; efef.dev</p>
-      <h1 class="rgb">EFE ALTINTAŞ</h1>
-      <p class="role" id="role"></p>
-      <p class="tagline" id="tagline"></p>
-      <div class="cta">
-        <a class="vcr vcr-solid" href="#projelerim">▶ Projeler</a>
-        <a class="vcr" href="#iletisim">■ İletişim</a>
-      </div>
-      <p class="keys osd" aria-hidden="true">Kanal: 0–6 · Alttaki kaset çubuğunu sürükle</p>
+  <nav class="nav" aria-label="Bölümler">
+    <a class="nav-logo" href="#top">efefdev</a>
+    <span class="nav-note" id="note" hidden></span>
+    <ul>
+      <li><a href="#hizmetler">hizmetler</a></li>
+      <li><a href="#isler">işler</a></li>
+      <li><a href="#hakkimda">hakkımda</a></li>
+      <li><a href="#iletisim">iletişim</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="stage">
+      <img class="ph" src="/img/v4/portre-1200.webp" srcset="/img/v4/portre-1200.webp 1200w, /img/v4/portre.webp 2000w" sizes="(min-aspect-ratio: 1/1) 100vh, 100vw" width="2000" height="2000" alt="Efe Altıntaş, siyah zemin önünde siyah-beyaz portre" fetchpriority="high" />
+      <h1 class="word">efefdev</h1>
+      <img class="ph ph-top" src="/img/v4/portre-on-1200.webp" srcset="/img/v4/portre-on-1200.webp 1200w, /img/v4/portre-on.webp 2000w" sizes="(min-aspect-ratio: 1/1) 100vh, 100vw" width="2000" height="2000" alt="" aria-hidden="true" />
     </div>
+    <p class="hero-sub">web site, sosyal medya,<br />fotoğraf &amp; video.</p>
+    <a class="hero-url" href="#iletisim">efef.dev</a>
   </header>
 
-  <main id="icerik">
-    <section class="scene" id="projelerim" data-scene="indigo" data-name="PROJELER">
-      <div class="scene-head"><span class="osd">CH 01</span><h2 class="rgb">PROJELER</h2><span class="osd tc">0:00:05</span></div>
-      <div class="bento" id="projects"></div>
+  <main>
+    <section class="sec" id="hizmetler">
+      <h2 class="sec-title">hizmetler.</h2>
+      <ol class="services">
+        <li class="rv">
+          <span class="no">01</span>
+          <h3>web site</h3>
+          <p>Hızlı, sade ve sana ait bir site ya da online mağaza. Tasarımdan yayına, alan adından bakımına kadar.</p>
+        </li>
+        <li class="rv">
+          <span class="no">02</span>
+          <h3>sosyal medya</h3>
+          <p>Hesabın için görsel dil, paylaşım tasarımları ve hesap yönetimi. Logo ve marka kimliği dahil.</p>
+        </li>
+        <li class="rv">
+          <span class="no">03</span>
+          <h3>fotoğraf</h3>
+          <p>Portre, etkinlik, ürün ve mekân çekimleri; ışığı, rengi ve rötuşuyla birlikte.</p>
+        </li>
+        <li class="rv">
+          <span class="no">04</span>
+          <h3>video</h3>
+          <p>Reels ve kısa videolar, etkinlik videoları, marka ve mekân tanıtımları; çekimden kurguya.</p>
+        </li>
+      </ol>
     </section>
 
-    <section class="scene" id="kareler" data-scene="tv" data-name="KARELER">
-      <div class="scene-head"><span class="osd">CH 02</span><h2 class="rgb">KARELER</h2><span class="osd tc">0:00:09</span></div>
-      <div class="lead-wrap"><p class="lead" id="karelerIntro"></p></div>
-      <div class="kareler" id="karelerList"></div>
-    </section>
+    <section class="sec" id="isler">
+      <h2 class="sec-title">işler.</h2>
 
-    <section class="scene" id="deneyim" data-scene="plum" data-name="DENEYİM">
-      <div class="scene-head"><span class="osd">CH 03</span><h2 class="rgb">DENEYİM</h2><span class="osd tc">0:00:15</span></div>
-      <ol class="log" id="experience"></ol>
-      <div class="labels" id="certs"></div>
-    </section>
+      <h3 class="group"><span>web site</span></h3>
+      <div class="works">
+        <a class="work rv" href="https://unihm.org" target="_blank" rel="noopener">
+          <img src="/img/v4/isler/unihm.webp" width="1200" height="750" alt="unihm.org ana sayfası" loading="lazy" />
+          <span class="work-meta"><b>unihm.org</b><span>taraftar grubu · tasarım &amp; geliştirme · 2026</span></span>
+        </a>
+        <a class="work rv" href="/projeler/mahzen/">
+          <img src="/img/v4/isler/mahzen.webp" width="1200" height="750" alt="mahzen.efef.dev tanıtım sitesi" loading="lazy" />
+          <span class="work-meta"><b>mahzen.efef.dev</b><span>uygulama tanıtım sitesi · nasıl yaptım →</span></span>
+        </a>
+        <a class="work rv" href="/projeler/nobetci/">
+          <img src="/img/v4/isler/nobetci.webp" width="1200" height="750" alt="nobetci.efef.dev tanıtım sitesi" loading="lazy" />
+          <span class="work-meta"><b>nobetci.efef.dev</b><span>uygulama tanıtım sitesi · nasıl yaptım →</span></span>
+        </a>
+      </div>
 
-    <section class="scene" id="hakkimda" data-scene="uv" data-name="HAKKIMDA">
-      <div class="scene-head"><span class="osd">CH 04</span><h2 class="rgb">HAKKIMDA</h2><span class="osd tc">0:00:21</span></div>
-      <div class="about">
-        <figure class="cutout about-photo"><img src="/img/v3/selfie.webp" width="760" height="406" alt="Efe Altıntaş, elini çenesine koymuş, kameraya bakıyor" loading="lazy"></figure>
-        <div>
-          <div class="prose" id="aboutText"></div>
-          <ul class="focus" id="focus"></ul>
-        </div>
+      <h3 class="group"><span>sosyal medya</span></h3>
+      <div class="social-work rv">
+        <p class="big-line">UniHM</p>
+        <p>Üniversite Hodri Meydan taraftar grubunun yönetimi ve sosyal medyası; paylaşım tasarımları, roll-up ve stant görselleri.</p>
+      </div>
+
+      <h3 class="group"><span>fotoğraf &amp; video</span></h3>
+      <div class="reel rv">
+        <video src="/img/kareler/ilerle.mp4" poster="/img/kareler/ilerle.jpg" width="960" height="540" muted loop playsinline preload="none" aria-label="ilerle. — kısa video kurgusu, sessiz önizleme"></video>
+        <span class="work-meta"><b>ilerle.</b><span>kurgu · ekim 2026 · <a href="https://www.instagram.com/p/DevqLV_s8tg/" target="_blank" rel="noopener">sesli izle ↗</a></span></span>
+      </div>
+      <div class="frames">
+        <img class="rv" src="/img/v3/lamps.webp" width="760" height="406" alt="Hasır avizeli, loş ışıklı bir mekân" loading="lazy" />
+        <img class="rv" src="/img/v3/dusk.webp" width="760" height="406" alt="Efe, deniz kenarında akşamüstü" loading="lazy" />
+        <img class="rv" src="/img/v3/arches.webp" width="760" height="406" alt="Efe, kemerlerin önünde akşam" loading="lazy" />
+        <img class="rv" src="/img/v3/hood.webp" width="760" height="406" alt="Efe, kapüşonlu, deniz kenarında" loading="lazy" />
       </div>
     </section>
 
-    <section class="scene" id="yetkinlikler" data-scene="screen" data-name="YETKİNLİKLER">
-      <div class="scene-head"><span class="osd">CH 05</span><h2 class="rgb">YETKİNLİKLER</h2><span class="osd tc">0:00:25</span></div>
-      <div class="lead-wrap"><p class="lead" id="secIntro"></p></div>
-      <div class="sec" id="secItems"></div>
-      <dl class="tech" id="stackList"></dl>
+    <section class="sec about" id="hakkimda">
+      <h2 class="sec-title">hakkımda.</h2>
+      <div class="about-text rv">
+        <p>Ben Efe. Samsun'da Ondokuz Mayıs Üniversitesi'nde okuyorum.</p>
+        <p>Web siteleri yapıyor, sosyal medya hesaplarını yönetiyor, fotoğraf ve video çekip kurguluyorum. Topluluklar ve taraftar grupları için logo, roll-up ve stant tasarımları da yaptım.</p>
+        <p class="tools" lang="en">Premiere Pro · DaVinci Resolve · Photoshop · Affinity</p>
+      </div>
     </section>
 
-    <section class="scene contact" id="iletisim" data-scene="nosignal" data-name="İLETİŞİM">
-      <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="scene-head"><span class="osd">CH 06</span><h2 class="rgb">İLETİŞİM</h2><span class="osd tc">0:00:33</span></div>
-      <div class="lead-wrap"><p class="lead">Sosyal ağlar ya da e-posta üzerinden iletişime geçebilirsiniz.</p></div>
-      <div class="mail-row">
-        <a class="mail-big" id="emailBig" href="#"></a>
-        <button class="vcr" id="copyBtn" type="button">Kopyala</button>
-      </div>
-      <div class="socials" id="socials" lang="en"></div>
+    <section class="sec contact" id="iletisim">
+      <h2 class="sec-title">bir projen mi var?</h2>
+      <a class="mail" href="mailto:hi@efef.dev">hi@efef.dev</a>
+      <ul class="links">
+        <li><a href="https://www.instagram.com/efefdev" target="_blank" rel="noopener">instagram</a></li>
+        <li><a href="https://www.linkedin.com/in/efealtintas" target="_blank" rel="noopener">linkedin</a></li>
+        <li><a href="https://github.com/efefdev" target="_blank" rel="noopener">github</a></li>
+      </ul>
     </section>
   </main>
 
-  <footer class="stop">
-    <span class="osd">■ STOP</span>
-    <p id="footer"></p>
-    <span class="stop-actions">
-      <button class="osd eject-btn" type="button" data-eject="open">⏏ Eject</button>
-      <a class="osd rewind" href="#top">◀◀ Başa sar</a>
-    </span>
+  <footer class="foot">
+    <span>© 2026 efef.dev</span>
+    <span>eski sürümler: <a href="/v3/">vhs</a> · <a href="/v2/">indigo</a></span>
   </footer>
 
-  <script src="/data.js?v=07f05a99"></script>
-  <script src="/fx.js?v=afe35c35"></script>
-  <script src="/home.js?v=dafe57dd"></script>
-  <script src="/demos.js?v=75196713"></script>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="/site.js?v=dbe16a59"></script>
 </body>
 </html>
