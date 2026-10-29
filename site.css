@@ -31,7 +31,8 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 90; pointer-event
 .nav ul { display: flex; gap: clamp(12px, 2vw, 28px); margin-left: auto; list-style: none; }
 .nav ul a { opacity: 0.8; transition: opacity 0.2s; }
 .nav ul a:hover { opacity: 1; }
-@media (max-width: 640px) { .nav ul { display: none; } }
+/* telefonda yalnız logo var: menü sabit kalmasın, sayfayla birlikte kaysın; arkasında bant olmasın */
+@media (max-width: 640px) { .nav { position: absolute; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; } .nav ul { display: none; } }
 
 /* ---------- giriş: yazı başın arkasından geçer (portre · yazı · başın saydam kopyası) ---------- */
 .hero { position: relative; min-height: 100svh; overflow: hidden; --s: min(100svh, 100vw); --top: 0px; }
