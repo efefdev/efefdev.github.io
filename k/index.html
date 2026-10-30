@@ -108,9 +108,9 @@
         t._a = setTimeout(() => t.classList.add("out"), 2600);
         t._b = setTimeout(() => { t.hidden = true; }, 3000);
       };
-      // kartvizitteki NFC çipi efef.dev/k/?nfc açar
+      // kartvizitteki NFC çipi efef.dev/k/?nfc, QR kod efef.dev/k/?qr açar
       const params = new URLSearchParams(location.search);
-      if (params.has("nfc")) {
+      if (params.has("nfc") || params.has("qr")) {
         history.replaceState(null, "", location.pathname);
         toast("kartvizitten geldin, hoş geldin.");
       }
