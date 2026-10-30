@@ -101,7 +101,7 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 90; pointer-event
 @media (hover: none) { .lb-prev, .lb-next { display: none; } }
 
 .reel video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-.frames { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(8px, 1vw, 14px); margin-top: clamp(14px, 2vw, 24px); }
+.frames { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(8px, 1vw, 14px); }
 .frames img { aspect-ratio: 760 / 406; object-fit: cover; }
 @media (max-width: 760px) { .frames { grid-template-columns: repeat(2, 1fr); } }
 
