@@ -170,3 +170,7 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 90; pointer-event
   .rv { transform: none; transition: none; }
   .work img, .reel video, .frames img, .slides img { transition: none; }
 }
+
+/* ef² işareti menüde yazının solunda (logo/kilavuz.jpg) */
+.nav-logo { display: inline-flex; align-items: center; gap: 9px; }
+.nav-logo .mark { width: 34px; height: 22px; flex: none; }
