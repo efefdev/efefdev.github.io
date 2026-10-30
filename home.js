@@ -52,50 +52,6 @@
     $(btn.getAttribute("aria-controls")).hidden = !open;
   });
 
-  // ---------- kareler / Instagram köşesi ----------
-  // Kapaklar sitede sessiz oynar (müzik telifli). "Sesli izle" postu doğrudan Instagram'da açar: telefonda
-  // uygulama, bilgisayarda yeni sekme. Instagram'ın gömülü oynatıcısı giriş yapmamış ziyaretçiye videoyu
-  // oynatmadığı ve içine müdahale edilemediği için kullanılmıyor.
-  const K = S.kareler || { items: [] };
-  const igPost = (code) => `https://www.instagram.com/p/${encodeURIComponent(code)}/`;
-  $("karelerIntro").innerHTML =
-    `${esc(K.intro || "")}${K.profile ? ` <a class="ig-profile" href="${esc(K.profile.url)}" target="_blank" rel="noopener noreferrer">↗ ${esc(K.profile.label)}</a>` : ""}`;
-  $("karelerList").classList.toggle("many", K.items.length > 1);
-  $("karelerList").innerHTML = K.items
-    .map((k, i) => {
-      const media =
-        k.type === "video"
-          ? `<video muted loop playsinline preload="none" poster="${esc(k.poster)}" data-src="${esc(k.src)}" width="${k.width}" height="${k.height}" aria-label="${esc(k.alt)}"></video>
-             <button class="play" type="button">▶ Play</button>`
-          : `<img src="${esc(k.src)}" width="${k.width}" height="${k.height}" loading="lazy" alt="${esc(k.alt)}">`;
-      const actions = [
-        k.instagram && k.type === "video" ? `<a class="vcr vcr-solid" href="${igPost(k.instagram)}" target="_blank" rel="noopener noreferrer">♪ Sesli izle: Instagram ↗</a>` : "",
-        k.instagram && k.type !== "video" ? `<a class="more" href="${igPost(k.instagram)}" target="_blank" rel="noopener noreferrer">↗ Instagram'da aç</a>` : "",
-        k.link ? `<a class="more" href="${esc(k.link.url)}" target="_blank" rel="noopener noreferrer">↗ ${esc(k.link.label)}</a>` : "",
-      ].join("");
-      return `<figure class="kare rv${i === 0 ? " first" : ""}">
-        <div class="tv"><div class="frame">${media}<span class="kare-no osd">POST ${String(i + 1).padStart(2, "0")}</span></div></div>
-        <figcaption>
-          <div><span class="eyebrow">${esc(k.kind)} · ${esc(k.when)}${k.type === "video" ? " · sessiz önizleme" : ""}</span><p class="caption">${esc(k.caption)}</p></div>
-          <div class="kare-actions">${actions}</div>
-        </figcaption>
-      </figure>`;
-    })
-    .join("");
-  document.querySelectorAll(".kare video").forEach((v) => {
-    const btn = v.parentElement.querySelector(".play");
-    let userPaused = reduce, visible = false;
-    const load = () => { if (!v.src) v.src = v.dataset.src; };
-    const sync = () => { btn.textContent = v.paused ? "▶ Play" : "❚❚ Pause"; btn.setAttribute("aria-label", v.paused ? "Oynat" : "Durdur"); };
-    const update = () => { if (visible && !userPaused && !document.hidden) { load(); v.play().catch(() => {}); } else v.pause(); };
-    v.addEventListener("play", sync);
-    v.addEventListener("pause", sync);
-    btn.addEventListener("click", () => { userPaused = !v.paused; update(); if (!userPaused) { load(); v.play().catch(() => {}); } });
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; update(); }, { threshold: 0.4 }).observe(v);
-    document.addEventListener("visibilitychange", update);
-    sync();
-  });
-
   // ---------- deneyim + sertifikalar ----------
   const ongoing = (when) => /günümüz|devam/i.test(when);
   $("experience").innerHTML = S.experience

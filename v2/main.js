@@ -58,49 +58,6 @@
     $(btn.getAttribute("aria-controls")).hidden = !open;
   });
 
-  // kareler: tasarım/kurgu işleri
-  $("karelerIntro").textContent = S.kareler.intro;
-  $("karelerList").innerHTML = S.kareler.items
-    .map((k) => {
-      const media =
-        k.type === "video"
-          ? `<div class="frame">
-              <video muted loop playsinline preload="none" poster="${esc(k.poster)}" data-src="${esc(k.src)}"
-                width="${k.width}" height="${k.height}" aria-label="${esc(k.alt)}"></video>
-              <button class="play" type="button" aria-label="Oynat">${icon("play")}${icon("pause")}</button>
-            </div>`
-          : `<div class="frame"><img src="${esc(k.src)}" width="${k.width}" height="${k.height}" loading="lazy" alt="${esc(k.alt)}"></div>`;
-      return `<figure class="glass kare">
-        ${media}
-        <figcaption>
-          <div><span class="eyebrow">${esc(k.kind)} · ${esc(k.when)}</span><p class="caption">${esc(k.caption)}</p></div>
-          ${k.link ? `<a class="more" href="${esc(k.link.url)}" target="_blank" rel="noopener noreferrer">${esc(k.link.label)} ${icon("ext")}</a>` : ""}
-          ${k.instagram ? `<a class="more" href="https://www.instagram.com/p/${encodeURIComponent(k.instagram)}/" target="_blank" rel="noopener noreferrer">Sesli izle: Instagram ${icon("ext")}</a>` : ""}
-        </figcaption>
-      </figure>`;
-    })
-    .join("");
-
-  // videolar: ekranda görünürken sessiz ve döngüde oynar, görünmezken durur; buton ile durdurulabilir
-  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  document.querySelectorAll(".kare video").forEach((v) => {
-    const btn = v.parentElement.querySelector(".play");
-    let userPaused = reduceMotion, visible = false;
-    const load = () => { if (!v.src) v.src = v.dataset.src; };
-    const sync = () => {
-      const playing = !v.paused;
-      btn.classList.toggle("is-playing", playing);
-      btn.setAttribute("aria-label", playing ? "Durdur" : "Oynat");
-    };
-    const want = () => visible && !userPaused && !document.hidden;
-    const update = () => { if (want()) { load(); v.play().catch(() => {}); } else v.pause(); };
-    v.addEventListener("play", sync);
-    v.addEventListener("pause", sync);
-    btn.addEventListener("click", () => { userPaused = !v.paused; if (!userPaused) load(); update(); if (!userPaused && v.paused) v.play().catch(() => {}); });
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; update(); }, { threshold: 0.4 }).observe(v);
-    document.addEventListener("visibilitychange", update);
-  });
-
   // deneyim: zaman çizelgesi
   const ongoing = (when) => /günümüz|devam/i.test(when);
   $("experience").innerHTML = S.experience

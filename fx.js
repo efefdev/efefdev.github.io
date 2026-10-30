@@ -13,7 +13,7 @@
 
   // ---------- katmanları ekle ----------
   // [bölüm, ad, kanal] — kanal numarası ana sayfadaki sahne sırasıyla ve 0–9 tuşlarıyla aynı
-  const MENU = [["projelerim", "Projeler", 1], ["kareler", "Kareler", 2], ["deneyim", "Deneyim", 3], ["hakkimda", "Hakkımda", 4], ["iletisim", "İletişim", 6]];
+  const MENU = [["projelerim", "Projeler", 1], ["deneyim", "Deneyim", 3], ["hakkimda", "Hakkımda", 4], ["iletisim", "İletişim", 6]];
   const href = (id) => (home ? "#" : "/#") + id;
   document.body.insertAdjacentHTML(
     "afterbegin",
