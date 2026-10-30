@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Altıntaş;Efe;;;
+FN:Efe Altıntaş
+ORG:efefdev
+TITLE:Web & Görsel İçerik
+EMAIL;TYPE=INTERNET,WORK:hi@efef.dev
+URL:https://efef.dev
+item1.URL:https://instagram.com/efefdev
+item1.X-ABLabel:Instagram
+ADR;TYPE=WORK:;;;Kocaeli;;;Türkiye
+NOTE:Web site\, sosyal medya\, fotoğraf ve video. Kocaeli — Samsun.
+END:VCARD

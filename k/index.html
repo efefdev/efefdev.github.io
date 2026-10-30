@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Efe Altıntaş — kartvizit</title>
+  <meta name="description" content="Efe Altıntaş — web site, sosyal medya, fotoğraf ve video. Kocaeli — Samsun. Rehbere ekle, yaz, işlere bak." />
+  <meta name="robots" content="noindex" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Efe Altıntaş — web & görsel içerik" />
+  <meta property="og:description" content="Web site, sosyal medya, fotoğraf & video. Kocaeli — Samsun." />
+  <meta property="og:url" content="https://efef.dev/k/" />
+  <meta property="og:image" content="https://efef.dev/img/og-efefdev.jpg" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="canonical" href="https://efef.dev/k/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Ctext x='16' y='21.5' font-family='Arial Black,Arial,sans-serif' font-size='15' font-weight='900' fill='%23e8e8e8' text-anchor='middle'%3Ee%3C/text%3E%3Ccircle cx='24.5' cy='22' r='2.2' fill='%23a78bfa'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&display=swap" rel="stylesheet" />
+  <style>
+    /* NFC kartvizitin açtığı sayfa: telefonda tek ekran, kartvizitle aynı dil (siyah, geniş yazı, tek vurgu mor) */
+    :root { --bg: #000; --ink: #e8e8e8; --muted: #8f8f8f; --line: rgba(232, 232, 232, 0.14); --accent: #a78bfa; --pad: 20px; color-scheme: dark; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: "Archivo", "Arial Black", sans-serif; font-stretch: 108%; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    body::after { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: 0.07;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .wide { font-weight: 600; font-stretch: 125%; letter-spacing: -0.045em; line-height: 0.95; }
+    main { max-width: 480px; margin: 0 auto; padding: max(22px, env(safe-area-inset-top)) var(--pad) max(28px, env(safe-area-inset-bottom)); }
+
+    .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.85rem; }
+    .top b { font-weight: 700; font-stretch: 125%; letter-spacing: -0.02em; font-size: 1rem; }
+    .top span { color: var(--muted); }
+    h1 { margin-top: 13vh; font-size: clamp(2.6rem, 13vw, 3.6rem); }
+    .role { margin-top: 12px; color: var(--muted); font-size: 1.05rem; }
+
+    .actions { display: grid; gap: 10px; margin-top: 34px; }
+    .btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 58px; padding: 0 20px; border: 1px solid var(--line); border-radius: 14px; font-weight: 500; font-size: 1.02rem; transition: border-color 0.2s, background 0.2s; }
+    .btn:hover { border-color: rgba(232, 232, 232, 0.4); }
+    .btn small { color: var(--muted); font-size: 0.85rem; font-weight: 400; }
+    .btn.main { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 600; }
+    .btn.main small { color: rgba(0, 0, 0, 0.6); }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    h2 { margin-top: 44px; font-size: 0.85rem; font-weight: 500; color: var(--muted); display: flex; align-items: center; gap: 14px; }
+    h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+    .svc { list-style: none; margin-top: 12px; }
+    .svc li { display: grid; grid-template-columns: 30px 1fr; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--line); }
+    .svc li:last-child { border-bottom: 0; }
+    .svc .n { color: var(--accent); font-size: 0.78rem; font-weight: 600; }
+    .svc .s { font-size: 1.45rem; }
+    .svc .d { grid-column: 2; margin-top: 4px; color: var(--muted); font-size: 0.88rem; }
+
+    .works { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+    .works a { display: block; }
+    .works img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 10px; background: #0c0c0c; filter: grayscale(1) contrast(1.05); transition: filter 0.4s; }
+    .works a:hover img { filter: none; }
+    .works span { display: block; margin-top: 6px; font-size: 0.75rem; color: var(--muted); }
+    .more { display: inline-block; margin-top: 16px; color: var(--accent); font-size: 0.95rem; }
+
+    footer { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; color: var(--muted); font-size: 0.8rem; }
+    .toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%); padding: 12px 18px; background: var(--ink); color: #000; font-size: 0.9rem; font-weight: 500; white-space: nowrap; border-radius: 10px; transition: opacity 0.4s; }
+    .toast.out { opacity: 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="top"><b>efefdev</b><span>kocaeli — samsun</span></div>
+
+    <h1 class="wide">Efe<br />Altıntaş</h1>
+    <p class="role">web &amp; görsel içerik</p>
+
+    <div class="actions">
+      <a class="btn main" href="/k/efe-altintas.vcf" download="Efe Altıntaş.vcf">Rehbere ekle <small>tek dokunuş</small></a>
+      <a class="btn" href="https://ig.me/m/efefdev" target="_blank" rel="noopener">Instagram'dan yaz <small>@efefdev</small></a>
+      <div class="pair">
+        <a class="btn" href="mailto:hi@efef.dev?subject=Merhaba%20Efe">E-posta <small>↗</small></a>
+        <button class="btn" type="button" id="share" style="background:none;color:inherit;font:inherit;font-weight:500;cursor:pointer">Paylaş <small>↗</small></button>
+      </div>
+    </div>
+
+    <h2>ne yapıyorum</h2>
+    <ul class="svc">
+      <li><span class="n">01</span><span class="s wide">web site</span><span class="d">Hızlı, sade bir site ya da online mağaza; alan adından bakımına.</span></li>
+      <li><span class="n">02</span><span class="s wide">sosyal medya</span><span class="d">Paylaşım tasarımları, içerik planı ve hesap yönetimi.</span></li>
+      <li><span class="n">03</span><span class="s wide">fotoğraf</span><span class="d">Ürün, mekân, etkinlik ve portre çekimi; rötuşuyla.</span></li>
+      <li><span class="n">04</span><span class="s wide">video</span><span class="d">Reels, etkinlik videosu, marka ve mekân tanıtımı.</span></li>
+    </ul>
+
+    <h2>son işler</h2>
+    <div class="works">
+      <a href="https://unihm.org" target="_blank" rel="noopener"><img src="/img/v4/isler/unihm.webp" width="1200" height="750" alt="unihm.org" loading="lazy" /><span>unihm.org</span></a>
+      <a href="/projeler/mahzen/"><img src="/img/v4/isler/mahzen.webp" width="1200" height="750" alt="mahzen tanıtım sitesi" loading="lazy" /><span>mahzen</span></a>
+      <a href="/projeler/nobetci/"><img src="/img/v4/isler/nobetci.webp" width="1200" height="750" alt="nöbetçi tanıtım sitesi" loading="lazy" /><span>nöbetçi</span></a>
+    </div>
+    <a class="more" href="/#isler">tüm işler efef.dev'de →</a>
+
+    <footer><span>hi@efef.dev</span><a href="/">efef.dev</a></footer>
+  </main>
+  <div class="toast" id="toast" hidden></div>
+  <script>
+    (() => {
+      const toast = (text) => {
+        const t = document.getElementById("toast");
+        t.textContent = text; t.hidden = false; t.classList.remove("out");
+        clearTimeout(t._a); clearTimeout(t._b);
+        t._a = setTimeout(() => t.classList.add("out"), 2600);
+        t._b = setTimeout(() => { t.hidden = true; }, 3000);
+      };
+      // kartvizitteki NFC çipi efef.dev/k/?nfc açar
+      const params = new URLSearchParams(location.search);
+      if (params.has("nfc")) {
+        history.replaceState(null, "", location.pathname);
+        toast("kartvizitten geldin, hoş geldin.");
+      }
+      document.getElementById("share").addEventListener("click", async () => {
+        const data = { title: "Efe Altıntaş — web & görsel içerik", url: "https://efef.dev/k/" };
+        if (navigator.share) { try { await navigator.share(data); } catch {} return; }
+        try { await navigator.clipboard.writeText(data.url); toast("bağlantı kopyalandı."); } catch { toast("efef.dev/k"); }
+      });
+    })();
+  </script>
+</body>
+</html>
