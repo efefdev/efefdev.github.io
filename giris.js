@@ -52,7 +52,10 @@
   function bitir() {
     olaylar.forEach((e) => removeEventListener(e, atlat));
     html.classList.remove("giris-oynuyor");
-    kutu.remove();
+    // ışık sahnesi açıksa yazı altta aynı yerde, ışık almış hâliyle durur: örtü bir anda kalkmaz, söner
+    kutu.style.transition = "opacity .45s ease";
+    kutu.style.opacity = 0;
+    setTimeout(() => kutu.remove(), 460);
   }
   function adim(simdi) {
     let t = (simdi - t0) / 1000;
