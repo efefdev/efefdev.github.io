@@ -26,7 +26,7 @@
   const VS = `attribute vec2 p; varying vec2 uv; void main(){ uv = vec2(p.x*.5+.5, .5-p.y*.5); gl_Position = vec4(p,0.,1.); }`;
   // foto: portre · bas: baş kesiti (alfa) · nor: rgb yüzey yönü, a derinlik · yazi: r keskin, g geniş bulanık (gölge), b dar bulanık (kabartma)
   const FS = `precision highp float;
-  varying vec2 uv; uniform sampler2D foto, bas, nor, yazi; uniform vec3 L; uniform float guc; uniform vec4 Y; uniform vec2 px; uniform float onde, taban, yayilma, WD; uniform vec2 par;
+  varying vec2 uv; uniform sampler2D foto, bas, nor, yazi; uniform vec3 L; uniform float guc; uniform vec4 Y; uniform vec2 px; uniform float onde, taban, yayilma;
   vec3 Lp; float zayifF(vec2 q){ float u = length(Lp.xy - q); return 1./(1. + u*u*yayilma); }
   // ışık, fotoğrafı orijinal tonlarına geri getirir: aydınlanan yer = orijinal portre, ışık almayan yer kararır
   float isikla(float l, vec3 N, float d, float kisi, float kenar){
@@ -41,9 +41,7 @@
   }
   void main(){
     Lp = vec3(L.x, 1.-L.y, L.z);
-    // derinlikle kıpırdama: yakın olan (yüksek d) daha çok kayar, yazının düzlemi (WD) sabit kalır
-    float d0 = texture2D(nor, uv).a;
-    vec2 q = uv - par * (d0 - WD);
+    vec2 q = uv;
     vec4 n4 = texture2D(nor, q);
     vec3 N = n4.xyz*2.-1.; N.xy *= 1.35; N = normalize(N);
     float d = n4.a, kisi = smoothstep(.36, .47, d);
@@ -129,9 +127,8 @@
         // masaüstünde portre büyük, imleç çoğu zaman yüzden uzak: ışık almayan yer de tanınır kalır, ışık geniş bir softbox gibi
         gl.uniform1f(u("taban"), onde ? .12 : .58); gl.uniform1f(u("yayilma"), onde ? 7. : 2.5); },
       yazi() { gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, yt); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, wcv); },
-      ciz(Lx, Ly, Lz, g, o) {
+      ciz(Lx, Ly, Lz, g) {
         gl.uniform3f(u("L"), Lx, Ly, Lz); gl.uniform1f(u("guc"), g);
-        gl.uniform2f(u("par"), o.px, o.py); gl.uniform1f(u("WD"), o.wd);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       },
     };
@@ -141,7 +138,6 @@
   // ?isik=x,y → ışık sabit, yazı bitmiş (ekran görüntüsü ve deneme için)
   if (q.has("isik")) { const [x, y] = q.get("isik").split(",").map(Number); Object.assign(isik, { x, y, hx: x, hy: y, guc: 1, egim: true }); }
   let S, t0 = 0, yaziBitti = false;
-  const kipir = { x: 0, y: 0 };
   const olc = () => { const r = stage.getBoundingClientRect(); S.boyut(Math.round(Math.min(r.width * Math.min(devicePixelRatio || 1, 2), 1800))); };
   function kare(t) {
     if (!t0) t0 = t;
@@ -153,9 +149,7 @@
     isik.x += (isik.hx - isik.x) * .085; isik.y += (isik.hy - isik.y) * .085;
     isik.guc += (isik.hguc - isik.guc) * .03;
     if (!yaziBitti) { const s = q.has("isik") ? 9 : (t - t0) / 1000; yaziCiz(s); S.yazi(); yaziBitti = s > 2; }
-    // kıpırdama: ışık yüzün neresindeyse kamera o yana çok az döner (yazının düzlemi sabit)
-    kipir.x += ((isik.hx - .5) * -.03 - kipir.x) * .06; kipir.y += ((isik.hy - .35) * .02 - kipir.y) * .06;
-    if (hero.getBoundingClientRect().bottom > 0) S.ciz(isik.x, isik.y, isik.z, isik.guc, { px: kipir.x, py: kipir.y, wd: onde ? .8 : .4 });
+    if (hero.getBoundingClientRect().bottom > 0) S.ciz(isik.x, isik.y, isik.z, isik.guc);
     requestAnimationFrame(kare);
   }
   function hedef(cx, cy) {
