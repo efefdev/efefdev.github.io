@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>efefdev — v5 prototip</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="/img/logo/ef.svg?v=1" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="v5.css?v=11" />
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-logo" href="#top" aria-label="efefdev"><svg class="mark" viewBox="16 20 214 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="19"><path d="M108.5 108A41 41 0 1 0 98 137"/><path d="M27 108H164"/><path d="M140 158V66A24 24 0 0 1 176 45"/></g><path transform="translate(190 24) scale(1.25)" d="M3 13A11 11 0 1 1 21 21L3 41H27" fill="none" stroke="#a78bfa" stroke-width="8"/></svg><svg class="yazi" viewBox="17 32 634 127" aria-hidden="true"><defs><clipPath id="n-yazi-v"><rect x="523" y="57.5" width="160" height="101"/></clipPath><clipPath id="n-yazi-e"><circle cx="504.5" cy="108" r="50.5"/></clipPath></defs><g fill="none" stroke="currentColor" stroke-width="19"><path d="M27 108H164"/><path d="M108.5 108A41 41 0 1 0 98 137"/><path d="M140 158V66A24 24 0 0 1 176 45"/><path d="M188 108H325"/><path d="M269.5 108A41 41 0 1 0 259 137"/><path d="M301 158V66A24 24 0 0 1 337 45"/><path d="M430.5 108A41 41 0 1 0 348.5 108A41 41 0 1 0 430.5 108"/><path d="M430.5 32.5V158"/><path d="M464 108H555" clip-path="url(#n-yazi-e)"/><path d="M545.5 108A41 41 0 1 0 535 137"/><path d="M559 40L603 176L647 40" stroke-miterlimit="10" clip-path="url(#n-yazi-v)"/></g></svg></a>
+    <span class="nav-etiket">v5 · prototip</span>
+    <div class="nav-links"><a href="#hizmetler">hizmetler</a><a href="#isler">işler</a><a href="#iletisim">iletişim</a></div>
+  </nav>
+
+  <!-- 1 · imleç ışık kaynağı -->
+  <header class="hero" id="top">
+    <div class="stage">
+      <canvas class="kat kat-alt" aria-hidden="true"></canvas>
+      <h1 class="word"><span class="gizli">efefdev</span><svg class="word-svg" viewBox="17 32 634 127" aria-hidden="true"><defs><radialGradient id="isik-yazi" gradientUnits="userSpaceOnUse" cx="200" cy="100" r="420"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#bdbdbd"/><stop offset="1" stop-color="#2a2a2a"/></radialGradient><clipPath id="word-v"><rect x="523" y="57.5" width="160" height="101"/></clipPath><clipPath id="word-e"><circle cx="504.5" cy="108" r="50.5"/></clipPath></defs><g fill="none" stroke="#d8d8d8" stroke-width="19"><path pathLength="1" d="M27 108H164"/><path pathLength="1" d="M108.5 108A41 41 0 1 0 98 137"/><path pathLength="1" d="M140 158V66A24 24 0 0 1 176 45"/><path pathLength="1" d="M188 108H325"/><path pathLength="1" d="M269.5 108A41 41 0 1 0 259 137"/><path pathLength="1" d="M301 158V66A24 24 0 0 1 337 45"/><path pathLength="1" d="M430.5 108A41 41 0 1 0 348.5 108A41 41 0 1 0 430.5 108"/><path pathLength="1" d="M430.5 32.5V158"/><path pathLength="1" d="M464 108H555" clip-path="url(#word-e)"/><path pathLength="1" d="M545.5 108A41 41 0 1 0 535 137"/><path pathLength="1" d="M559 40L603 176L647 40" stroke-miterlimit="10" clip-path="url(#word-v)"/></g></svg></h1>
+            <img class="yedek" src="/img/v4/portre-1200.webp" alt="Efe Altıntaş, siyah zemin önünde siyah-beyaz portre" />
+    </div>
+    <p class="hero-sub">web site, sosyal medya,<br />fotoğraf &amp; video.</p>
+    <div class="isik-ipucu"><span class="nokta"></span><span class="ipucu-yazi">ışık imleçte</span></div>
+  </header>
+
+  <main>
+    <!-- 2 · ef çizgi: başlıklar kendini çizer -->
+    <section class="sec" id="hizmetler">
+      <h2 class="baslik" data-yaz="hizmetler.">hizmetler.</h2>
+      <ol class="services">
+        <li><span class="no">01</span><h3>web site</h3><p>Hızlı, sade ve sana ait bir site ya da online mağaza. Tasarımdan yayına, alan adından bakımına kadar.</p></li>
+        <li><span class="no">02</span><h3>sosyal medya</h3><p>Hesabın için görsel dil, paylaşım tasarımları ve hesap yönetimi. Logo ve marka kimliği dahil.</p></li>
+        <li><span class="no">03</span><h3>fotoğraf</h3><p>Portre, etkinlik, ürün ve mekân çekimleri; ışığı, rengi ve rötuşuyla birlikte.</p></li>
+        <li><span class="no">04</span><h3>video</h3><p>Reels ve kısa videolar, etkinlik videoları, marka ve mekân tanıtımları; çekimden kurguya.</p></li>
+      </ol>
+    </section>
+
+    <!-- işler: eski sitedekiyle aynı -->
+    <section class="sec" id="isler">
+      <h2 class="baslik" data-yaz="işler.">işler.</h2>
+
+      <h3 class="group"><span>web site</span></h3>
+      <div class="works">
+        <a class="work rv" href="https://unihm.org" target="_blank" rel="noopener">
+          <img src="/img/v4/isler/unihm.webp" width="1200" height="750" alt="unihm.org ana sayfası" loading="lazy" />
+          <span class="work-meta"><b>unihm.org</b><span>taraftar grubu · tasarım &amp; geliştirme · 2026</span></span>
+        </a>
+        <a class="work rv" href="/projeler/mahzen/">
+          <img src="/img/v4/isler/mahzen.webp" width="1200" height="750" alt="mahzen.efef.dev tanıtım sitesi" loading="lazy" />
+          <span class="work-meta"><b>mahzen.efef.dev</b><span>uygulama tanıtım sitesi · nasıl yaptım →</span></span>
+        </a>
+        <a class="work rv" href="/projeler/nobetci/">
+          <img src="/img/v4/isler/nobetci.webp" width="1200" height="750" alt="nobetci.efef.dev tanıtım sitesi" loading="lazy" />
+          <span class="work-meta"><b>nobetci.efef.dev</b><span>uygulama tanıtım sitesi · nasıl yaptım →</span></span>
+        </a>
+      </div>
+
+      <h3 class="group"><span>sosyal medya</span></h3>
+      <div class="post rv">
+        <div class="slides" role="group" aria-label="@omusiber hesap yönetimi, 5 ayın sonuçları — 7 kareli Instagram gönderisi, yana kaydır">
+          <img src="/img/v4/gonderiler/omusiber/1.webp" data-full="/img/v4/gonderiler/omusiber/1-b.webp" width="720" height="900" alt="Kapak: bir topluluk hesabı, 5 ay — ×5,9 erişim." loading="lazy" />
+          <img src="/img/v4/gonderiler/omusiber/2.webp" data-full="/img/v4/gonderiler/omusiber/2-b.webp" width="720" height="900" alt="Yeni takipçi +%297: önceki 5 ay 38, yönettiğim 5 ay 151" loading="lazy" />
+          <img src="/img/v4/gonderiler/omusiber/3.webp" data-full="/img/v4/gonderiler/omusiber/3-b.webp" width="720" height="900" alt="Profil ziyareti ×8,4; gönderi ve hikâye erişimi" loading="lazy" />
+          <img src="/img/v4/gonderiler/omusiber/4.webp" data-full="/img/v4/gonderiler/omusiber/4-b.webp" width="720" height="900" alt="Etkileşim: beğeni, paylaşım, bağlantı tıklaması, içerik başı erişim" loading="lazy" />
+          <img src="/img/v4/gonderiler/omusiber/5.webp" data-full="/img/v4/gonderiler/omusiber/5-b.webp" width="720" height="900" alt="Bu dönemde tasarladıklarım: omusiber.org lansmanı ve yönetim kadrosu" loading="lazy" />
+          <img src="/img/v4/gonderiler/omusiber/6.webp" data-full="/img/v4/gonderiler/omusiber/6-b.webp" width="720" height="900" alt="Ne değişti: düzenli paylaşım, her etkinliğe iki içerik, tek görsel dil, ortak gönderiler, site ve bağlantı" loading="lazy" />
+          <img src="/img/v4/gonderiler/omusiber/7.webp" data-full="/img/v4/gonderiler/omusiber/7-b.webp" width="720" height="900" alt="Son 90 gün: 47 kat daha fazla reels etkileşimi" loading="lazy" />
+        </div>
+        <span class="work-meta"><b>@omusiber, 5 ay.</b><span>hesap yönetimi · instagram gönderisi · <a href="https://www.instagram.com/p/DfKG4V3iF2U/" target="_blank" rel="noopener">instagram'da gör ↗</a></span></span>
+      </div>
+      <div class="post rv">
+        <div class="slides" role="group" aria-label="Cumhuriyet'in tasarımları — 6 kareli Instagram gönderisi, yana kaydır">
+          <img src="/img/v4/gonderiler/cumhuriyet/1.webp" data-full="/img/v4/gonderiler/cumhuriyet/1-b.webp" width="720" height="900" alt="Kapak: 1927 kâğıt paradaki bozkurt, üstünde “Cumhuriyet'in tasarımları.”" loading="lazy" />
+          <img src="/img/v4/gonderiler/cumhuriyet/2.webp" data-full="/img/v4/gonderiler/cumhuriyet/2-b.webp" width="720" height="900" alt="1927, ilk kâğıt para" loading="lazy" />
+          <img src="/img/v4/gonderiler/cumhuriyet/3.webp" data-full="/img/v4/gonderiler/cumhuriyet/3-b.webp" width="720" height="900" alt="1934, İzmir 9 Eylül Sergisi pulları" loading="lazy" />
+          <img src="/img/v4/gonderiler/cumhuriyet/4.webp" data-full="/img/v4/gonderiler/cumhuriyet/4-b.webp" width="720" height="900" alt="1937, Ankara Garı" loading="lazy" />
+          <img src="/img/v4/gonderiler/cumhuriyet/5.webp" data-full="/img/v4/gonderiler/cumhuriyet/5-b.webp" width="720" height="900" alt="29 Ekim 1933, Onuncu Yıl" loading="lazy" />
+          <img src="/img/v4/gonderiler/cumhuriyet/6.webp" data-full="/img/v4/gonderiler/cumhuriyet/6-b.webp" width="720" height="900" alt="Cumhuriyetimizin 103. yılı kutlu olsun." loading="lazy" />
+        </div>
+        <span class="work-meta"><b>Cumhuriyet'in tasarımları.</b><span>instagram gönderisi · 29 ekim 2026 · <a href="https://www.instagram.com/p/DfFlke-COMx/" target="_blank" rel="noopener">instagram'da gör ↗</a></span></span>
+      </div>
+
+    </section>
+
+    <section class="sec" id="hakkimda">
+      <h2 class="baslik" data-yaz="hakkımda.">hakkımda.</h2>
+      <div class="about">
+        <p>Ben Efe. Samsun'da Ondokuz Mayıs Üniversitesi'nde okuyorum.</p>
+        <p>Web siteleri yapıyor, sosyal medya hesaplarını yönetiyor, fotoğraf ve video çekip kurguluyorum. Topluluklar ve taraftar grupları için logo, roll-up ve stant tasarımları da yaptım.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="iletisim">
+      <h2 class="baslik" data-yaz="bir projen mi var?">bir projen mi var?</h2>
+      <a class="mail" href="mailto:hi@efef.dev">hi@efef.dev</a>
+      <div class="sosyal"><a href="https://www.instagram.com/efefdev">instagram</a><a href="https://www.linkedin.com/in/efealtintas">linkedin</a><a href="https://github.com/efefdev">github</a></div>
+    </section>
+  </main>
+
+  <dialog class="lb" id="lb" aria-label="Gönderi kareleri">
+    <div class="lb-track"></div>
+    <button class="lb-x" type="button" aria-label="Kapat">kapat ✕</button>
+    <button class="lb-prev" type="button" aria-label="Önceki kare">←</button>
+    <button class="lb-next" type="button" aria-label="Sonraki kare">→</button>
+    <span class="lb-n" aria-live="polite"></span>
+  </dialog>
+
+
+  <script src="ef-cizgi.js?v=11"></script>
+  <script src="v5.js?v=11"></script>
+</body>
+</html>
