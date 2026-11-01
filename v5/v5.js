@@ -26,7 +26,7 @@
   const VS = `attribute vec2 p; varying vec2 uv; void main(){ uv = vec2(p.x*.5+.5, .5-p.y*.5); gl_Position = vec4(p,0.,1.); }`;
   // foto: portre · bas: baş kesiti (alfa) · nor: rgb yüzey yönü, a derinlik · yazi: r keskin, g geniş bulanık (gölge), b dar bulanık (kabartma)
   const FS = `precision highp float;
-  varying vec2 uv; uniform sampler2D foto, bas, nor, yazi; uniform vec3 L; uniform float guc; uniform vec4 Y; uniform vec2 px; uniform float onde, taban, yayilma, WD, odak, dof, genel, karart; uniform vec2 par;
+  varying vec2 uv; uniform sampler2D foto, bas, nor, yazi; uniform vec3 L; uniform float guc; uniform vec4 Y; uniform vec2 px; uniform float onde, taban, yayilma, WD; uniform vec2 par;
   vec3 Lp; float zayifF(vec2 q){ float u = length(Lp.xy - q); return 1./(1. + u*u*yayilma); }
   // ışık, fotoğrafı orijinal tonlarına geri getirir: aydınlanan yer = orijinal portre, ışık almayan yer kararır
   float isikla(float l, vec3 N, float d, float kisi, float kenar){
@@ -39,21 +39,6 @@
     float c = l * mix(taban, 1., k) + parla * z * guc * l * .35;
     return c + (1.-kisi) * .035 * z * guc * kenar;
   }
-  // odak: iki halkalı disk (17 nokta); r uv biriminde bulanıklık yarıçapı
-  vec4 halka(sampler2D t, vec2 q, float r){
-    float h = r * .7071;
-    return texture2D(t, q + vec2(r, 0.)) + texture2D(t, q - vec2(r, 0.)) + texture2D(t, q + vec2(0., r)) + texture2D(t, q - vec2(0., r))
-         + texture2D(t, q + vec2(h, h)) + texture2D(t, q - vec2(h, h)) + texture2D(t, q + vec2(h, -h)) + texture2D(t, q - vec2(h, -h));
-  }
-  vec4 bul(sampler2D t, vec2 q, float r){
-    vec4 a = texture2D(t, q);
-    if (r < .0006) return a;
-    // iç halka 22,5° döndürülmüş: iki halka üst üste binmez, iz bırakmaz
-    float i = r * .5, c = i * .9239, s = i * .3827;
-    vec4 ic = texture2D(t, q + vec2(c, s)) + texture2D(t, q - vec2(c, s)) + texture2D(t, q + vec2(-s, c)) + texture2D(t, q - vec2(-s, c))
-            + texture2D(t, q + vec2(s, c)) + texture2D(t, q - vec2(s, c)) + texture2D(t, q + vec2(c, -s)) + texture2D(t, q - vec2(c, -s));
-    return (a * 2. + ic * 1.25 + halka(t, q, r)) / 20.;
-  }
   void main(){
     Lp = vec3(L.x, 1.-L.y, L.z);
     // derinlikle kıpırdama: yakın olan (yüksek d) daha çok kayar, yazının düzlemi (WD) sabit kalır
@@ -63,8 +48,7 @@
     vec3 N = n4.xyz*2.-1.; N.xy *= 1.35; N = normalize(N);
     float d = n4.a, kisi = smoothstep(.36, .47, d);
     float kenar = smoothstep(0., .18, uv.x)*smoothstep(1., .82, uv.x)*smoothstep(1., .8, uv.y);
-    float rP = min(abs(d - odak) * dof, .009) + genel;                  // portrenin bu noktadaki bulanıklığı
-    float c = isikla(bul(foto, q, rP).r, N, d, kisi, kenar), cFoto = c;
+    float c = isikla(texture2D(foto, q).r, N, d, kisi, kenar), cFoto = c;
 
     // yazının gölgesi: ışıktan uzağa düşer, arkadaki zemine (telefonda gövdeye)
     vec2 kac = (vec2(uv.x, 1.-uv.y) - Lp.xy); kac = normalize(kac + 1e-4) * .022 * guc;
@@ -72,11 +56,10 @@
     float golge = (gy.x > 0. && gy.x < 1. && gy.y > 0. && gy.y < 1.) ? texture2D(yazi, gy).g : 0.;
     c *= 1. - golge * .75 * (1. - kisi * (1. - onde));
 
-    // yazı: kabartmalı çizgi, ışığa bakan kenar parlar; odak dışındayken bulanır
+    // yazı: kabartmalı çizgi, ışığa bakan kenar parlar
     vec2 wy = (uv - Y.xy) / Y.zw;
-    if (wy.x > -.05 && wy.x < 1.05 && wy.y > -.2 && wy.y < 1.2) {
-      float rW = min(abs(WD - odak) * dof, .009) + genel;
-      vec3 w = bul(yazi, wy, rW / Y.z).rgb;
+    if (wy.x > 0. && wy.x < 1. && wy.y > 0. && wy.y < 1.) {
+      vec3 w = texture2D(yazi, wy).rgb;
       float bx = texture2D(yazi, wy + vec2(px.x, 0.)).b - texture2D(yazi, wy - vec2(px.x, 0.)).b;
       float by = texture2D(yazi, wy + vec2(0., px.y)).b - texture2D(yazi, wy - vec2(0., px.y)).b;
       vec3 Nw = normalize(vec3(-bx * 2.2, by * 2.2, 1.));
@@ -87,9 +70,9 @@
     }
 
     // baş kesiti yazının önünde (masaüstü)
-    // kesit portrenin kendisi: rengi zaten cFoto'da, kesitten yalnızca (bulanık) alfa alınır
-    c = mix(c, cFoto, bul(bas, q, rP).a);
-    gl_FragColor = vec4(vec3(c * (1. - karart)), 1.);
+    // kesit portrenin kendisi: rengi zaten cFoto'da, kesitten yalnızca alfa alınır
+    c = mix(c, cFoto, texture2D(bas, q).a);
+    gl_FragColor = vec4(vec3(c), 1.);
   }`;
 
   // yazı dokusu: svg yolları Path2D ile çizilir; çizim animasyonu sırasında her kare yenilenir
@@ -149,7 +132,6 @@
       ciz(Lx, Ly, Lz, g, o) {
         gl.uniform3f(u("L"), Lx, Ly, Lz); gl.uniform1f(u("guc"), g);
         gl.uniform2f(u("par"), o.px, o.py); gl.uniform1f(u("WD"), o.wd);
-        gl.uniform1f(u("odak"), o.odak); gl.uniform1f(u("dof"), o.dof); gl.uniform1f(u("genel"), o.genel); gl.uniform1f(u("karart"), o.karart);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       },
     };
@@ -171,17 +153,9 @@
     isik.x += (isik.hx - isik.x) * .085; isik.y += (isik.hy - isik.y) * .085;
     isik.guc += (isik.hguc - isik.guc) * .03;
     if (!yaziBitti) { const s = q.has("isik") ? 9 : (t - t0) / 1000; yaziCiz(s); S.yazi(); yaziBitti = s > 2; }
-    // kaydırma: önce alan derinliği açılır (yüz net), sonra odak yazıya kayar, en sonda kare bulanıp kararır
-    const kap = hero.parentElement, yol = Math.max(1, kap.offsetHeight - hero.offsetHeight);
-    const p = q.has("p") ? +q.get("p") : Math.min(1, Math.max(0, (scrollY - kap.offsetTop) / yol)), ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
-    const wd = onde ? .8 : .4, yuz = .58;
-    // kıpırdama: ışık yüzün neresindeyse kamera o yana çok az döner
+    // kıpırdama: ışık yüzün neresindeyse kamera o yana çok az döner (yazının düzlemi sabit)
     kipir.x += ((isik.hx - .5) * -.03 - kipir.x) * .06; kipir.y += ((isik.hy - .35) * .02 - kipir.y) * .06;
-    if (p < 1 || !S.bitti) {
-      S.ciz(isik.x, isik.y, isik.z, isik.guc, { px: kipir.x, py: kipir.y, wd, odak: yuz + (wd - yuz) * ss(.12, .55, p), dof: .045 * ss(0, .12, p), genel: .01 * ss(.6, 1, p), karart: .9 * ss(.62, .95, p) });
-      S.bitti = p >= 1;
-    }
-    hero.style.setProperty("--p", p.toFixed(3));
+    if (hero.getBoundingClientRect().bottom > 0) S.ciz(isik.x, isik.y, isik.z, isik.guc, { px: kipir.x, py: kipir.y, wd: onde ? .8 : .4 });
     requestAnimationFrame(kare);
   }
   function hedef(cx, cy) {

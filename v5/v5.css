@@ -116,9 +116,3 @@ img { display: block; max-width: 100%; }
 .work.gezer img { object-position: 50% 0; transition: filter .5s ease, object-position 1.1s cubic-bezier(.6, 0, .2, 1); }
 .work.gezer:hover img, .work.gezer:focus-visible img, .work.gezer.gez img { object-position: 50% 100%; transition: filter .5s ease, object-position var(--gez, 8s) cubic-bezier(.45, 0, .55, 1) .25s; }
 .work.gezer.gez img { filter: none; }
-/* kaydırınca odak kayması: giriş sabit kalır, sayfa ilerledikçe odak yüzden yazıya geçer */
-.hero-kap { position: relative; height: 185svh; }
-.hero { position: sticky; top: 0; }
-.hero-sub, .isik-ipucu { opacity: calc(1 - var(--p, 0) * 3); }
-@media (max-aspect-ratio: 4/5) { .hero-kap { height: calc(7svh + 140vw + 150px + 85svh); } }
-@media (prefers-reduced-motion: reduce) { .hero-kap { height: auto; } }
