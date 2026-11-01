@@ -26,7 +26,7 @@
   const VS = `attribute vec2 p; varying vec2 uv; void main(){ uv = vec2(p.x*.5+.5, .5-p.y*.5); gl_Position = vec4(p,0.,1.); }`;
   // foto: portre · bas: baş kesiti (alfa) · nor: rgb yüzey yönü, a derinlik · yazi: r keskin, g geniş bulanık (gölge), b dar bulanık (kabartma)
   const FS = `precision highp float;
-  varying vec2 uv; uniform sampler2D foto, bas, nor, yazi; uniform vec3 L; uniform float guc; uniform vec4 Y; uniform vec2 px; uniform float onde, taban, yayilma;
+  varying vec2 uv; uniform sampler2D foto, bas, nor, yazi; uniform vec3 L; uniform float guc; uniform vec4 Y; uniform vec2 px; uniform float onde, taban, yayilma, WD, odak, dof, genel, karart; uniform vec2 par;
   vec3 Lp; float zayifF(vec2 q){ float u = length(Lp.xy - q); return 1./(1. + u*u*yayilma); }
   // ışık, fotoğrafı orijinal tonlarına geri getirir: aydınlanan yer = orijinal portre, ışık almayan yer kararır
   float isikla(float l, vec3 N, float d, float kisi, float kenar){
@@ -39,24 +39,44 @@
     float c = l * mix(taban, 1., k) + parla * z * guc * l * .35;
     return c + (1.-kisi) * .035 * z * guc * kenar;
   }
+  // odak: iki halkalı disk (17 nokta); r uv biriminde bulanıklık yarıçapı
+  vec4 halka(sampler2D t, vec2 q, float r){
+    float h = r * .7071;
+    return texture2D(t, q + vec2(r, 0.)) + texture2D(t, q - vec2(r, 0.)) + texture2D(t, q + vec2(0., r)) + texture2D(t, q - vec2(0., r))
+         + texture2D(t, q + vec2(h, h)) + texture2D(t, q - vec2(h, h)) + texture2D(t, q + vec2(h, -h)) + texture2D(t, q - vec2(h, -h));
+  }
+  vec4 bul(sampler2D t, vec2 q, float r){
+    vec4 a = texture2D(t, q);
+    if (r < .0006) return a;
+    // iç halka 22,5° döndürülmüş: iki halka üst üste binmez, iz bırakmaz
+    float i = r * .5, c = i * .9239, s = i * .3827;
+    vec4 ic = texture2D(t, q + vec2(c, s)) + texture2D(t, q - vec2(c, s)) + texture2D(t, q + vec2(-s, c)) + texture2D(t, q - vec2(-s, c))
+            + texture2D(t, q + vec2(s, c)) + texture2D(t, q - vec2(s, c)) + texture2D(t, q + vec2(c, -s)) + texture2D(t, q - vec2(c, -s));
+    return (a * 2. + ic * 1.25 + halka(t, q, r)) / 20.;
+  }
   void main(){
     Lp = vec3(L.x, 1.-L.y, L.z);
-    vec4 n4 = texture2D(nor, uv);
+    // derinlikle kıpırdama: yakın olan (yüksek d) daha çok kayar, yazının düzlemi (WD) sabit kalır
+    float d0 = texture2D(nor, uv).a;
+    vec2 q = uv - par * (d0 - WD);
+    vec4 n4 = texture2D(nor, q);
     vec3 N = n4.xyz*2.-1.; N.xy *= 1.35; N = normalize(N);
     float d = n4.a, kisi = smoothstep(.36, .47, d);
     float kenar = smoothstep(0., .18, uv.x)*smoothstep(1., .82, uv.x)*smoothstep(1., .8, uv.y);
-    float c = isikla(texture2D(foto, uv).r, N, d, kisi, kenar);
+    float rP = min(abs(d - odak) * dof, .009) + genel;                  // portrenin bu noktadaki bulanıklığı
+    float c = isikla(bul(foto, q, rP).r, N, d, kisi, kenar), cFoto = c;
 
-    // yazının gölgesi: ışıktan uzağa düşer, arkadaki zemine ve gövdeye
+    // yazının gölgesi: ışıktan uzağa düşer, arkadaki zemine (telefonda gövdeye)
     vec2 kac = (vec2(uv.x, 1.-uv.y) - Lp.xy); kac = normalize(kac + 1e-4) * .022 * guc;
     vec2 gy = (uv + vec2(kac.x, -kac.y) - Y.xy) / Y.zw;
     float golge = (gy.x > 0. && gy.x < 1. && gy.y > 0. && gy.y < 1.) ? texture2D(yazi, gy).g : 0.;
     c *= 1. - golge * .75 * (1. - kisi * (1. - onde));
 
-    // yazı: kabartmalı çizgi, ışığa bakan kenar parlar
+    // yazı: kabartmalı çizgi, ışığa bakan kenar parlar; odak dışındayken bulanır
     vec2 wy = (uv - Y.xy) / Y.zw;
-    if (wy.x > 0. && wy.x < 1. && wy.y > 0. && wy.y < 1.) {
-      vec3 w = texture2D(yazi, wy).rgb;
+    if (wy.x > -.05 && wy.x < 1.05 && wy.y > -.2 && wy.y < 1.2) {
+      float rW = min(abs(WD - odak) * dof, .009) + genel;
+      vec3 w = bul(yazi, wy, rW / Y.z).rgb;
       float bx = texture2D(yazi, wy + vec2(px.x, 0.)).b - texture2D(yazi, wy - vec2(px.x, 0.)).b;
       float by = texture2D(yazi, wy + vec2(0., px.y)).b - texture2D(yazi, wy - vec2(0., px.y)).b;
       vec3 Nw = normalize(vec3(-bx * 2.2, by * 2.2, 1.));
@@ -66,10 +86,10 @@
       c = mix(c, wc / (1. + wc*.3), w.r);
     }
 
-    // baş kesiti yazının önünde
-    vec4 b = texture2D(bas, uv);
-    c = mix(c, isikla(b.r, N, d, kisi, kenar), b.a);
-    gl_FragColor = vec4(vec3(c), 1.);
+    // baş kesiti yazının önünde (masaüstü)
+    // kesit portrenin kendisi: rengi zaten cFoto'da, kesitten yalnızca (bulanık) alfa alınır
+    c = mix(c, cFoto, bul(bas, q, rP).a);
+    gl_FragColor = vec4(vec3(c * (1. - karart)), 1.);
   }`;
 
   // yazı dokusu: svg yolları Path2D ile çizilir; çizim animasyonu sırasında her kare yenilenir
@@ -126,7 +146,12 @@
         // masaüstünde portre büyük, imleç çoğu zaman yüzden uzak: ışık almayan yer de tanınır kalır, ışık geniş bir softbox gibi
         gl.uniform1f(u("taban"), onde ? .12 : .58); gl.uniform1f(u("yayilma"), onde ? 7. : 2.5); },
       yazi() { gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, yt); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, wcv); },
-      ciz(Lx, Ly, Lz, g) { gl.uniform3f(u("L"), Lx, Ly, Lz); gl.uniform1f(u("guc"), g); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); },
+      ciz(Lx, Ly, Lz, g, o) {
+        gl.uniform3f(u("L"), Lx, Ly, Lz); gl.uniform1f(u("guc"), g);
+        gl.uniform2f(u("par"), o.px, o.py); gl.uniform1f(u("WD"), o.wd);
+        gl.uniform1f(u("odak"), o.odak); gl.uniform1f(u("dof"), o.dof); gl.uniform1f(u("genel"), o.genel); gl.uniform1f(u("karart"), o.karart);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      },
     };
   }
 
@@ -134,6 +159,7 @@
   // ?isik=x,y → ışık sabit, yazı bitmiş (ekran görüntüsü ve deneme için)
   if (q.has("isik")) { const [x, y] = q.get("isik").split(",").map(Number); Object.assign(isik, { x, y, hx: x, hy: y, guc: 1, egim: true }); }
   let S, t0 = 0, yaziBitti = false;
+  const kipir = { x: 0, y: 0 };
   const olc = () => { const r = stage.getBoundingClientRect(); S.boyut(Math.round(Math.min(r.width * Math.min(devicePixelRatio || 1, 2), 1800))); };
   function kare(t) {
     if (!t0) t0 = t;
@@ -145,7 +171,17 @@
     isik.x += (isik.hx - isik.x) * .085; isik.y += (isik.hy - isik.y) * .085;
     isik.guc += (isik.hguc - isik.guc) * .03;
     if (!yaziBitti) { const s = q.has("isik") ? 9 : (t - t0) / 1000; yaziCiz(s); S.yazi(); yaziBitti = s > 2; }
-    S.ciz(isik.x, isik.y, isik.z, isik.guc);
+    // kaydırma: önce alan derinliği açılır (yüz net), sonra odak yazıya kayar, en sonda kare bulanıp kararır
+    const kap = hero.parentElement, yol = Math.max(1, kap.offsetHeight - hero.offsetHeight);
+    const p = q.has("p") ? +q.get("p") : Math.min(1, Math.max(0, (scrollY - kap.offsetTop) / yol)), ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+    const wd = onde ? .8 : .4, yuz = .58;
+    // kıpırdama: ışık yüzün neresindeyse kamera o yana çok az döner
+    kipir.x += ((isik.hx - .5) * -.03 - kipir.x) * .06; kipir.y += ((isik.hy - .35) * .02 - kipir.y) * .06;
+    if (p < 1 || !S.bitti) {
+      S.ciz(isik.x, isik.y, isik.z, isik.guc, { px: kipir.x, py: kipir.y, wd, odak: yuz + (wd - yuz) * ss(.12, .55, p), dof: .045 * ss(0, .12, p), genel: .01 * ss(.6, 1, p), karart: .9 * ss(.62, .95, p) });
+      S.bitti = p >= 1;
+    }
+    hero.style.setProperty("--p", p.toFixed(3));
     requestAnimationFrame(kare);
   }
   function hedef(cx, cy) {
@@ -210,6 +246,27 @@
     yollar.forEach((p) => (p.style.transitionDelay = `${+p.dataset.harf * 28}ms`));
     izle.observe(h);
   });
+
+  /* ---------- işler: kartın üzerine gelince site kendini gezer ---------- */
+  // Kartta sitenin tam sayfa görüntüsü durur; üst kısmı eski küçük resimle aynı. Üzerine gelince (telefonda kart
+  // ekranın ortasına gelince) görüntü sabit hızla en alta iner, çıkınca hızla başa döner.
+  const TAM = { unihm: "tam/unihm.webp", mahzen: "tam/mahzen.webp", nobetci: "tam/nobetci.webp" };
+  document.querySelectorAll(".works .work").forEach((kart) => {
+    const img = kart.querySelector("img"), ad = (img.getAttribute("src").match(/isler\/(\w+)\./) || [])[1];
+    if (!TAM[ad]) return;
+    const tam = new Image();
+    tam.src = TAM[ad];
+    tam.decode().then(() => {
+      img.src = tam.src; img.removeAttribute("srcset");
+      kart.classList.add("gezer");
+      const sure = () => { const yol = img.clientWidth * tam.naturalHeight / tam.naturalWidth - img.clientHeight; kart.style.setProperty("--gez", `${Math.max(2, yol / 260).toFixed(1)}s`); };
+      sure(); addEventListener("resize", sure);
+    }).catch(() => {});
+  });
+  if (matchMedia("(hover: none)").matches) {
+    const io = new IntersectionObserver((ler) => ler.forEach((e) => e.target.classList.toggle("gez", e.isIntersecting)), { rootMargin: "-30% 0px -30% 0px" });
+    document.querySelectorAll(".works .work").forEach((k) => io.observe(k));
+  }
 
   /* ---------- işler: eski sitedekiyle aynı (belirme, gönderi büyütme) ---------- */
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
