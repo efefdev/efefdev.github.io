@@ -174,3 +174,21 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 90; pointer-event
 /* ef² işareti menüde yazının solunda (logo/kilavuz.jpg) */
 .nav-logo { display: inline-flex; align-items: center; gap: 9px; }
 .nav-logo .mark { width: 34px; height: 22px; flex: none; }
+/* menüdeki yazı: ef² işaretiyle aynı çizgilerle çizilmiş "efefdev" (ef2-animasyon.js ile aynı yollar) */
+.nav-logo .yazi { height: 15px; width: 74.9px; flex: none; }
+
+/* girişteki büyük yazı da aynı çizgilerle (en fazla Archivo'daki genişlik, 4.137em) */
+/* üstü menünün altında başlar; tabanı başın saydam kopyasının bittiği yerin (portrenin %40'ı) üstünde kalır,
+   yoksa harfler yüzün önüne geçer. Basık ekranda bu aralığa sığacak kadar küçülür (5.03 = genişlik/yükseklik ÷ taban oranı). */
+.word-svg { --ust: max(0.1em, calc(66px - var(--s) * 0.035)); display: block; height: auto; margin: var(--ust) auto 0; overflow: visible;
+  width: min(4.137em, calc((var(--s) * 0.355 - var(--ust)) * 5.03)); }
+@media (max-width: 640px) { .word-svg { --ust: 0.1em; } }   /* telefonda menü sabit değil, giriş zaten 56px aşağıda */
+.gizli { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ilk giriş: ef² → efefdev, sonra yazı portrenin arkasındaki yerine iner (giris.js). Sayfa çizilmeden siyah örtü gelir. */
+html.giris::before { content: ""; position: fixed; inset: 0; z-index: 80; background: #000; }
+html.giris-oynuyor .word { visibility: hidden; }
+#giris { position: fixed; inset: 0; z-index: 80; pointer-events: none; }
+#giris .ortu { position: absolute; inset: 0; background: #000; }
+#giris svg, #giris img { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+#giris img { max-width: none; object-fit: cover; }   /* başın kopyası telefonda ekrandan geniş (155vw): genel img kuralı sıkıştırmasın */
