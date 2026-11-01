@@ -26,8 +26,8 @@
   const VS = `attribute vec2 p; varying vec2 uv; void main(){ uv = vec2(p.x*.5+.5, .5-p.y*.5); gl_Position = vec4(p,0.,1.); }`;
   // foto: portre · bas: baş kesiti (alfa) · nor: rgb yüzey yönü, a derinlik · yazi: r keskin, g geniş bulanık (gölge), b dar bulanık (kabartma)
   const FS = `precision highp float;
-  varying vec2 uv; uniform sampler2D foto, bas, nor, yazi; uniform vec3 L; uniform float guc; uniform vec4 Y; uniform vec2 px; uniform float onde;
-  vec3 Lp; float zayifF(vec2 q){ float u = length(Lp.xy - q); return 1./(1. + u*u*7.); }
+  varying vec2 uv; uniform sampler2D foto, bas, nor, yazi; uniform vec3 L; uniform float guc; uniform vec4 Y; uniform vec2 px; uniform float onde, taban, yayilma;
+  vec3 Lp; float zayifF(vec2 q){ float u = length(Lp.xy - q); return 1./(1. + u*u*yayilma); }
   // ışık, fotoğrafı orijinal tonlarına geri getirir: aydınlanan yer = orijinal portre, ışık almayan yer kararır
   float isikla(float l, vec3 N, float d, float kisi, float kenar){
     vec3 P = vec3(uv.x, 1.-uv.y, d*.22), Ld = normalize(Lp - P);
@@ -36,7 +36,7 @@
     float yan = pow(1. - max(N.z, 0.), 2.) * max(dot(normalize(N.xy+1e-4), normalize(Ld.xy+1e-4)), 0.);
     float parla = pow(max(dot(N, normalize(Ld + vec3(0.,0.,1.))), 0.), 42.);
     float k = clamp((yay*1.25 + yan*.5) * z * 1.6, 0., 1.15) * guc;
-    float c = l * mix(.12, 1., k) + parla * z * guc * l * .35;
+    float c = l * mix(taban, 1., k) + parla * z * guc * l * .35;
     return c + (1.-kisi) * .035 * z * guc * kenar;
   }
   void main(){
@@ -122,7 +122,9 @@
     const yt = doku(wcv, 3, "yazi");
     gl.uniform2f(u("px"), 1.5 / wcv.width, 1.5 / wcv.height);
     return {
-      boyut(s) { cv.width = cv.height = s; gl.viewport(0, 0, s, s); gl.uniform4f(u("Y"), ...yaziYeri()); gl.uniform1f(u("onde"), onde); },
+      boyut(s) { cv.width = cv.height = s; gl.viewport(0, 0, s, s); gl.uniform4f(u("Y"), ...yaziYeri()); gl.uniform1f(u("onde"), onde);
+        // masaüstünde portre büyük, imleç çoğu zaman yüzden uzak: ışık almayan yer de tanınır kalır, ışık geniş bir softbox gibi
+        gl.uniform1f(u("taban"), onde ? .12 : .58); gl.uniform1f(u("yayilma"), onde ? 7. : 2.5); },
       yazi() { gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, yt); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, wcv); },
       ciz(Lx, Ly, Lz, g) { gl.uniform3f(u("L"), Lx, Ly, Lz); gl.uniform1f(u("guc"), g); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); },
     };
@@ -135,10 +137,10 @@
   const olc = () => { const r = stage.getBoundingClientRect(); S.boyut(Math.round(Math.min(r.width * Math.min(devicePixelRatio || 1, 2), 1800))); };
   function kare(t) {
     if (!t0) t0 = t;
-    // imleç durunca ışık yavaşça yüzün çevresinde döner
+    // imleç durunca: masaüstünde ışık fotoğraftaki asıl yerine (sol üst) döner, telefonda yüzün çevresinde yavaşça gezer
     if (!isik.egim && t - isik.son > 2600) {
-      const a = t / 2600;
-      isik.hx = .5 + Math.cos(a) * .32; isik.hy = .34 + Math.sin(a * 1.3) * .2;
+      if (!onde) { isik.hx = .24; isik.hy = .2; }
+      else { const a = t / 2600; isik.hx = .5 + Math.cos(a) * .32; isik.hy = .34 + Math.sin(a * 1.3) * .2; }
     }
     isik.x += (isik.hx - isik.x) * .085; isik.y += (isik.hy - isik.y) * .085;
     isik.guc += (isik.hguc - isik.guc) * .03;
@@ -151,7 +153,7 @@
     isik.hx = (cx - r.left) / r.width; isik.hy = (cy - r.top) / r.height; isik.son = performance.now();
   }
   hero.addEventListener("pointermove", (e) => { if (!isik.egim) hedef(e.clientX, e.clientY); });
-  hero.addEventListener("pointerleave", () => { isik.son = 0; });
+  hero.addEventListener("pointerleave", () => { isik.son = -1e9; });
   // dokunmatik: kaydırma sırasında da parmak ışığı taşır
   ["touchstart", "touchmove"].forEach((o) => hero.addEventListener(o, (e) => { if (!isik.egim) hedef(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true }));
 
