@@ -1,0 +1,10 @@
+/* deneme: kalın yazılar ef çizgi (font/), düz metin Archivo'da kalır (ince ef çizgi küçük boyda zor okunuyor).
+   Bizim Regular Archivo'nunkinden kalın olduğu için ağırlıklar bir basamak aşağı eşlenir: 500 → Regular,
+   600 → Medium, 700 → Bold. Geri almak için bu dosyayı kaldır. */
+@font-face { font-family: "ef cizgi"; font-weight: 500; font-display: swap; src: url("/font/web/efcizgi-regular.woff2") format("woff2"); }
+@font-face { font-family: "ef cizgi"; font-weight: 600; font-display: swap; src: url("/font/web/efcizgi-medium.woff2") format("woff2"); }
+@font-face { font-family: "ef cizgi"; font-weight: 700; font-display: swap; src: url("/font/web/efcizgi-bold.woff2") format("woff2"); }
+.nav-logo, .services h3, .group, .work-meta b, .mail, .case-hero h1, .case-h, .decision h3, .spec th, .spec strong,
+.prose strong, .toast, b, strong { font-family: "ef cizgi", var(--wide); }
+/* Archivo'nun sıkı harf aralığı bu fontta harfleri birbirine yapıştırır */
+.nav-logo, .services h3, .mail, .case-hero h1, .case-h, .decision h3 { letter-spacing: 0; }
