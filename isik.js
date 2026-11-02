@@ -1,7 +1,7 @@
 // efef.dev — telefonda giriş ekranındaki portre parmakla / telefonun eğimiyle aydınlanır (masaüstünde yok).
 // Işık: portrenin derinlik haritasından (img/v4/portre-normal.png: rgb yüzey yönü, a derinlik) tek WebGL sahnesi.
 // Portre, efefdev yazısı (gölgesiyle) ve baş kesiti aynı ışığı alır. Sahne giriş animasyonu bitince kurulur (giriş
-// takılmasın); telefon yetişemiyorsa (pil tasarrufu modu kareleri 30'a indirir) söner, sayfadaki img ve svg kalır.
+// takılmasın); telefon gerçekten yetişemiyorsa (saniyede 20 karenin altı) söner, sayfadaki img ve svg kalır.
 (() => {
   const html = document.documentElement;
   const hero = document.querySelector(".hero"), stage = hero && hero.querySelector(".stage");
@@ -150,11 +150,12 @@
     };
     function kare(t) {
       if (!acik) return;
-      // son 60 karenin ortanca süresi ~33 ms ise telefon yetişemiyor (pil tasarrufu modu / ısınma): ışık söner
-      // tek tük uzun duraklar (sekme arkada, tarayıcı bekletti) sayılmaz; pil tasarrufu her kareyi ~33 ms yapar
+      // son 60 karenin ortanca süresi 50 ms'yi aşarsa (saniyede 20 karenin altı) telefon yetişemiyor: ışık söner.
+      // Pil tasarrufu modunun 30 karesi (~33 ms) akıcı sayılır.
+      // tek tük uzun duraklar (sekme arkada, tarayıcı bekletti) sayılmaz
       if (onceki && !document.hidden && t - onceki < 100) { son.push(t - onceki); if (son.length > 60) son.shift(); }
       onceki = t;
-      if (son.length === 60 && [...son].sort((a, b) => a - b)[30] > 24) return kapat();
+      if (son.length === 60 && [...son].sort((a, b) => a - b)[30] > 50) return kapat();
       // imleç durunca: masaüstünde ışık fotoğraftaki asıl yerine (sol üst) döner, telefonda yüzün çevresinde yavaşça gezer
       if (!isik.egim && t - isik.son > 2600) {
         if (!onde || azHareket) { isik.hx = .24; isik.hy = .2; }
